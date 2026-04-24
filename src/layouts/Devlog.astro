@@ -124,8 +124,8 @@ const seqStr = String(seq).padStart(3, '0');
 								<span class="italic">· updated <FormattedDate date={updatedDate} /></span>
 							)}
 						</div>
-						<h1 class="mb-4 leading-tight">{title}</h1>
-						<p class="text-lg text-[var(--color-fg-dim)] leading-relaxed">{description}</p>
+						<h1 class="mb-3 leading-tight">{title}</h1>
+						<p class="text-base text-[var(--color-fg-dim)] leading-relaxed">{description}</p>
 						{tags && tags.length > 0 && (
 							<div class="mt-5 flex flex-wrap gap-2 font-mono text-xs">
 								{tags.map((tag) => (
