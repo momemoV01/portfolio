@@ -1,0 +1,56 @@
+---
+import { getImage } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import ProjectsExplorer, { type ProjectItem } from '../../components/ProjectsExplorer';
+import { SITE_TITLE } from '../../consts';
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const projectsData: ProjectItem[] = await Promise.all(
+	projects.map(async (p) => {
+		const img = await getImage({
+			src: p.data.coverImage,
+			width: 800,
+			height: 450,
+			format: 'webp',
+		});
+		return {
+			id: p.id,
+			title: p.data.title,
+			description: p.data.description,
+			engine: p.data.engine,
+			status: p.data.status,
+			platforms: p.data.platforms,
+			tech: p.data.tech,
+			featured: p.data.featured,
+			pubDate: p.data.pubDate.toISOString(),
+			coverImage: img.src,
+		};
+	}),
+);
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={`projects · ${SITE_TITLE}`} description="Game projects and experiments" />
+	</head>
+	<body>
+		<Header />
+		<main class="mx-auto max-w-6xl px-6 py-16">
+			<header class="mb-12">
+				<div class="mono-tag terminal-prompt mb-3">ls -la ./projects</div>
+				<h1 class="mb-3">Projects</h1>
+				<p class="text-lg text-[var(--color-fg-dim)]">Unity와 Unreal로 작업한 게임 및 프로토타입</p>
+			</header>
+
+			<ProjectsExplorer projects={projectsData} client:load />
+		</main>
+		<Footer />
+	</body>
+</html>
