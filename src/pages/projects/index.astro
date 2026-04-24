@@ -4,7 +4,10 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
-import ProjectsExplorer, { type ProjectItem } from '../../components/ProjectsExplorer';
+import ProjectsExplorer, {
+	type DevlogItem,
+	type ProjectItem,
+} from '../../components/ProjectsExplorer';
 import { SITE_TITLE } from '../../consts';
 
 const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
@@ -33,6 +36,17 @@ const projectsData: ProjectItem[] = await Promise.all(
 		};
 	}),
 );
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const devlogsData: DevlogItem[] = allPosts
+	.filter((p) => p.data.project)
+	.map((p) => ({
+		id: p.id,
+		title: p.data.title,
+		day: p.data.day ?? null,
+		pubDate: p.data.pubDate.toISOString(),
+		project: p.data.project!.id,
+	}));
 ---
 
 <!doctype html>
@@ -49,7 +63,7 @@ const projectsData: ProjectItem[] = await Promise.all(
 				<p class="text-lg text-[var(--color-fg-dim)]">Unity와 Unreal로 작업한 게임 및 프로토타입</p>
 			</header>
 
-			<ProjectsExplorer projects={projectsData} client:load />
+			<ProjectsExplorer projects={projectsData} devlogs={devlogsData} client:load />
 		</main>
 		<Footer />
 	</body>

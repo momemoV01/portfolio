@@ -125,7 +125,7 @@ export default function BlogExplorer({ posts }: { posts: PostItem[] }) {
 	const showGrouped = sortMode === 'latest' || sortMode === 'oldest';
 
 	return (
-		<div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-10">
+		<div className="grid grid-cols-1 md:grid-cols-[220px_minmax(0,1fr)] gap-10">
 			<button
 				type="button"
 				onClick={() => setDrawerOpen(!drawerOpen)}
@@ -141,7 +141,7 @@ export default function BlogExplorer({ posts }: { posts: PostItem[] }) {
 			</button>
 
 			<aside
-				className={`${drawerOpen ? 'block' : 'hidden'} md:block space-y-8 md:sticky md:top-20 md:self-start md:max-h-[calc(100vh-6rem)] md:overflow-y-auto`}
+				className={`${drawerOpen ? 'block' : 'hidden'} md:block min-w-0 space-y-8 md:sticky md:top-20 md:self-start md:max-h-[calc(100vh-6rem)] md:overflow-y-auto`}
 			>
 				<div>
 					<div className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-muted)] mb-3 pb-2 border-b border-[var(--color-border)]">
@@ -220,7 +220,7 @@ export default function BlogExplorer({ posts }: { posts: PostItem[] }) {
 				)}
 			</aside>
 
-			<div>
+			<div className="min-w-0">
 				{/* Toolbar */}
 				<div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-3 border-b border-[var(--color-border)]">
 					<div className="flex items-center gap-3">
