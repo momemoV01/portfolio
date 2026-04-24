@@ -16,6 +16,32 @@ import HeaderLink from './HeaderLink.astro';
 			<HeaderLink href="/projects">projects</HeaderLink>
 			<HeaderLink href="/blog">blog</HeaderLink>
 			<HeaderLink href="/about">about</HeaderLink>
+			<button
+				id="width-toggle"
+				type="button"
+				aria-label="toggle width mode"
+				title="Toggle wide / narrow layout"
+				class="ml-2 px-2 py-1.5 rounded border border-[var(--color-border)] text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)] transition text-xs"
+			>
+				<span class="when-narrow">⟷ wide</span>
+				<span class="when-wide">][ narrow</span>
+			</button>
 		</div>
 	</nav>
 </header>
+
+<script is:inline>
+	document.getElementById('width-toggle')?.addEventListener('click', () => {
+		const html = document.documentElement;
+		const isWide = html.getAttribute('data-width') === 'wide';
+		try {
+			if (isWide) {
+				html.removeAttribute('data-width');
+				localStorage.removeItem('width-mode');
+			} else {
+				html.setAttribute('data-width', 'wide');
+				localStorage.setItem('width-mode', 'wide');
+			}
+		} catch (e) {}
+	});
+</script>

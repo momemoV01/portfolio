@@ -56,6 +56,15 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
 
+<!-- Restore width mode before render to prevent flash -->
+<script is:inline>
+	try {
+		if (localStorage.getItem('width-mode') === 'wide') {
+			document.documentElement.setAttribute('data-width', 'wide');
+		}
+	} catch (e) {}
+</script>
+
 <!-- Vercel Analytics -->
 <script>
 	import { inject } from '@vercel/analytics';

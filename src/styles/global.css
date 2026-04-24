@@ -183,3 +183,18 @@
 	clip-path: inset(50%);
 	white-space: nowrap;
 }
+
+/* Wide mode — expand page container max-widths. Reading column stays narrow. */
+html[data-width='wide'] main.max-w-5xl,
+html[data-width='wide'] main.max-w-6xl,
+html[data-width='wide'] nav.max-w-6xl {
+	max-width: none;
+}
+
+/* Icon visibility toggle for width mode button */
+html[data-width='wide'] .when-narrow {
+	display: none;
+}
+html:not([data-width='wide']) .when-wide {
+	display: none;
+}
