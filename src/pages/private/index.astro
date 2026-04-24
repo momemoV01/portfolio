@@ -110,11 +110,11 @@ const totalDrafts = draftPosts.length + draftProjects.length + draftDevlogs.leng
 										class="group grid grid-cols-[auto_1fr_auto] gap-4 py-4 px-3 -mx-3 items-baseline hover:bg-[var(--color-bg-elev)] rounded transition"
 									>
 										<span class="font-mono text-xs text-[var(--color-accent)] tabular-nums">
-											D{String(d.data.day).padStart(2, '0')}
+											#{String(d.data.seq).padStart(3, '0')}
 										</span>
 										<div class="min-w-0">
 											<h3 class="font-semibold group-hover:text-[var(--color-accent)] transition truncate">
-												{d.data.title.replace(/^Day \d+:\s*/, '')}
+												{d.data.title}
 											</h3>
 											<p class="text-xs text-[var(--color-muted)] mt-0.5">
 												<span class="text-[var(--color-fg-dim)]">{d.projectTitle}</span>

@@ -42,9 +42,21 @@ const projects = defineCollection({
 		}),
 });
 
-// Project devlogs (Day-by-day progress)
-// Files live at src/content/devlogs/<project-slug>/<day-slug>.md
-// Project association is inferred from folder name.
+// Project devlogs — one entry per logical work unit (commit or commit group).
+// Files at src/content/devlogs/<project>/<seq-slug>.md
+// Project association inferred from folder name.
+export const DEVLOG_TYPES = [
+	'feat',
+	'fix',
+	'refactor',
+	'docs',
+	'ci',
+	'security',
+	'release',
+	'planning',
+	'test',
+] as const;
+
 const devlogs = defineCollection({
 	loader: glob({ base: './src/content/devlogs', pattern: '**/*.{md,mdx}' }),
 	schema: ({ image }) =>
@@ -54,7 +66,9 @@ const devlogs = defineCollection({
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
 			heroImage: z.optional(image()),
-			day: z.number().int().positive(),
+			seq: z.number().int().positive(),
+			type: z.enum(DEVLOG_TYPES).optional(),
+			commits: z.array(z.string()).default([]),
 			tags: z.array(z.string()).default([]),
 			draft: z.boolean().default(false),
 		}),

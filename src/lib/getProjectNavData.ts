@@ -1,5 +1,5 @@
 import { getCollection } from 'astro:content';
-import type { ProjectNavItem, DevlogNavItem } from '../components/ProjectTreeNav';
+import type { DevlogNavItem, ProjectNavItem } from '../components/ProjectTreeNav';
 
 export async function getProjectNavData() {
 	const projects = await getCollection('projects', ({ data }) => !data.draft);
@@ -20,7 +20,8 @@ export async function getProjectNavData() {
 			project,
 			slug: slug ?? d.id,
 			title: d.data.title,
-			day: d.data.day,
+			seq: d.data.seq,
+			type: d.data.type,
 			pubDate: d.data.pubDate.toISOString(),
 		};
 	});

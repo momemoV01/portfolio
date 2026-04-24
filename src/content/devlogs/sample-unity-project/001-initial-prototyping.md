@@ -1,13 +1,14 @@
 ---
-title: 'Day 01: 초기 프로토타이핑'
+title: '초기 프로토타이핑'
 description: '새 Unity URP 프로젝트 셋업, 첫 블록아웃 씬 구성.'
 pubDate: '2026-01-15'
-day: 1
+seq: 1
+type: 'feat'
 tags: ['unity', 'urp']
 draft: false
 ---
 
-## 오늘 한 것
+## 한 일
 
 샘플 devlog입니다. 실제 내용으로 교체하세요.
 

@@ -39,11 +39,10 @@ function printUsage() {
 	console.error('사용법:');
 	console.error('  npm run new:blog    "제목"');
 	console.error('  npm run new:project "제목"');
-	console.error('  npm run new:devlog  <project-slug> ["추가 제목"]');
+	console.error('  npm run new:devlog  <project-slug> "제목"');
 	console.error('');
 	console.error('예시:');
-	console.error('  npm run new:devlog sample-unity-project "셰이더 실험"');
-	console.error('  npm run new:devlog sample-unity-project');
+	console.error('  npm run new:devlog udit "JSON envelope 표준화"');
 }
 
 function slugify(title) {
@@ -103,7 +102,13 @@ draft: true
 	printSteps(type, title, filepath);
 }
 
-function createDevlog(projectSlug, extraTitle) {
+function createDevlog(projectSlug, title) {
+	if (!title) {
+		console.error('devlog 제목이 필요합니다.');
+		console.error('예: npm run new:devlog udit "JSON envelope 표준화"');
+		process.exit(1);
+	}
+
 	// Verify project exists
 	const projectFile = path.join(projectRoot, 'src', 'content', 'projects', `${projectSlug}.md`);
 	const projectFileMdx = path.join(projectRoot, 'src', 'content', 'projects', `${projectSlug}.mdx`);
@@ -120,30 +125,32 @@ function createDevlog(projectSlug, extraTitle) {
 		process.exit(1);
 	}
 
-	// Find next day number from existing devlogs in project folder
+	// Find next seq from existing entries in project's devlog folder
 	const projectDevlogDir = path.join(projectRoot, 'src', 'content', 'devlogs', projectSlug);
-	let nextDay = 1;
+	let nextSeq = 1;
 	if (fs.existsSync(projectDevlogDir)) {
-		const usedDays = fs
+		const usedSeqs = fs
 			.readdirSync(projectDevlogDir)
 			.filter((f) => f.endsWith('.md') || f.endsWith('.mdx'))
 			.map((f) => {
 				const content = fs.readFileSync(path.join(projectDevlogDir, f), 'utf-8');
-				const m = content.match(/^day:\s*(\d+)/m);
+				const m = content.match(/^seq:\s*(\d+)/m);
 				return m ? parseInt(m[1], 10) : 0;
 			});
-		nextDay = usedDays.length > 0 ? Math.max(...usedDays) + 1 : 1;
+		nextSeq = usedSeqs.length > 0 ? Math.max(...usedSeqs) + 1 : 1;
 	}
 
-	const dayLabel = `Day ${String(nextDay).padStart(2, '0')}`;
-	const fullTitle = extraTitle ? `${dayLabel}: ${extraTitle}` : dayLabel;
-	const fileSlug = `day-${String(nextDay).padStart(2, '0')}`;
+	const seqStr = String(nextSeq).padStart(3, '0');
+	const titleSlug = slugify(title);
+	const fileSlug = `${seqStr}-${titleSlug}`;
 
 	const template = `---
-title: '${escapeYaml(fullTitle)}'
+title: '${escapeYaml(title)}'
 description: ''
 pubDate: '${today}'
-day: ${nextDay}
+seq: ${nextSeq}
+type: 'feat'
+commits: []
 tags: []
 draft: true
 ---
@@ -152,7 +159,7 @@ draft: true
 
 	const filepath = path.join(projectDevlogDir, `${fileSlug}.md`);
 	writeFile(filepath, template);
-	printSteps('devlog', fullTitle, filepath, { projectSlug, day: nextDay });
+	printSteps('devlog', title, filepath, { projectSlug, seq: nextSeq });
 }
 
 function writeFile(filepath, content) {
@@ -169,12 +176,13 @@ function printSteps(type, title, filepath, extra = {}) {
 	const relPath = path.relative(projectRoot, filepath).replace(/\\/g, '/');
 	console.log('');
 	console.log(`✓ 생성됨: ${relPath}`);
-	if (extra.day) {
-		console.log(`  Day ${extra.day} — ${extra.projectSlug} 프로젝트의 devlog`);
+	if (extra.seq) {
+		console.log(`  #${String(extra.seq).padStart(3, '0')} — ${extra.projectSlug} 프로젝트의 devlog`);
 	}
 	console.log('');
 	console.log('다음 단계:');
-	console.log(`  1. 파일 열어서 description, tags 채우기`);
+	console.log(`  1. 파일 열어서 description, type, commits, tags 채우기`);
+	console.log(`     type: feat | fix | refactor | docs | ci | security | release | planning | test`);
 	console.log(`  2. 본문 작성`);
 	console.log(`  3. 발행 준비되면 'draft: true' → 'draft: false'`);
 	console.log(

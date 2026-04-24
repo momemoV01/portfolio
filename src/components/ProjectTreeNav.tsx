@@ -7,11 +7,12 @@ export type ProjectNavItem = {
 };
 
 export type DevlogNavItem = {
-	id: string; // e.g. "sample-unity-project/day-01"
-	project: string; // e.g. "sample-unity-project"
-	slug: string; // e.g. "day-01"
+	id: string; // e.g. "udit/001-fork"
+	project: string; // e.g. "udit"
+	slug: string; // e.g. "001-fork"
 	title: string;
-	day: number;
+	seq: number;
+	type?: string;
 	pubDate: string;
 };
 
@@ -24,6 +25,18 @@ type Props = {
 
 const ENGINES: ProjectNavItem['engine'][] = ['Unity', 'Unreal', 'Other'];
 const STORAGE_KEY = 'project-tree-state';
+
+const TYPE_COLOR: Record<string, string> = {
+	feat: 'text-[var(--color-accent)]',
+	fix: 'text-blue-400',
+	refactor: 'text-purple-400',
+	docs: 'text-[var(--color-muted)]',
+	ci: 'text-orange-400',
+	security: 'text-red-400',
+	release: 'text-emerald-400',
+	planning: 'text-cyan-400',
+	test: 'text-yellow-400',
+};
 
 export default function ProjectTreeNav({
 	projects,
@@ -85,7 +98,7 @@ export default function ProjectTreeNav({
 			byProject[d.project].push(d);
 		}
 		for (const slug in byProject) {
-			byProject[slug].sort((a, b) => a.day - b.day);
+			byProject[slug].sort((a, b) => a.seq - b.seq);
 		}
 
 		return { byEngine, byProject };
@@ -174,6 +187,11 @@ export default function ProjectTreeNav({
 															>
 																{p.title}
 															</span>
+															{hasLogs && (
+																<span className="ml-auto text-[10px] text-[var(--color-muted)] tabular-nums">
+																	{projDevlogs.length}
+																</span>
+															)}
 														</button>
 														<a
 															href={`/projects/${p.id}/`}
@@ -194,18 +212,27 @@ export default function ProjectTreeNav({
 																	<li key={d.id}>
 																		<a
 																			href={`/projects/${d.project}/${d.slug}/`}
-																			className={`flex items-baseline gap-1.5 py-1 px-1.5 -mx-1.5 rounded transition min-w-0 ${
+																			className={`flex items-baseline gap-2 py-1 px-1.5 -mx-1.5 rounded transition min-w-0 ${
 																				isCurrentDevlog
 																					? 'bg-[var(--color-accent-glow)] text-[var(--color-accent)]'
 																					: 'hover:bg-[var(--color-bg-elev)] hover:text-[var(--color-accent)] text-[var(--color-fg-dim)]'
 																			}`}
 																		>
-																			<span className="shrink-0 text-[10px] tabular-nums text-[var(--color-accent)]">
-																				D{String(d.day).padStart(2, '0')}
+																			<span className="shrink-0 text-[10px] tabular-nums text-[var(--color-muted)]">
+																				{String(d.seq).padStart(3, '0')}
 																			</span>
 																			<span className="truncate" title={d.title}>
-																				{d.title.replace(/^Day \d+:\s*/, '')}
+																				{d.title}
 																			</span>
+																			{d.type && (
+																				<span
+																					className={`shrink-0 text-[9px] font-mono uppercase tracking-wider ${
+																						TYPE_COLOR[d.type] || 'text-[var(--color-muted)]'
+																					}`}
+																				>
+																					{d.type}
+																				</span>
+																			)}
 																		</a>
 																	</li>
 																);

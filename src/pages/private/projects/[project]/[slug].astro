@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 		byProject[project].push(d);
 	}
 	for (const project in byProject) {
-		byProject[project].sort((a, b) => a.data.day - b.data.day);
+		byProject[project].sort((a, b) => a.data.seq - b.data.seq);
 	}
 
 	return devlogs.map((d) => {
@@ -25,7 +25,7 @@ export async function getStaticPaths() {
 		const pickNav = (e: typeof devlogs[number] | null) => {
 			if (!e) return null;
 			const [p, s] = e.id.split('/');
-			return { id: e.id, project: p, slug: s, day: e.data.day, title: e.data.title };
+			return { id: e.id, project: p, slug: s, seq: e.data.seq, title: e.data.title };
 		};
 
 		return {
@@ -37,8 +37,8 @@ export async function getStaticPaths() {
 
 type Props = {
 	entry: CollectionEntry<'devlogs'>;
-	prev: { id: string; project: string; slug: string; day: number; title: string } | null;
-	next: { id: string; project: string; slug: string; day: number; title: string } | null;
+	prev: { id: string; project: string; slug: string; seq: number; title: string } | null;
+	next: { id: string; project: string; slug: string; seq: number; title: string } | null;
 };
 
 const { entry, prev, next } = Astro.props;
