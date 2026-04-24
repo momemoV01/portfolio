@@ -192,6 +192,49 @@ html[data-width='wide'] nav.max-w-6xl {
 	max-width: none;
 }
 
+/* Custom scrollbar — matches dark + lime accent theme */
+/* Firefox */
+html {
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-border-strong) transparent;
+}
+
+/* WebKit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--color-border-strong);
+	border-radius: 5px;
+	border: 2px solid var(--color-bg);
+	transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--color-accent);
+	box-shadow: 0 0 8px var(--color-accent-glow);
+}
+
+::-webkit-scrollbar-corner {
+	background: transparent;
+}
+
+/* Thinner scrollbar for sticky sidebars */
+aside::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+aside::-webkit-scrollbar-thumb {
+	border-width: 1px;
+}
+
 /* Icon visibility toggle for width mode button */
 html[data-width='wide'] .when-narrow {
 	display: none;
