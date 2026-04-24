@@ -52,14 +52,14 @@ const navData = await getProjectNavData();
 				<span class="text-[var(--color-fg)]">{title}</span>
 			</div>
 
-			<!-- Hero (full width) -->
+			<!-- Hero (full width, height capped) -->
 			<div class="mb-10 border border-[var(--color-border)] rounded-lg overflow-hidden">
 				<Image
 					width={1400}
 					height={788}
 					src={coverImage}
 					alt={title}
-					class="w-full aspect-video object-cover"
+					class="w-full h-auto max-h-[420px] object-cover aspect-video"
 				/>
 			</div>
 
