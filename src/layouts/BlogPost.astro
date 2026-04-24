@@ -15,24 +15,58 @@ type ProjectEntry = CollectionEntry<'projects'> | null;
 
 interface Props extends BlogData {
 	project?: ProjectEntry;
+	isPrivate?: boolean;
 }
 
-const { title, description, pubDate, updatedDate, heroImage, category, tags, day, project } =
-	Astro.props;
+const {
+	title,
+	description,
+	pubDate,
+	updatedDate,
+	heroImage,
+	category,
+	tags,
+	day,
+	project,
+	isPrivate = false,
+} = Astro.props;
 
 const navData = await getProjectNavData();
 
 // Current path → derive blog slug for tree highlighting
 const currentSlug = Astro.url.pathname.match(/\/blog\/([^/]+)/)?.[1];
+
+// Route project link to private route if the project itself is also a draft
+const projectLink = project
+	? project.data.draft
+		? `/private/projects/${project.id}/`
+		: `/projects/${project.id}/`
+	: null;
 ---
 
 <html lang="ko">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={isPrivate ? `[DRAFT] ${title}` : title} description={description} />
+		{isPrivate && <meta name="robots" content="noindex,nofollow" />}
 	</head>
 	<body>
 		<Header />
 		<main class="wide-page mx-auto max-w-[1400px] px-6 py-12">
+			{isPrivate && (
+				<div class="mb-6 px-4 py-3 rounded-lg border border-[var(--color-accent)]/40 bg-[var(--color-accent-glow)] font-mono text-xs flex items-center justify-between gap-3 flex-wrap">
+					<div class="flex items-center gap-2 text-[var(--color-accent)]">
+						<span>📝</span>
+						<span class="font-semibold">DRAFT — only you can see this</span>
+					</div>
+					<a
+						href="/private/"
+						class="text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] transition"
+					>
+						← back to private
+					</a>
+				</div>
+			)}
+
 			<div class="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-10">
 				<ProjectTreeNav
 					projects={navData.projects}
@@ -43,9 +77,9 @@ const currentSlug = Astro.url.pathname.match(/\/blog\/([^/]+)/)?.[1];
 
 				<article class="min-w-0 lg:max-w-3xl">
 					<!-- Linked project breadcrumb (for devlog entries) -->
-					{project && (
+					{project && projectLink && (
 						<a
-							href={`/projects/${project.id}/`}
+							href={projectLink}
 							class="inline-flex items-center gap-2 mb-6 font-mono text-xs text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] transition"
 						>
 							<span class="text-[var(--color-accent)]">←</span>
@@ -94,10 +128,10 @@ const currentSlug = Astro.url.pathname.match(/\/blog\/([^/]+)/)?.[1];
 						<slot />
 					</div>
 
-					{project && (
+					{project && projectLink && (
 						<div class="mt-12 pt-8 border-t border-[var(--color-border)]">
 							<a
-								href={`/projects/${project.id}/`}
+								href={projectLink}
 								class="inline-flex items-center gap-2 font-mono text-sm text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] transition"
 							>
 								<span class="text-[var(--color-accent)]">→</span>
@@ -107,7 +141,7 @@ const currentSlug = Astro.url.pathname.match(/\/blog\/([^/]+)/)?.[1];
 						</div>
 					)}
 
-					<Comments />
+					{!isPrivate && <Comments />}
 				</article>
 			</div>
 		</main>

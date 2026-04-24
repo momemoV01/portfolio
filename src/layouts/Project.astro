@@ -15,6 +15,7 @@ type DevlogEntry = CollectionEntry<'blog'>;
 interface Props extends ProjectData {
 	projectId: string;
 	devlogs: DevlogEntry[];
+	isPrivate?: boolean;
 }
 
 const {
@@ -33,6 +34,7 @@ const {
 	repoUrl,
 	videoUrl,
 	projectId,
+	isPrivate = false,
 } = Astro.props;
 
 const navData = await getProjectNavData();
@@ -40,14 +42,32 @@ const navData = await getProjectNavData();
 
 <html lang="ko">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={isPrivate ? `[DRAFT] ${title}` : title} description={description} />
+		{isPrivate && <meta name="robots" content="noindex,nofollow" />}
 	</head>
 	<body>
 		<Header />
 		<main class="wide-page mx-auto max-w-[1400px] px-6 py-12">
+			{isPrivate && (
+				<div class="mb-6 px-4 py-3 rounded-lg border border-[var(--color-accent)]/40 bg-[var(--color-accent-glow)] font-mono text-xs flex items-center justify-between gap-3 flex-wrap">
+					<div class="flex items-center gap-2 text-[var(--color-accent)]">
+						<span>📝</span>
+						<span class="font-semibold">DRAFT — only you can see this</span>
+					</div>
+					<a
+						href="/private/"
+						class="text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] transition"
+					>
+						← back to private
+					</a>
+				</div>
+			)}
+
 			<!-- Breadcrumb (full width) -->
 			<div class="flex items-center gap-3 font-mono text-xs text-[var(--color-muted)] mb-6">
-				<a href="/projects" class="hover:text-[var(--color-accent)]">../projects</a>
+				<a href={isPrivate ? '/private' : '/projects'} class="hover:text-[var(--color-accent)]">
+					{isPrivate ? '../private' : '../projects'}
+				</a>
 				<span>/</span>
 				<span class="text-[var(--color-fg)]">{title}</span>
 			</div>

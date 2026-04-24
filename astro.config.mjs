@@ -11,7 +11,13 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://site-seven-delta-10.vercel.app',
-  integrations: [mdx(), sitemap(), react()],
+  integrations: [
+    mdx(),
+    sitemap({
+      filter: (page) => !page.includes('/private'),
+    }),
+    react(),
+  ],
 
   fonts: [
       {

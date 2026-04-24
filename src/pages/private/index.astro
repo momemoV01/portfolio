@@ -1,0 +1,119 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+
+const draftPosts = (await getCollection('blog', ({ data }) => data.draft)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const draftProjects = (await getCollection('projects', ({ data }) => data.draft)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const totalDrafts = draftPosts.length + draftProjects.length;
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={`private · ${SITE_TITLE}`} description="Private drafts" />
+		<meta name="robots" content="noindex,nofollow" />
+	</head>
+	<body>
+		<Header />
+		<main class="mx-auto max-w-4xl px-6 py-16">
+			<header class="mb-12">
+				<div class="mono-tag terminal-prompt mb-3">cat ./private/index</div>
+				<h1 class="mb-3">
+					<span class="text-[var(--color-accent)]">📝</span> Private
+				</h1>
+				<p class="text-lg text-[var(--color-fg-dim)]">
+					공개 전 작업 중인 글·프로젝트들. 검색엔진 차단되어 있고 URL 모르면 못 찾음.
+				</p>
+				<div class="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded border border-[var(--color-accent)]/40 bg-[var(--color-accent-glow)] font-mono text-xs text-[var(--color-accent)]">
+					<span>●</span>
+					<span>{totalDrafts} draft{totalDrafts !== 1 ? 's' : ''} pending</span>
+				</div>
+			</header>
+
+			{totalDrafts === 0 && (
+				<div class="py-20 text-center font-mono text-sm text-[var(--color-muted)]">
+					no drafts. all clear_
+				</div>
+			)}
+
+			{draftProjects.length > 0 && (
+				<section class="mb-12">
+					<h2 class="font-mono text-sm text-[var(--color-muted)] uppercase tracking-wider mb-4 pb-2 border-b border-[var(--color-border)]">
+						projects ({draftProjects.length})
+					</h2>
+					<ul class="divide-y divide-[var(--color-border)]">
+						{draftProjects.map((p) => (
+							<li>
+								<a
+									href={`/private/projects/${p.id}/`}
+									class="group grid grid-cols-[auto_1fr_auto] gap-4 py-4 px-3 -mx-3 items-baseline hover:bg-[var(--color-bg-elev)] rounded transition"
+								>
+									<span class="font-mono text-xs text-[var(--color-accent)]">[{p.data.engine}]</span>
+									<div class="min-w-0">
+										<h3 class="font-semibold group-hover:text-[var(--color-accent)] transition truncate">
+											{p.data.title}
+										</h3>
+										<p class="text-sm text-[var(--color-fg-dim)] line-clamp-1 mt-0.5">
+											{p.data.description || '(no description yet)'}
+										</p>
+									</div>
+									<time class="font-mono text-xs text-[var(--color-muted)]">
+										<FormattedDate date={p.data.pubDate} />
+									</time>
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			)}
+
+			{draftPosts.length > 0 && (
+				<section>
+					<h2 class="font-mono text-sm text-[var(--color-muted)] uppercase tracking-wider mb-4 pb-2 border-b border-[var(--color-border)]">
+						blog posts ({draftPosts.length})
+					</h2>
+					<ul class="divide-y divide-[var(--color-border)]">
+						{draftPosts.map((post) => (
+							<li>
+								<a
+									href={`/private/blog/${post.id}/`}
+									class="group grid grid-cols-[auto_1fr_auto] gap-4 py-4 px-3 -mx-3 items-baseline hover:bg-[var(--color-bg-elev)] rounded transition"
+								>
+									<span class="font-mono text-xs text-[var(--color-accent)] uppercase">
+										[{post.data.category}]
+									</span>
+									<div class="min-w-0">
+										<h3 class="font-semibold group-hover:text-[var(--color-accent)] transition truncate">
+											{post.data.title}
+										</h3>
+										<p class="text-sm text-[var(--color-fg-dim)] line-clamp-1 mt-0.5">
+											{post.data.description || '(no description yet)'}
+										</p>
+									</div>
+									<time class="font-mono text-xs text-[var(--color-muted)]">
+										<FormattedDate date={post.data.pubDate} />
+									</time>
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			)}
+
+			<div class="mt-16 pt-8 border-t border-[var(--color-border)] font-mono text-xs text-[var(--color-muted)] space-y-2">
+				<p><span class="text-[var(--color-accent)]">▸</span> 공개하려면 VSCode에서 해당 파일의 <code class="text-[var(--color-fg)]">draft: true</code>를 <code class="text-[var(--color-accent)]">draft: false</code>로 변경 후 push.</p>
+				<p><span class="text-[var(--color-accent)]">▸</span> 비공개로 되돌리려면 다시 <code class="text-[var(--color-fg)]">draft: true</code>로.</p>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
