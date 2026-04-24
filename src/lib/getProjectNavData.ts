@@ -3,7 +3,7 @@ import type { ProjectNavItem, DevlogNavItem } from '../components/ProjectTreeNav
 
 export async function getProjectNavData() {
 	const projects = await getCollection('projects', ({ data }) => !data.draft);
-	const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+	const devlogs = await getCollection('devlogs', ({ data }) => !data.draft);
 
 	const projectsData: ProjectNavItem[] = projects
 		.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -13,14 +13,17 @@ export async function getProjectNavData() {
 			engine: p.data.engine,
 		}));
 
-	const devlogsData: DevlogNavItem[] = allPosts
-		.filter((p) => p.data.project)
-		.map((p) => ({
-			id: p.id,
-			title: p.data.title,
-			day: p.data.day ?? null,
-			project: p.data.project!.id,
-		}));
+	const devlogsData: DevlogNavItem[] = devlogs.map((d) => {
+		const [project, slug] = d.id.split('/');
+		return {
+			id: d.id,
+			project,
+			slug: slug ?? d.id,
+			title: d.data.title,
+			day: d.data.day,
+			pubDate: d.data.pubDate.toISOString(),
+		};
+	});
 
 	return { projects: projectsData, devlogs: devlogsData };
 }

@@ -10,11 +10,9 @@ import ProjectTreeNav from '../components/ProjectTreeNav';
 import { getProjectNavData } from '../lib/getProjectNavData';
 
 type ProjectData = CollectionEntry<'projects'>['data'];
-type DevlogEntry = CollectionEntry<'blog'>;
 
 interface Props extends ProjectData {
 	projectId: string;
-	devlogs: DevlogEntry[];
 	isPrivate?: boolean;
 }
 
@@ -63,7 +61,6 @@ const navData = await getProjectNavData();
 				</div>
 			)}
 
-			<!-- Breadcrumb (full width) -->
 			<div class="flex items-center gap-3 font-mono text-xs text-[var(--color-muted)] mb-6">
 				<a href={isPrivate ? '/private' : '/projects'} class="hover:text-[var(--color-accent)]">
 					{isPrivate ? '../private' : '../projects'}
@@ -72,7 +69,6 @@ const navData = await getProjectNavData();
 				<span class="text-[var(--color-fg)]">{title}</span>
 			</div>
 
-			<!-- Hero (full width, height capped) -->
 			<div class="mb-10 border border-[var(--color-border)] rounded-lg overflow-hidden">
 				<Image
 					width={1400}
@@ -83,7 +79,6 @@ const navData = await getProjectNavData();
 				/>
 			</div>
 
-			<!-- Sidebar + content layout -->
 			<div class="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-10">
 				<ProjectTreeNav
 					projects={navData.projects}
@@ -93,7 +88,6 @@ const navData = await getProjectNavData();
 				/>
 
 				<div class="min-w-0 lg:max-w-4xl">
-					<!-- Title block -->
 					<header class="mb-10">
 						<div class="flex flex-wrap items-center gap-2 mb-4 font-mono text-xs">
 							<span class="text-[var(--color-accent)]">[{engine}]</span>
@@ -107,7 +101,6 @@ const navData = await getProjectNavData();
 						<p class="text-xl text-[var(--color-fg-dim)] leading-relaxed">{description}</p>
 					</header>
 
-					<!-- Info grid -->
 					<section class="mb-8 border border-[var(--color-border)] rounded-lg">
 						<div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-[var(--color-border)]">
 							<div class="p-5">
@@ -141,7 +134,6 @@ const navData = await getProjectNavData();
 						)}
 					</section>
 
-					<!-- CTA Buttons -->
 					{(playableUrl || repoUrl || videoUrl) && (
 						<section class="mb-12 flex flex-wrap gap-3 font-mono text-sm">
 							{playableUrl && (
@@ -174,7 +166,6 @@ const navData = await getProjectNavData();
 						</section>
 					)}
 
-					<!-- Case study content -->
 					<article class="prose">
 						<slot />
 					</article>

@@ -11,10 +11,8 @@ import ProjectTreeNav from '../components/ProjectTreeNav';
 import { getProjectNavData } from '../lib/getProjectNavData';
 
 type BlogData = CollectionEntry<'blog'>['data'];
-type ProjectEntry = CollectionEntry<'projects'> | null;
 
 interface Props extends BlogData {
-	project?: ProjectEntry;
 	isPrivate?: boolean;
 }
 
@@ -26,22 +24,10 @@ const {
 	heroImage,
 	category,
 	tags,
-	day,
-	project,
 	isPrivate = false,
 } = Astro.props;
 
 const navData = await getProjectNavData();
-
-// Current path → derive blog slug for tree highlighting
-const currentSlug = Astro.url.pathname.match(/\/blog\/([^/]+)/)?.[1];
-
-// Route project link to private route if the project itself is also a draft
-const projectLink = project
-	? project.data.draft
-		? `/private/projects/${project.id}/`
-		: `/projects/${project.id}/`
-	: null;
 ---
 
 <html lang="ko">
@@ -71,26 +57,10 @@ const projectLink = project
 				<ProjectTreeNav
 					projects={navData.projects}
 					devlogs={navData.devlogs}
-					currentDevlogId={currentSlug}
 					client:load
 				/>
 
 				<article class="min-w-0 lg:max-w-3xl">
-					<!-- Linked project breadcrumb (for devlog entries) -->
-					{project && projectLink && (
-						<a
-							href={projectLink}
-							class="inline-flex items-center gap-2 mb-6 font-mono text-xs text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] transition"
-						>
-							<span class="text-[var(--color-accent)]">←</span>
-							<span>part of</span>
-							<span class="underline underline-offset-2">{project.data.title}</span>
-							{day !== undefined && (
-								<span class="text-[var(--color-muted)]">· Day {String(day).padStart(2, '0')}</span>
-							)}
-						</a>
-					)}
-
 					<header class="mb-10">
 						<div class="flex items-center gap-3 font-mono text-xs text-[var(--color-muted)] mb-4">
 							{category && <span class="text-[var(--color-accent)] uppercase">[{category}]</span>}
@@ -127,19 +97,6 @@ const projectLink = project
 					<div class="prose">
 						<slot />
 					</div>
-
-					{project && projectLink && (
-						<div class="mt-12 pt-8 border-t border-[var(--color-border)]">
-							<a
-								href={projectLink}
-								class="inline-flex items-center gap-2 font-mono text-sm text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] transition"
-							>
-								<span class="text-[var(--color-accent)]">→</span>
-								<span>see all devlogs for</span>
-								<span class="underline underline-offset-2">{project.data.title}</span>
-							</a>
-						</div>
-					)}
 
 					{!isPrivate && <Comments />}
 				</article>

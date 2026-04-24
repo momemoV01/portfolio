@@ -1,0 +1,64 @@
+---
+import { type CollectionEntry, getCollection, getEntry, render } from 'astro:content';
+import Devlog from '../../../../layouts/Devlog.astro';
+
+export async function getStaticPaths() {
+	const devlogs = await getCollection('devlogs', ({ data }) => data.draft);
+
+	const byProject: Record<string, typeof devlogs> = {};
+	for (const d of devlogs) {
+		const [project] = d.id.split('/');
+		if (!byProject[project]) byProject[project] = [];
+		byProject[project].push(d);
+	}
+	for (const project in byProject) {
+		byProject[project].sort((a, b) => a.data.day - b.data.day);
+	}
+
+	return devlogs.map((d) => {
+		const [project, slug] = d.id.split('/');
+		const siblings = byProject[project];
+		const idx = siblings.findIndex((x) => x.id === d.id);
+		const prev = idx > 0 ? siblings[idx - 1] : null;
+		const next = idx < siblings.length - 1 ? siblings[idx + 1] : null;
+
+		const pickNav = (e: typeof devlogs[number] | null) => {
+			if (!e) return null;
+			const [p, s] = e.id.split('/');
+			return { id: e.id, project: p, slug: s, day: e.data.day, title: e.data.title };
+		};
+
+		return {
+			params: { project, slug },
+			props: { entry: d, prev: pickNav(prev), next: pickNav(next) },
+		};
+	});
+}
+
+type Props = {
+	entry: CollectionEntry<'devlogs'>;
+	prev: { id: string; project: string; slug: string; day: number; title: string } | null;
+	next: { id: string; project: string; slug: string; day: number; title: string } | null;
+};
+
+const { entry, prev, next } = Astro.props;
+const { Content } = await render(entry);
+
+const [projectSlug] = entry.id.split('/');
+const projectEntry = await getEntry('projects', projectSlug);
+
+if (!projectEntry) {
+	throw new Error(`Devlog "${entry.id}" references missing project "${projectSlug}"`);
+}
+---
+
+<Devlog
+	{...entry.data}
+	devlogId={entry.id}
+	projectEntry={projectEntry}
+	prevDevlog={prev}
+	nextDevlog={next}
+	isPrivate={true}
+>
+	<Content />
+</Devlog>

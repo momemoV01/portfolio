@@ -7,10 +7,12 @@ export type ProjectNavItem = {
 };
 
 export type DevlogNavItem = {
-	id: string;
+	id: string; // e.g. "sample-unity-project/day-01"
+	project: string; // e.g. "sample-unity-project"
+	slug: string; // e.g. "day-01"
 	title: string;
-	day: number | null;
-	project: string;
+	day: number;
+	pubDate: string;
 };
 
 type Props = {
@@ -29,7 +31,6 @@ export default function ProjectTreeNav({
 	currentProjectId,
 	currentDevlogId,
 }: Props) {
-	// Resolve which project should be auto-expanded based on current page
 	const activeProjectId = useMemo(() => {
 		if (currentProjectId) return currentProjectId;
 		if (currentDevlogId) {
@@ -44,7 +45,6 @@ export default function ProjectTreeNav({
 	);
 	const [drawerOpen, setDrawerOpen] = useState(false);
 
-	// Restore user's expand state from localStorage (merged with auto-expanded current)
 	useEffect(() => {
 		try {
 			const stored = localStorage.getItem(STORAGE_KEY);
@@ -85,11 +85,7 @@ export default function ProjectTreeNav({
 			byProject[d.project].push(d);
 		}
 		for (const slug in byProject) {
-			byProject[slug].sort((a, b) => {
-				const dayA = a.day ?? 0;
-				const dayB = b.day ?? 0;
-				return dayA - dayB;
-			});
+			byProject[slug].sort((a, b) => a.day - b.day);
 		}
 
 		return { byEngine, byProject };
@@ -106,7 +102,6 @@ export default function ProjectTreeNav({
 
 	return (
 		<>
-			{/* Mobile toggle */}
 			<button
 				type="button"
 				onClick={() => setDrawerOpen(!drawerOpen)}
@@ -198,23 +193,15 @@ export default function ProjectTreeNav({
 																return (
 																	<li key={d.id}>
 																		<a
-																			href={`/blog/${d.id}/`}
+																			href={`/projects/${d.project}/${d.slug}/`}
 																			className={`flex items-baseline gap-1.5 py-1 px-1.5 -mx-1.5 rounded transition min-w-0 ${
 																				isCurrentDevlog
 																					? 'bg-[var(--color-accent-glow)] text-[var(--color-accent)]'
 																					: 'hover:bg-[var(--color-bg-elev)] hover:text-[var(--color-accent)] text-[var(--color-fg-dim)]'
 																			}`}
 																		>
-																			<span
-																				className={`shrink-0 text-[10px] tabular-nums ${
-																					isCurrentDevlog
-																						? 'text-[var(--color-accent)]'
-																						: 'text-[var(--color-accent)]'
-																				}`}
-																			>
-																				{d.day !== null
-																					? `D${String(d.day).padStart(2, '0')}`
-																					: '·'}
+																			<span className="shrink-0 text-[10px] tabular-nums text-[var(--color-accent)]">
+																				D{String(d.day).padStart(2, '0')}
 																			</span>
 																			<span className="truncate" title={d.title}>
 																				{d.title.replace(/^Day \d+:\s*/, '')}

@@ -1,7 +1,8 @@
-import { defineCollection, reference } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
+// Standalone blog posts (tech notes, daily, general notes)
 const blog = defineCollection({
 	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
 	schema: ({ image }) =>
@@ -11,16 +12,13 @@ const blog = defineCollection({
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
 			heroImage: z.optional(image()),
-			category: z.enum(['devlog', 'tech', 'daily', 'note']).default('note'),
+			category: z.enum(['tech', 'daily', 'note']).default('note'),
 			tags: z.array(z.string()).default([]),
 			draft: z.boolean().default(false),
-			// Link to a project (for devlog entries). Use the project slug, e.g. `sample-unity-project`.
-			project: reference('projects').optional(),
-			// Day number within a project's devlog timeline.
-			day: z.number().int().positive().optional(),
 		}),
 });
 
+// Project case studies
 const projects = defineCollection({
 	loader: glob({ base: './src/content/projects', pattern: '**/*.{md,mdx}' }),
 	schema: ({ image }) =>
@@ -44,4 +42,22 @@ const projects = defineCollection({
 		}),
 });
 
-export const collections = { blog, projects };
+// Project devlogs (Day-by-day progress)
+// Files live at src/content/devlogs/<project-slug>/<day-slug>.md
+// Project association is inferred from folder name.
+const devlogs = defineCollection({
+	loader: glob({ base: './src/content/devlogs', pattern: '**/*.{md,mdx}' }),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			pubDate: z.coerce.date(),
+			updatedDate: z.coerce.date().optional(),
+			heroImage: z.optional(image()),
+			day: z.number().int().positive(),
+			tags: z.array(z.string()).default([]),
+			draft: z.boolean().default(false),
+		}),
+});
+
+export const collections = { blog, projects, devlogs };

@@ -120,38 +120,29 @@ function createDevlog(projectSlug, extraTitle) {
 		process.exit(1);
 	}
 
-	// Find next day number
-	const blogDir = path.join(projectRoot, 'src', 'content', 'blog');
+	// Find next day number from existing devlogs in project folder
+	const projectDevlogDir = path.join(projectRoot, 'src', 'content', 'devlogs', projectSlug);
 	let nextDay = 1;
-	if (fs.existsSync(blogDir)) {
-		const existing = fs
-			.readdirSync(blogDir)
+	if (fs.existsSync(projectDevlogDir)) {
+		const usedDays = fs
+			.readdirSync(projectDevlogDir)
 			.filter((f) => f.endsWith('.md') || f.endsWith('.mdx'))
-			.map((f) => fs.readFileSync(path.join(blogDir, f), 'utf-8'));
-
-		const usedDays = existing
-			.filter((content) => {
-				const projectMatch = content.match(/^project:\s*['"]?([^'"\n]+?)['"]?\s*$/m);
-				return projectMatch && projectMatch[1].trim() === projectSlug;
-			})
-			.map((content) => {
-				const dayMatch = content.match(/^day:\s*(\d+)/m);
-				return dayMatch ? parseInt(dayMatch[1], 10) : 0;
+			.map((f) => {
+				const content = fs.readFileSync(path.join(projectDevlogDir, f), 'utf-8');
+				const m = content.match(/^day:\s*(\d+)/m);
+				return m ? parseInt(m[1], 10) : 0;
 			});
-
 		nextDay = usedDays.length > 0 ? Math.max(...usedDays) + 1 : 1;
 	}
 
 	const dayLabel = `Day ${String(nextDay).padStart(2, '0')}`;
 	const fullTitle = extraTitle ? `${dayLabel}: ${extraTitle}` : dayLabel;
-	const slug = `${projectSlug}-day-${String(nextDay).padStart(2, '0')}`;
+	const fileSlug = `day-${String(nextDay).padStart(2, '0')}`;
 
 	const template = `---
 title: '${escapeYaml(fullTitle)}'
 description: ''
 pubDate: '${today}'
-category: 'devlog'
-project: '${projectSlug}'
 day: ${nextDay}
 tags: []
 draft: true
@@ -159,7 +150,7 @@ draft: true
 
 `;
 
-	const filepath = path.join(blogDir, `${slug}.md`);
+	const filepath = path.join(projectDevlogDir, `${fileSlug}.md`);
 	writeFile(filepath, template);
 	printSteps('devlog', fullTitle, filepath, { projectSlug, day: nextDay });
 }

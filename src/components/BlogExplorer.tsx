@@ -4,12 +4,12 @@ export type PostItem = {
 	id: string;
 	title: string;
 	description: string;
-	category: 'devlog' | 'tech' | 'daily' | 'note';
+	category: 'tech' | 'daily' | 'note';
 	tags: string[];
 	pubDate: string;
 };
 
-const ALL_CATEGORIES: PostItem['category'][] = ['devlog', 'tech', 'daily', 'note'];
+const ALL_CATEGORIES: PostItem['category'][] = ['tech', 'daily', 'note'];
 
 type SortMode = 'latest' | 'oldest' | 'title';
 type ViewMode = 'list' | 'cards';

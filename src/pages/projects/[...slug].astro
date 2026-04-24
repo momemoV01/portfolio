@@ -13,19 +13,8 @@ type Props = CollectionEntry<'projects'>;
 
 const project = Astro.props;
 const { Content } = await render(project);
-
-// Gather devlogs that reference this project
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
-const devlogs = allPosts
-	.filter((p) => p.data.project?.id === project.id)
-	.sort((a, b) => {
-		const dayA = a.data.day ?? 0;
-		const dayB = b.data.day ?? 0;
-		if (dayA !== dayB) return dayA - dayB;
-		return a.data.pubDate.valueOf() - b.data.pubDate.valueOf();
-	});
 ---
 
-<Project {...project.data} projectId={project.id} devlogs={devlogs}>
+<Project {...project.data} projectId={project.id}>
 	<Content />
 </Project>

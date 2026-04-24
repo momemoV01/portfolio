@@ -2,8 +2,6 @@
 title: 'Day 01: 초기 프로토타이핑'
 description: '새 Unity URP 프로젝트 셋업, 첫 블록아웃 씬 구성.'
 pubDate: '2026-01-15'
-category: 'devlog'
-project: 'sample-unity-project'
 day: 1
 tags: ['unity', 'urp']
 draft: false
