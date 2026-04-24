@@ -2,13 +2,13 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
+import BlogTreeNav from '../components/BlogTreeNav';
 import Comments from '../components/Comments.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import MermaidScript from '../components/MermaidScript.astro';
-import ProjectTreeNav from '../components/ProjectTreeNav';
-import { getProjectNavData } from '../lib/getProjectNavData';
+import { getBlogNavData } from '../lib/getBlogNavData';
 
 type BlogData = CollectionEntry<'blog'>['data'];
 
@@ -27,7 +27,10 @@ const {
 	isPrivate = false,
 } = Astro.props;
 
-const navData = await getProjectNavData();
+const navData = await getBlogNavData();
+
+// Current path → derive blog slug for tree highlighting
+const currentSlug = Astro.url.pathname.match(/\/blog\/([^/]+)/)?.[1];
 ---
 
 <html lang="ko">
@@ -54,11 +57,7 @@ const navData = await getProjectNavData();
 			)}
 
 			<div class="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-10">
-				<ProjectTreeNav
-					projects={navData.projects}
-					devlogs={navData.devlogs}
-					client:load
-				/>
+				<BlogTreeNav posts={navData.posts} currentPostId={currentSlug} client:load />
 
 				<article class="min-w-0 lg:max-w-3xl">
 					<header class="mb-10">
