@@ -1,4 +1,4 @@
-import { defineCollection } from 'astro:content';
+import { defineCollection, reference } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
@@ -14,6 +14,10 @@ const blog = defineCollection({
 			category: z.enum(['devlog', 'tech', 'daily', 'note']).default('note'),
 			tags: z.array(z.string()).default([]),
 			draft: z.boolean().default(false),
+			// Link to a project (for devlog entries). Use the project slug, e.g. `sample-unity-project`.
+			project: reference('projects').optional(),
+			// Day number within a project's devlog timeline.
+			day: z.number().int().positive().optional(),
 		}),
 });
 

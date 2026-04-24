@@ -6,41 +6,70 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
 
-const [, , type, ...titleParts] = process.argv;
-const title = titleParts.join(' ').trim();
+const [, , type, ...rest] = process.argv;
 
-if (!type || !title) {
-	console.error('사용법:');
-	console.error('  npm run new:blog    "제목"');
-	console.error('  npm run new:project "제목"');
-	process.exit(1);
-}
-
-if (type !== 'blog' && type !== 'project') {
-	console.error(`알 수 없는 타입: "${type}". 'blog' 또는 'project'만 가능.`);
-	process.exit(1);
-}
-
-// Slugify — keeps Korean characters, strips punctuation, spaces → hyphens
-const slug = title
-	.toLowerCase()
-	.replace(/['"`,.!?()[\]{}<>:;]/g, '')
-	.trim()
-	.replace(/\s+/g, '-')
-	.replace(/-+/g, '-')
-	.replace(/^-|-$/g, '');
-
-if (!slug) {
-	console.error('제목이 slug로 변환될 수 없어요. 제목을 다시 확인하세요.');
+if (!type) {
+	printUsage();
 	process.exit(1);
 }
 
 const today = new Date().toISOString().split('T')[0];
-const escapedTitle = title.replace(/'/g, "\\'");
 
-const templates = {
-	blog: `---
-title: '${escapedTitle}'
+if (type === 'blog' || type === 'project') {
+	const title = rest.join(' ').trim();
+	if (!title) {
+		printUsage();
+		process.exit(1);
+	}
+	createSimple(type, title);
+} else if (type === 'devlog') {
+	const [projectSlug, ...titleParts] = rest;
+	if (!projectSlug) {
+		printUsage();
+		process.exit(1);
+	}
+	createDevlog(projectSlug, titleParts.join(' ').trim());
+} else {
+	console.error(`알 수 없는 타입: "${type}".`);
+	printUsage();
+	process.exit(1);
+}
+
+function printUsage() {
+	console.error('사용법:');
+	console.error('  npm run new:blog    "제목"');
+	console.error('  npm run new:project "제목"');
+	console.error('  npm run new:devlog  <project-slug> ["추가 제목"]');
+	console.error('');
+	console.error('예시:');
+	console.error('  npm run new:devlog sample-unity-project "셰이더 실험"');
+	console.error('  npm run new:devlog sample-unity-project');
+}
+
+function slugify(title) {
+	return title
+		.toLowerCase()
+		.replace(/['"`,.!?()[\]{}<>:;]/g, '')
+		.trim()
+		.replace(/\s+/g, '-')
+		.replace(/-+/g, '-')
+		.replace(/^-|-$/g, '');
+}
+
+function escapeYaml(s) {
+	return s.replace(/'/g, "\\'");
+}
+
+function createSimple(type, title) {
+	const slug = slugify(title);
+	if (!slug) {
+		console.error('제목이 slug로 변환될 수 없어요.');
+		process.exit(1);
+	}
+
+	const templates = {
+		blog: `---
+title: '${escapeYaml(title)}'
 description: ''
 pubDate: '${today}'
 category: 'note'
@@ -49,8 +78,8 @@ draft: true
 ---
 
 `,
-	project: `---
-title: '${escapedTitle}'
+		project: `---
+title: '${escapeYaml(title)}'
 description: ''
 pubDate: '${today}'
 coverImage: '../../assets/blog-placeholder-1.jpg'
@@ -65,32 +94,100 @@ draft: true
 ---
 
 `,
-};
+	};
 
-const targetDir = path.join(projectRoot, 'src', 'content', type === 'blog' ? 'blog' : 'projects');
-const filename = `${slug}.md`;
-const filepath = path.join(targetDir, filename);
+	const targetDir = path.join(projectRoot, 'src', 'content', type === 'blog' ? 'blog' : 'projects');
+	const filepath = path.join(targetDir, `${slug}.md`);
 
-if (!fs.existsSync(targetDir)) {
-	fs.mkdirSync(targetDir, { recursive: true });
+	writeFile(filepath, templates[type]);
+	printSteps(type, title, filepath);
 }
 
-if (fs.existsSync(filepath)) {
-	console.error(`이미 존재하는 파일: ${path.relative(projectRoot, filepath)}`);
-	process.exit(1);
+function createDevlog(projectSlug, extraTitle) {
+	// Verify project exists
+	const projectFile = path.join(projectRoot, 'src', 'content', 'projects', `${projectSlug}.md`);
+	const projectFileMdx = path.join(projectRoot, 'src', 'content', 'projects', `${projectSlug}.mdx`);
+	if (!fs.existsSync(projectFile) && !fs.existsSync(projectFileMdx)) {
+		console.error(`프로젝트 파일을 못 찾아요: src/content/projects/${projectSlug}.md`);
+		console.error('');
+		console.error('사용 가능한 프로젝트:');
+		const projectsDir = path.join(projectRoot, 'src', 'content', 'projects');
+		if (fs.existsSync(projectsDir)) {
+			fs.readdirSync(projectsDir)
+				.filter((f) => f.endsWith('.md') || f.endsWith('.mdx'))
+				.forEach((f) => console.error(`  - ${f.replace(/\.(md|mdx)$/, '')}`));
+		}
+		process.exit(1);
+	}
+
+	// Find next day number
+	const blogDir = path.join(projectRoot, 'src', 'content', 'blog');
+	let nextDay = 1;
+	if (fs.existsSync(blogDir)) {
+		const existing = fs
+			.readdirSync(blogDir)
+			.filter((f) => f.endsWith('.md') || f.endsWith('.mdx'))
+			.map((f) => fs.readFileSync(path.join(blogDir, f), 'utf-8'));
+
+		const usedDays = existing
+			.filter((content) => {
+				const projectMatch = content.match(/^project:\s*['"]?([^'"\n]+?)['"]?\s*$/m);
+				return projectMatch && projectMatch[1].trim() === projectSlug;
+			})
+			.map((content) => {
+				const dayMatch = content.match(/^day:\s*(\d+)/m);
+				return dayMatch ? parseInt(dayMatch[1], 10) : 0;
+			});
+
+		nextDay = usedDays.length > 0 ? Math.max(...usedDays) + 1 : 1;
+	}
+
+	const dayLabel = `Day ${String(nextDay).padStart(2, '0')}`;
+	const fullTitle = extraTitle ? `${dayLabel}: ${extraTitle}` : dayLabel;
+	const slug = `${projectSlug}-day-${String(nextDay).padStart(2, '0')}`;
+
+	const template = `---
+title: '${escapeYaml(fullTitle)}'
+description: ''
+pubDate: '${today}'
+category: 'devlog'
+project: '${projectSlug}'
+day: ${nextDay}
+tags: []
+draft: true
+---
+
+`;
+
+	const filepath = path.join(blogDir, `${slug}.md`);
+	writeFile(filepath, template);
+	printSteps('devlog', fullTitle, filepath, { projectSlug, day: nextDay });
 }
 
-fs.writeFileSync(filepath, templates[type], 'utf-8');
+function writeFile(filepath, content) {
+	const dir = path.dirname(filepath);
+	if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+	if (fs.existsSync(filepath)) {
+		console.error(`이미 존재하는 파일: ${path.relative(projectRoot, filepath)}`);
+		process.exit(1);
+	}
+	fs.writeFileSync(filepath, content, 'utf-8');
+}
 
-const relPath = path.relative(projectRoot, filepath).replace(/\\/g, '/');
-console.log('');
-console.log(`✓ 생성됨: ${relPath}`);
-console.log('');
-console.log('다음 단계:');
-console.log(`  1. 파일 열어서 description 채우기`);
-console.log(`     ${type === 'blog' ? 'category (devlog|tech|daily|note), tags' : 'engine, platforms, tech, status, coverImage'} 확인`);
-console.log(`  2. 본문 작성`);
-console.log(`  3. 발행할 준비 되면 'draft: true' → 'draft: false'`);
-console.log(`  4. git add . && git commit -m "${type}: ${title}" && git push`);
-console.log(`     → Vercel 자동 배포`);
-console.log('');
+function printSteps(type, title, filepath, extra = {}) {
+	const relPath = path.relative(projectRoot, filepath).replace(/\\/g, '/');
+	console.log('');
+	console.log(`✓ 생성됨: ${relPath}`);
+	if (extra.day) {
+		console.log(`  Day ${extra.day} — ${extra.projectSlug} 프로젝트의 devlog`);
+	}
+	console.log('');
+	console.log('다음 단계:');
+	console.log(`  1. 파일 열어서 description, tags 채우기`);
+	console.log(`  2. 본문 작성`);
+	console.log(`  3. 발행 준비되면 'draft: true' → 'draft: false'`);
+	console.log(
+		`  4. git add . && git commit -m "${type}: ${title.replace(/"/g, '\\"')}" && git push`,
+	);
+	console.log('');
+}

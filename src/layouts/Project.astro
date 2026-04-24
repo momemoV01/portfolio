@@ -7,7 +7,13 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import MermaidScript from '../components/MermaidScript.astro';
 
-type Props = CollectionEntry<'projects'>['data'];
+type ProjectData = CollectionEntry<'projects'>['data'];
+type DevlogEntry = CollectionEntry<'blog'>;
+
+interface Props extends ProjectData {
+	projectId: string;
+	devlogs: DevlogEntry[];
+}
 
 const {
 	title,
@@ -24,6 +30,8 @@ const {
 	playableUrl,
 	repoUrl,
 	videoUrl,
+	projectId,
+	devlogs,
 } = Astro.props;
 ---
 
@@ -134,10 +142,50 @@ const {
 					</section>
 				)}
 
-				<!-- Content -->
+				<!-- Case study content -->
 				<div class="prose">
 					<slot />
 				</div>
+
+				<!-- Devlog timeline -->
+				{devlogs.length > 0 && (
+					<section class="mt-16 pt-10 border-t border-[var(--color-border)]">
+						<div class="flex items-end justify-between mb-6">
+							<div>
+								<div class="mono-tag terminal-prompt mb-2">ls ./devlogs</div>
+								<h2 class="text-2xl">Devlogs</h2>
+							</div>
+							<span class="font-mono text-xs text-[var(--color-muted)]">
+								{devlogs.length} {devlogs.length === 1 ? 'entry' : 'entries'}
+							</span>
+						</div>
+						<ul class="divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
+							{devlogs.map((d) => (
+								<li>
+									<a
+										href={`/blog/${d.id}/`}
+										class="group grid grid-cols-[auto_1fr_auto] gap-5 py-4 items-baseline hover:bg-[var(--color-bg-elev)] px-3 -mx-3 rounded transition"
+									>
+										<span class="font-mono text-xs text-[var(--color-accent)] tabular-nums">
+											{d.data.day !== undefined ? `Day ${String(d.data.day).padStart(2, '0')}` : '—'}
+										</span>
+										<div>
+											<h3 class="text-base font-semibold group-hover:text-[var(--color-accent)] transition">
+												{d.data.title}
+											</h3>
+											{d.data.description && (
+												<p class="text-sm text-[var(--color-fg-dim)] mt-1 line-clamp-1">{d.data.description}</p>
+											)}
+										</div>
+										<time class="font-mono text-xs text-[var(--color-muted)] tabular-nums">
+											<FormattedDate date={d.data.pubDate} />
+										</time>
+									</a>
+								</li>
+							))}
+						</ul>
+					</section>
+				)}
 			</article>
 		</main>
 		<Footer />

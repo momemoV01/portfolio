@@ -8,9 +8,15 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import MermaidScript from '../components/MermaidScript.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
+type BlogData = CollectionEntry<'blog'>['data'];
+type ProjectEntry = CollectionEntry<'projects'> | null;
 
-const { title, description, pubDate, updatedDate, heroImage, category, tags } = Astro.props;
+interface Props extends BlogData {
+	project?: ProjectEntry;
+}
+
+const { title, description, pubDate, updatedDate, heroImage, category, tags, day, project } =
+	Astro.props;
 ---
 
 <html lang="ko">
@@ -21,6 +27,21 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags } = 
 		<Header />
 		<main class="mx-auto max-w-3xl px-6 py-16">
 			<article>
+				<!-- Linked project breadcrumb (for devlog entries) -->
+				{project && (
+					<a
+						href={`/projects/${project.id}/`}
+						class="inline-flex items-center gap-2 mb-6 font-mono text-xs text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] transition"
+					>
+						<span class="text-[var(--color-accent)]">←</span>
+						<span>part of</span>
+						<span class="underline underline-offset-2">{project.data.title}</span>
+						{day !== undefined && (
+							<span class="text-[var(--color-muted)]">· Day {String(day).padStart(2, '0')}</span>
+						)}
+					</a>
+				)}
+
 				<header class="mb-10">
 					<div class="flex items-center gap-3 font-mono text-xs text-[var(--color-muted)] mb-4">
 						{category && <span class="text-[var(--color-accent)] uppercase">[{category}]</span>}
@@ -57,6 +78,20 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags } = 
 				<div class="prose">
 					<slot />
 				</div>
+
+				<!-- Back to project link at bottom -->
+				{project && (
+					<div class="mt-12 pt-8 border-t border-[var(--color-border)]">
+						<a
+							href={`/projects/${project.id}/`}
+							class="inline-flex items-center gap-2 font-mono text-sm text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] transition"
+						>
+							<span class="text-[var(--color-accent)]">→</span>
+							<span>see all devlogs for</span>
+							<span class="underline underline-offset-2">{project.data.title}</span>
+						</a>
+					</div>
+				)}
 
 				<Comments />
 			</article>
