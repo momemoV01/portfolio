@@ -7,6 +7,8 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import MermaidScript from '../components/MermaidScript.astro';
+import ProjectTreeNav from '../components/ProjectTreeNav';
+import { getProjectNavData } from '../lib/getProjectNavData';
 
 type BlogData = CollectionEntry<'blog'>['data'];
 type ProjectEntry = CollectionEntry<'projects'> | null;
@@ -17,6 +19,11 @@ interface Props extends BlogData {
 
 const { title, description, pubDate, updatedDate, heroImage, category, tags, day, project } =
 	Astro.props;
+
+const navData = await getProjectNavData();
+
+// Current path → derive blog slug for tree highlighting
+const currentSlug = Astro.url.pathname.match(/\/blog\/([^/]+)/)?.[1];
 ---
 
 <html lang="ko">
@@ -25,76 +32,84 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags, day
 	</head>
 	<body>
 		<Header />
-		<main class="mx-auto max-w-3xl px-6 py-16">
-			<article>
-				<!-- Linked project breadcrumb (for devlog entries) -->
-				{project && (
-					<a
-						href={`/projects/${project.id}/`}
-						class="inline-flex items-center gap-2 mb-6 font-mono text-xs text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] transition"
-					>
-						<span class="text-[var(--color-accent)]">←</span>
-						<span>part of</span>
-						<span class="underline underline-offset-2">{project.data.title}</span>
-						{day !== undefined && (
-							<span class="text-[var(--color-muted)]">· Day {String(day).padStart(2, '0')}</span>
-						)}
-					</a>
-				)}
+		<main class="wide-page mx-auto max-w-[1400px] px-6 py-12">
+			<div class="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-10">
+				<ProjectTreeNav
+					projects={navData.projects}
+					devlogs={navData.devlogs}
+					currentDevlogId={currentSlug}
+					client:load
+				/>
 
-				<header class="mb-10">
-					<div class="flex items-center gap-3 font-mono text-xs text-[var(--color-muted)] mb-4">
-						{category && <span class="text-[var(--color-accent)] uppercase">[{category}]</span>}
-						<time>
-							<FormattedDate date={pubDate} />
-						</time>
-						{updatedDate && (
-							<span class="italic">· updated <FormattedDate date={updatedDate} /></span>
-						)}
-					</div>
-					<h1 class="mb-4 leading-tight">{title}</h1>
-					<p class="text-lg text-[var(--color-fg-dim)] leading-relaxed">{description}</p>
-					{tags && tags.length > 0 && (
-						<div class="mt-5 flex flex-wrap gap-2 font-mono text-xs">
-							{tags.map((tag) => (
-								<span class="text-[var(--color-muted)]">#{tag}</span>
-							))}
-						</div>
-					)}
-				</header>
-
-				{heroImage && (
-					<div class="mb-10">
-						<Image
-							width={1020}
-							height={510}
-							src={heroImage}
-							alt=""
-							class="w-full rounded-lg border border-[var(--color-border)]"
-						/>
-					</div>
-				)}
-
-				<div class="prose">
-					<slot />
-				</div>
-
-				<!-- Back to project link at bottom -->
-				{project && (
-					<div class="mt-12 pt-8 border-t border-[var(--color-border)]">
+				<article class="min-w-0 lg:max-w-3xl">
+					<!-- Linked project breadcrumb (for devlog entries) -->
+					{project && (
 						<a
 							href={`/projects/${project.id}/`}
-							class="inline-flex items-center gap-2 font-mono text-sm text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] transition"
+							class="inline-flex items-center gap-2 mb-6 font-mono text-xs text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] transition"
 						>
-							<span class="text-[var(--color-accent)]">→</span>
-							<span>see all devlogs for</span>
+							<span class="text-[var(--color-accent)]">←</span>
+							<span>part of</span>
 							<span class="underline underline-offset-2">{project.data.title}</span>
+							{day !== undefined && (
+								<span class="text-[var(--color-muted)]">· Day {String(day).padStart(2, '0')}</span>
+							)}
 						</a>
-					</div>
-				)}
+					)}
 
-				<Comments />
-			</article>
+					<header class="mb-10">
+						<div class="flex items-center gap-3 font-mono text-xs text-[var(--color-muted)] mb-4">
+							{category && <span class="text-[var(--color-accent)] uppercase">[{category}]</span>}
+							<time>
+								<FormattedDate date={pubDate} />
+							</time>
+							{updatedDate && (
+								<span class="italic">· updated <FormattedDate date={updatedDate} /></span>
+							)}
+						</div>
+						<h1 class="mb-4 leading-tight">{title}</h1>
+						<p class="text-lg text-[var(--color-fg-dim)] leading-relaxed">{description}</p>
+						{tags && tags.length > 0 && (
+							<div class="mt-5 flex flex-wrap gap-2 font-mono text-xs">
+								{tags.map((tag) => (
+									<span class="text-[var(--color-muted)]">#{tag}</span>
+								))}
+							</div>
+						)}
+					</header>
+
+					{heroImage && (
+						<div class="mb-10">
+							<Image
+								width={1020}
+								height={510}
+								src={heroImage}
+								alt=""
+								class="w-full rounded-lg border border-[var(--color-border)]"
+							/>
+						</div>
+					)}
+
+					<div class="prose">
+						<slot />
+					</div>
+
+					{project && (
+						<div class="mt-12 pt-8 border-t border-[var(--color-border)]">
+							<a
+								href={`/projects/${project.id}/`}
+								class="inline-flex items-center gap-2 font-mono text-sm text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] transition"
+							>
+								<span class="text-[var(--color-accent)]">→</span>
+								<span>see all devlogs for</span>
+								<span class="underline underline-offset-2">{project.data.title}</span>
+							</a>
+						</div>
+					)}
+
+					<Comments />
+				</article>
+			</div>
 		</main>
 		<Footer />
 		<MermaidScript />

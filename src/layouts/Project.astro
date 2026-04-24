@@ -6,6 +6,8 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import MermaidScript from '../components/MermaidScript.astro';
+import ProjectTreeNav from '../components/ProjectTreeNav';
+import { getProjectNavData } from '../lib/getProjectNavData';
 
 type ProjectData = CollectionEntry<'projects'>['data'];
 type DevlogEntry = CollectionEntry<'blog'>;
@@ -31,10 +33,9 @@ const {
 	repoUrl,
 	videoUrl,
 	projectId,
-	devlogs,
 } = Astro.props;
 
-const hasDevlogs = devlogs.length > 0;
+const navData = await getProjectNavData();
 ---
 
 <html lang="ko">
@@ -63,42 +64,15 @@ const hasDevlogs = devlogs.length > 0;
 			</div>
 
 			<!-- Sidebar + content layout -->
-			<div
-				class={hasDevlogs
-					? 'grid grid-cols-1 lg:grid-cols-[200px_minmax(0,1fr)] gap-10'
-					: ''}
-			>
-				{hasDevlogs && (
-					<aside class="lg:sticky lg:top-24 lg:self-start lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto order-2 lg:order-1 min-w-0">
-						<div class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-muted)] mb-3 pb-2 border-b border-[var(--color-border)]">
-							devlogs ({devlogs.length})
-						</div>
-						<ul class="space-y-1">
-							{devlogs.map((d) => (
-								<li>
-									<a
-										href={`/blog/${d.id}/`}
-										class="group block py-2 px-3 -mx-3 rounded hover:bg-[var(--color-bg-elev)] transition"
-									>
-										<div class="flex items-baseline gap-2 mb-0.5">
-											<span class="font-mono text-[11px] text-[var(--color-accent)] tabular-nums">
-												{d.data.day !== undefined ? `Day ${String(d.data.day).padStart(2, '0')}` : '—'}
-											</span>
-											<time class="font-mono text-[10px] text-[var(--color-muted)] tabular-nums">
-												<FormattedDate date={d.data.pubDate} />
-											</time>
-										</div>
-										<div class="text-sm text-[var(--color-fg-dim)] group-hover:text-[var(--color-accent)] transition line-clamp-2">
-											{d.data.title.replace(/^Day \d+:\s*/, '')}
-										</div>
-									</a>
-								</li>
-							))}
-						</ul>
-					</aside>
-				)}
+			<div class="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-10">
+				<ProjectTreeNav
+					projects={navData.projects}
+					devlogs={navData.devlogs}
+					currentProjectId={projectId}
+					client:load
+				/>
 
-				<div class="order-1 lg:order-2 min-w-0 lg:max-w-4xl">
+				<div class="min-w-0 lg:max-w-4xl">
 					<!-- Title block -->
 					<header class="mb-10">
 						<div class="flex flex-wrap items-center gap-2 mb-4 font-mono text-xs">
