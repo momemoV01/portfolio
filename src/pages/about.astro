@@ -2,7 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { AUTHOR_NAME, AUTHOR_SOCIAL, SITE_TITLE } from '../consts';
+import { AUTHOR_FULL_NAME, AUTHOR_NAME, AUTHOR_SOCIAL, SITE_TITLE } from '../consts';
 ---
 
 <!doctype html>
@@ -18,7 +18,8 @@ import { AUTHOR_NAME, AUTHOR_SOCIAL, SITE_TITLE } from '../consts';
 
 			<div class="prose">
 				<p>
-					안녕하세요, <strong>{AUTHOR_NAME}</strong>입니다. 주로 Unity로 게임을 만들고, 가끔 Unreal로 실험적인 프로젝트를 해봅니다.
+					안녕하세요, <strong>{AUTHOR_FULL_NAME}</strong>입니다. 온라인에선 <strong>{AUTHOR_NAME}</strong>이라는 핸들로 활동하고 있어요.
+					주로 Unity로 게임을 만들고, 가끔 Unreal로 실험적인 프로젝트를 해봅니다.
 					이 사이트는 그 과정에서 만드는 것들과 배운 것들을 기록하는 공간이에요.
 				</p>
 
