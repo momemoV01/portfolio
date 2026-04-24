@@ -187,6 +187,7 @@
 /* Wide mode — expand page container max-widths. Reading column stays narrow. */
 html[data-width='wide'] main.max-w-5xl,
 html[data-width='wide'] main.max-w-6xl,
+html[data-width='wide'] main.wide-page,
 html[data-width='wide'] nav.max-w-6xl {
 	max-width: none;
 }
