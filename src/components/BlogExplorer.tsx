@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export type PostItem = {
 	id: string;
@@ -11,11 +11,35 @@ export type PostItem = {
 
 const ALL_CATEGORIES: PostItem['category'][] = ['devlog', 'tech', 'daily', 'note'];
 
+type SortMode = 'latest' | 'oldest' | 'title';
+type ViewMode = 'list' | 'cards';
+
+const PREFS_KEY = 'blog-view-prefs';
+
 export default function BlogExplorer({ posts }: { posts: PostItem[] }) {
 	const [category, setCategory] = useState<string | null>(null);
 	const [activeTags, setActiveTags] = useState<Set<string>>(new Set());
 	const [activeYear, setActiveYear] = useState<number | null>(null);
 	const [drawerOpen, setDrawerOpen] = useState(false);
+	const [sortMode, setSortMode] = useState<SortMode>('latest');
+	const [viewMode, setViewMode] = useState<ViewMode>('list');
+
+	useEffect(() => {
+		try {
+			const stored = localStorage.getItem(PREFS_KEY);
+			if (stored) {
+				const p = JSON.parse(stored);
+				if (p.sort) setSortMode(p.sort);
+				if (p.view) setViewMode(p.view);
+			}
+		} catch {}
+	}, []);
+
+	useEffect(() => {
+		try {
+			localStorage.setItem(PREFS_KEY, JSON.stringify({ sort: sortMode, view: viewMode }));
+		} catch {}
+	}, [sortMode, viewMode]);
 
 	const counts = useMemo(() => {
 		const cat: Record<string, number> = {};
@@ -44,15 +68,29 @@ export default function BlogExplorer({ posts }: { posts: PostItem[] }) {
 	);
 
 	const filtered = useMemo(() => {
-		return posts.filter((p) => {
+		const result = posts.filter((p) => {
 			if (category && p.category !== category) return false;
 			if (activeTags.size && !p.tags.some((t) => activeTags.has(t))) return false;
 			if (activeYear !== null && new Date(p.pubDate).getFullYear() !== activeYear) return false;
 			return true;
 		});
-	}, [posts, category, activeTags, activeYear]);
 
-	const grouped = useMemo(() => {
+		const sorted = [...result];
+		switch (sortMode) {
+			case 'latest':
+				sorted.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
+				break;
+			case 'oldest':
+				sorted.sort((a, b) => new Date(a.pubDate).getTime() - new Date(b.pubDate).getTime());
+				break;
+			case 'title':
+				sorted.sort((a, b) => a.title.localeCompare(b.title, 'ko'));
+				break;
+		}
+		return sorted;
+	}, [posts, category, activeTags, activeYear, sortMode]);
+
+	const groupedByYear = useMemo(() => {
 		const g: Record<number, PostItem[]> = {};
 		for (const p of filtered) {
 			const y = new Date(p.pubDate).getFullYear();
@@ -71,8 +109,7 @@ export default function BlogExplorer({ posts }: { posts: PostItem[] }) {
 		});
 	};
 
-	const activeCount =
-		(category ? 1 : 0) + activeTags.size + (activeYear !== null ? 1 : 0);
+	const activeCount = (category ? 1 : 0) + activeTags.size + (activeYear !== null ? 1 : 0);
 
 	const clearAll = () => {
 		setCategory(null);
@@ -80,13 +117,15 @@ export default function BlogExplorer({ posts }: { posts: PostItem[] }) {
 		setActiveYear(null);
 	};
 
-	const years = Object.keys(grouped)
+	const years = Object.keys(groupedByYear)
 		.map(Number)
-		.sort((a, b) => b - a);
+		.sort((a, b) => (sortMode === 'oldest' ? a - b : b - a));
+
+	// Group only when sorting by date; for title sort, show flat list
+	const showGrouped = sortMode === 'latest' || sortMode === 'oldest';
 
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-10">
-			{/* Mobile toggle */}
 			<button
 				type="button"
 				onClick={() => setDrawerOpen(!drawerOpen)}
@@ -182,52 +221,162 @@ export default function BlogExplorer({ posts }: { posts: PostItem[] }) {
 			</aside>
 
 			<div>
-				<div className="mb-6 font-mono text-xs text-[var(--color-muted)]">
-					<span className="text-[var(--color-accent)]">{filtered.length}</span> / {posts.length} posts
+				{/* Toolbar */}
+				<div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-3 border-b border-[var(--color-border)]">
+					<div className="flex items-center gap-3">
+						<label className="flex items-center gap-2 font-mono text-xs text-[var(--color-muted)]">
+							<span>sort:</span>
+							<select
+								value={sortMode}
+								onChange={(e) => setSortMode(e.target.value as SortMode)}
+								className="bg-[var(--color-bg-elev)] border border-[var(--color-border)] text-[var(--color-fg)] px-2 py-1 rounded font-mono text-xs focus:outline-none focus:border-[var(--color-accent)]"
+							>
+								<option value="latest">latest</option>
+								<option value="oldest">oldest</option>
+								<option value="title">title</option>
+							</select>
+						</label>
+
+						<div className="flex border border-[var(--color-border)] rounded overflow-hidden">
+							<button
+								type="button"
+								onClick={() => setViewMode('list')}
+								className={`px-3 py-1 font-mono text-xs transition ${
+									viewMode === 'list'
+										? 'bg-[var(--color-accent-glow)] text-[var(--color-accent)]'
+										: 'text-[var(--color-fg-dim)] hover:bg-[var(--color-bg-elev)]'
+								}`}
+								aria-label="list view"
+							>
+								☰ list
+							</button>
+							<button
+								type="button"
+								onClick={() => setViewMode('cards')}
+								className={`px-3 py-1 font-mono text-xs border-l border-[var(--color-border)] transition ${
+									viewMode === 'cards'
+										? 'bg-[var(--color-accent-glow)] text-[var(--color-accent)]'
+										: 'text-[var(--color-fg-dim)] hover:bg-[var(--color-bg-elev)]'
+								}`}
+								aria-label="cards view"
+							>
+								⊞ cards
+							</button>
+						</div>
+					</div>
+
+					<span className="font-mono text-xs text-[var(--color-muted)]">
+						<span className="text-[var(--color-accent)]">{filtered.length}</span> / {posts.length}
+					</span>
 				</div>
 
 				{filtered.length === 0 ? (
 					<div className="py-20 text-center font-mono text-sm text-[var(--color-muted)]">
 						no posts match the filters_
 					</div>
-				) : (
+				) : showGrouped ? (
 					years.map((y) => (
 						<section key={y} className="mb-10">
 							<h2 className="font-mono text-sm text-[var(--color-muted)] mb-4 border-b border-[var(--color-border)] pb-2">
 								{y}
 							</h2>
-							<ul className="divide-y divide-[var(--color-border)]">
-								{grouped[y].map((post) => (
-									<li key={post.id}>
-										<a
-											href={`/blog/${post.id}/`}
-											className="group grid grid-cols-[auto_1fr_auto] gap-5 py-4 items-baseline hover:bg-[var(--color-bg-elev)] px-3 -mx-3 rounded transition"
-										>
-											<time className="font-mono text-xs text-[var(--color-muted)] tabular-nums">
-												{new Date(post.pubDate).toLocaleDateString('ko-KR', {
-													month: 'short',
-													day: 'numeric',
-												})}
-											</time>
-											<div>
-												<h3 className="text-base font-semibold group-hover:text-[var(--color-accent)] transition">
-													{post.title}
-												</h3>
-												<p className="text-sm text-[var(--color-fg-dim)] mt-1 line-clamp-1">
-													{post.description}
-												</p>
-											</div>
-											<span className="font-mono text-[10px] text-[var(--color-muted)] uppercase tracking-wider hidden sm:inline">
-												[{post.category}]
-											</span>
-										</a>
-									</li>
-								))}
-							</ul>
+							{viewMode === 'list' ? (
+								<PostList posts={groupedByYear[y]} />
+							) : (
+								<PostCards posts={groupedByYear[y]} />
+							)}
 						</section>
 					))
+				) : viewMode === 'list' ? (
+					<PostList posts={filtered} />
+				) : (
+					<PostCards posts={filtered} />
 				)}
 			</div>
+		</div>
+	);
+}
+
+function PostList({ posts }: { posts: PostItem[] }) {
+	return (
+		<ul className="divide-y divide-[var(--color-border)]">
+			{posts.map((post) => (
+				<li key={post.id}>
+					<a
+						href={`/blog/${post.id}/`}
+						className="group grid grid-cols-[auto_1fr_auto] gap-5 py-4 items-baseline hover:bg-[var(--color-bg-elev)] px-3 -mx-3 rounded transition"
+					>
+						<time className="font-mono text-xs text-[var(--color-muted)] tabular-nums">
+							{new Date(post.pubDate).toLocaleDateString('ko-KR', {
+								month: 'short',
+								day: 'numeric',
+							})}
+						</time>
+						<div>
+							<h3 className="text-base font-semibold group-hover:text-[var(--color-accent)] transition">
+								{post.title}
+							</h3>
+							<p className="text-sm text-[var(--color-fg-dim)] mt-1 line-clamp-1">
+								{post.description}
+							</p>
+						</div>
+						<span className="font-mono text-[10px] text-[var(--color-muted)] uppercase tracking-wider hidden sm:inline">
+							[{post.category}]
+						</span>
+					</a>
+				</li>
+			))}
+		</ul>
+	);
+}
+
+function PostCards({ posts }: { posts: PostItem[] }) {
+	return (
+		<div className="grid gap-5 sm:grid-cols-2">
+			{posts.map((post) => (
+				<a
+					key={post.id}
+					href={`/blog/${post.id}/`}
+					className="card-hover rounded-lg p-5 block group"
+				>
+					<div className="flex items-center gap-2 mb-3 font-mono text-[10px]">
+						<span className="text-[var(--color-accent)] uppercase tracking-wider">
+							[{post.category}]
+						</span>
+						<span className="text-[var(--color-muted)]">·</span>
+						<time className="text-[var(--color-muted)] tabular-nums">
+							{new Date(post.pubDate).toLocaleDateString('ko-KR', {
+								year: 'numeric',
+								month: 'short',
+								day: 'numeric',
+							})}
+						</time>
+					</div>
+					<h3 className="font-semibold mb-2 group-hover:text-[var(--color-accent)] transition">
+						{post.title}
+					</h3>
+					<p className="text-sm text-[var(--color-fg-dim)] line-clamp-2 mb-3">
+						{post.description}
+					</p>
+					{post.tags.length > 0 && (
+						<div className="flex flex-wrap gap-1.5">
+							{post.tags.slice(0, 3).map((t) => (
+								<span
+									key={t}
+									className="font-mono text-[10px] text-[var(--color-muted)]"
+								>
+									#{t}
+								</span>
+							))}
+							{post.tags.length > 3 && (
+								<span className="font-mono text-[10px] text-[var(--color-muted)]">
+									+{post.tags.length - 3}
+								</span>
+							)}
+						</div>
+					)}
+				</a>
+			))}
 		</div>
 	);
 }

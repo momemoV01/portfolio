@@ -33,6 +33,8 @@ const {
 	projectId,
 	devlogs,
 } = Astro.props;
+
+const hasDevlogs = devlogs.length > 0;
 ---
 
 <html lang="ko">
@@ -41,152 +43,144 @@ const {
 	</head>
 	<body>
 		<Header />
-		<main class="mx-auto max-w-4xl px-6 py-12">
-			<article>
-				<!-- Meta strip -->
-				<div class="flex items-center gap-3 font-mono text-xs text-[var(--color-muted)] mb-6">
-					<a href="/projects" class="hover:text-[var(--color-accent)]">../projects</a>
-					<span>/</span>
-					<span class="text-[var(--color-fg)]">{title}</span>
+		<main class="mx-auto max-w-6xl px-6 py-12">
+			<!-- Breadcrumb -->
+			<div class="flex items-center gap-3 font-mono text-xs text-[var(--color-muted)] mb-6">
+				<a href="/projects" class="hover:text-[var(--color-accent)]">../projects</a>
+				<span>/</span>
+				<span class="text-[var(--color-fg)]">{title}</span>
+			</div>
+
+			<!-- Hero (full width) -->
+			<div class="mb-10 border border-[var(--color-border)] rounded-lg overflow-hidden">
+				<Image
+					width={1400}
+					height={788}
+					src={coverImage}
+					alt={title}
+					class="w-full aspect-video object-cover"
+				/>
+			</div>
+
+			<!-- Title block (full width) -->
+			<header class="mb-10 max-w-4xl">
+				<div class="flex flex-wrap items-center gap-2 mb-4 font-mono text-xs">
+					<span class="text-[var(--color-accent)]">[{engine}]</span>
+					<span class="text-[var(--color-muted)]">·</span>
+					<span class="uppercase tracking-wider text-[var(--color-muted)]">{status}</span>
+					<span class="text-[var(--color-muted)]">·</span>
+					<time class="text-[var(--color-muted)]"><FormattedDate date={pubDate} /></time>
+					{updatedDate && <span class="text-[var(--color-muted)] italic">· updated <FormattedDate date={updatedDate} /></span>}
 				</div>
+				<h1 class="mb-4 leading-tight">{title}</h1>
+				<p class="text-xl text-[var(--color-fg-dim)] leading-relaxed">{description}</p>
+			</header>
 
-				<!-- Hero -->
-				<div class="mb-10 border border-[var(--color-border)] rounded-lg overflow-hidden">
-					<Image
-						width={1400}
-						height={788}
-						src={coverImage}
-						alt={title}
-						class="w-full aspect-video object-cover"
-					/>
+			<!-- Info grid (full width) -->
+			<section class="mb-8 border border-[var(--color-border)] rounded-lg max-w-4xl">
+				<div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-[var(--color-border)]">
+					<div class="p-5">
+						<div class="font-mono text-xs text-[var(--color-muted)] uppercase tracking-wider mb-2">Role</div>
+						<div class="text-sm">{role}</div>
+					</div>
+					<div class="p-5">
+						<div class="font-mono text-xs text-[var(--color-muted)] uppercase tracking-wider mb-2">Duration</div>
+						<div class="text-sm">{duration || '—'}</div>
+					</div>
+					<div class="p-5">
+						<div class="font-mono text-xs text-[var(--color-muted)] uppercase tracking-wider mb-2">Engine</div>
+						<div class="text-sm">{engine}</div>
+					</div>
+					<div class="p-5">
+						<div class="font-mono text-xs text-[var(--color-muted)] uppercase tracking-wider mb-2">Platform</div>
+						<div class="text-sm">{platforms.length > 0 ? platforms.join(', ') : '—'}</div>
+					</div>
 				</div>
-
-				<!-- Title block -->
-				<header class="mb-10">
-					<div class="flex flex-wrap items-center gap-2 mb-4 font-mono text-xs">
-						<span class="text-[var(--color-accent)]">[{engine}]</span>
-						<span class="text-[var(--color-muted)]">·</span>
-						<span class="uppercase tracking-wider text-[var(--color-muted)]">{status}</span>
-						<span class="text-[var(--color-muted)]">·</span>
-						<time class="text-[var(--color-muted)]"><FormattedDate date={pubDate} /></time>
-						{updatedDate && <span class="text-[var(--color-muted)] italic">· updated <FormattedDate date={updatedDate} /></span>}
-					</div>
-					<h1 class="mb-4 leading-tight">{title}</h1>
-					<p class="text-xl text-[var(--color-fg-dim)] leading-relaxed">{description}</p>
-				</header>
-
-				<!-- Info grid -->
-				<section class="mb-10 border border-[var(--color-border)] rounded-lg">
-					<div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-[var(--color-border)]">
-						<div class="p-5">
-							<div class="font-mono text-xs text-[var(--color-muted)] uppercase tracking-wider mb-2">Role</div>
-							<div class="text-sm">{role}</div>
-						</div>
-						<div class="p-5">
-							<div class="font-mono text-xs text-[var(--color-muted)] uppercase tracking-wider mb-2">Duration</div>
-							<div class="text-sm">{duration || '—'}</div>
-						</div>
-						<div class="p-5">
-							<div class="font-mono text-xs text-[var(--color-muted)] uppercase tracking-wider mb-2">Engine</div>
-							<div class="text-sm">{engine}</div>
-						</div>
-						<div class="p-5">
-							<div class="font-mono text-xs text-[var(--color-muted)] uppercase tracking-wider mb-2">Platform</div>
-							<div class="text-sm">{platforms.length > 0 ? platforms.join(', ') : '—'}</div>
+				{tech.length > 0 && (
+					<div class="border-t border-[var(--color-border)] p-5">
+						<div class="font-mono text-xs text-[var(--color-muted)] uppercase tracking-wider mb-3">Tech Stack</div>
+						<div class="flex flex-wrap gap-2">
+							{tech.map((t) => (
+								<span class="font-mono text-xs px-2.5 py-1 border border-[var(--color-border)] rounded bg-[var(--color-bg-elev)]">
+									{t}
+								</span>
+							))}
 						</div>
 					</div>
-					{tech.length > 0 && (
-						<div class="border-t border-[var(--color-border)] p-5">
-							<div class="font-mono text-xs text-[var(--color-muted)] uppercase tracking-wider mb-3">Tech Stack</div>
-							<div class="flex flex-wrap gap-2">
-								{tech.map((t) => (
-									<span class="font-mono text-xs px-2.5 py-1 border border-[var(--color-border)] rounded bg-[var(--color-bg-elev)]">
-										{t}
-									</span>
-								))}
-							</div>
-						</div>
+				)}
+			</section>
+
+			<!-- CTA Buttons (full width) -->
+			{(playableUrl || repoUrl || videoUrl) && (
+				<section class="mb-12 flex flex-wrap gap-3 font-mono text-sm max-w-4xl">
+					{playableUrl && (
+						<a
+							href={playableUrl}
+							target="_blank"
+							class="group flex items-center gap-2 border border-[var(--color-accent)] bg-[var(--color-accent-glow)] text-[var(--color-accent)] px-5 py-2.5 rounded hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)] transition"
+						>
+							<span>▶ play_demo</span>
+						</a>
+					)}
+					{videoUrl && (
+						<a
+							href={videoUrl}
+							target="_blank"
+							class="flex items-center gap-2 border border-[var(--color-border-strong)] text-[var(--color-fg)] px-5 py-2.5 rounded hover:border-[var(--color-fg-dim)] transition"
+						>
+							▶ video
+						</a>
+					)}
+					{repoUrl && (
+						<a
+							href={repoUrl}
+							target="_blank"
+							class="flex items-center gap-2 border border-[var(--color-border-strong)] text-[var(--color-fg)] px-5 py-2.5 rounded hover:border-[var(--color-fg-dim)] transition"
+						>
+							github ↗
+						</a>
 					)}
 				</section>
+			)}
 
-				<!-- CTA Buttons -->
-				{(playableUrl || repoUrl || videoUrl) && (
-					<section class="mb-12 flex flex-wrap gap-3 font-mono text-sm">
-						{playableUrl && (
-							<a
-								href={playableUrl}
-								target="_blank"
-								class="group flex items-center gap-2 border border-[var(--color-accent)] bg-[var(--color-accent-glow)] text-[var(--color-accent)] px-5 py-2.5 rounded hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)] transition"
-							>
-								<span>▶ play_demo</span>
-							</a>
-						)}
-						{videoUrl && (
-							<a
-								href={videoUrl}
-								target="_blank"
-								class="flex items-center gap-2 border border-[var(--color-border-strong)] text-[var(--color-fg)] px-5 py-2.5 rounded hover:border-[var(--color-fg-dim)] transition"
-							>
-								▶ video
-							</a>
-						)}
-						{repoUrl && (
-							<a
-								href={repoUrl}
-								target="_blank"
-								class="flex items-center gap-2 border border-[var(--color-border-strong)] text-[var(--color-fg)] px-5 py-2.5 rounded hover:border-[var(--color-fg-dim)] transition"
-							>
-								github ↗
-							</a>
-						)}
-					</section>
-				)}
-
-				<!-- Case study content -->
-				<div class="prose">
-					<slot />
-				</div>
-
-				<!-- Devlog timeline -->
-				{devlogs.length > 0 && (
-					<section class="mt-16 pt-10 border-t border-[var(--color-border)]">
-						<div class="flex items-end justify-between mb-6">
-							<div>
-								<div class="mono-tag terminal-prompt mb-2">ls ./devlogs</div>
-								<h2 class="text-2xl">Devlogs</h2>
-							</div>
-							<span class="font-mono text-xs text-[var(--color-muted)]">
-								{devlogs.length} {devlogs.length === 1 ? 'entry' : 'entries'}
-							</span>
+			<!-- Main content split: devlog sidebar + case study -->
+			<div class={hasDevlogs ? 'grid grid-cols-1 md:grid-cols-[240px_1fr] gap-10' : ''}>
+				{hasDevlogs && (
+					<aside class="md:sticky md:top-20 md:self-start md:max-h-[calc(100vh-6rem)] md:overflow-y-auto order-2 md:order-1">
+						<div class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-muted)] mb-3 pb-2 border-b border-[var(--color-border)]">
+							devlogs ({devlogs.length})
 						</div>
-						<ul class="divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
+						<ul class="space-y-1">
 							{devlogs.map((d) => (
 								<li>
 									<a
 										href={`/blog/${d.id}/`}
-										class="group grid grid-cols-[auto_1fr_auto] gap-5 py-4 items-baseline hover:bg-[var(--color-bg-elev)] px-3 -mx-3 rounded transition"
+										class="group block py-2 px-3 -mx-3 rounded hover:bg-[var(--color-bg-elev)] transition"
 									>
-										<span class="font-mono text-xs text-[var(--color-accent)] tabular-nums">
-											{d.data.day !== undefined ? `Day ${String(d.data.day).padStart(2, '0')}` : '—'}
-										</span>
-										<div>
-											<h3 class="text-base font-semibold group-hover:text-[var(--color-accent)] transition">
-												{d.data.title}
-											</h3>
-											{d.data.description && (
-												<p class="text-sm text-[var(--color-fg-dim)] mt-1 line-clamp-1">{d.data.description}</p>
-											)}
+										<div class="flex items-baseline gap-2 mb-0.5">
+											<span class="font-mono text-[11px] text-[var(--color-accent)] tabular-nums">
+												{d.data.day !== undefined ? `Day ${String(d.data.day).padStart(2, '0')}` : '—'}
+											</span>
+											<time class="font-mono text-[10px] text-[var(--color-muted)] tabular-nums">
+												<FormattedDate date={d.data.pubDate} />
+											</time>
 										</div>
-										<time class="font-mono text-xs text-[var(--color-muted)] tabular-nums">
-											<FormattedDate date={d.data.pubDate} />
-										</time>
+										<div class="text-sm text-[var(--color-fg-dim)] group-hover:text-[var(--color-accent)] transition line-clamp-2">
+											{d.data.title.replace(/^Day \d+:\s*/, '')}
+										</div>
 									</a>
 								</li>
 							))}
 						</ul>
-					</section>
+					</aside>
 				)}
-			</article>
+
+				<article class="min-w-0 order-1 md:order-2">
+					<div class="prose">
+						<slot />
+					</div>
+				</article>
+			</div>
 		</main>
 		<Footer />
 		<MermaidScript />
