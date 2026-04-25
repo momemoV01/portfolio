@@ -206,19 +206,23 @@ Don't make architectural decisions in PR comments — they get lost.
 
 작아 보이지만 모두 **공개 직전 신뢰 항목**. 1.0의 전제 조건.
 
-## 메모
-
-**왜 .gitignore가 보안인가**
+<aside class="callout callout-note">
+<span class="callout-label">왜 .gitignore가 보안인가</span>
 
 `.env` 같은 거 실수로 commit하면 secret 유출. 한 번 git history에 들어가면 force-push로도 완전 제거 안 됨. 사전 차단이 답.
+</aside>
 
-**왜 dependabot major bump 차단?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 dependabot major bump 차단?</span>
 
 `upload-artifact@v6` ↔ `download-artifact@v7` 같은 페어 의존성. 한 쪽만 bump하면 파이프라인 깨짐. 자동 PR이 시도하면 노이즈. 페어로만 수동 처리.
+</aside>
 
-**왜 SECURITY.md를 그렇게 솔직하게?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 SECURITY.md를 그렇게 솔직하게?</span>
 
 "보호 안 함" 명시가 신뢰. 모든 시나리오 다 보호한다고 약속하면 거짓말. 명확한 한계 = 솔직 + professional.
+</aside>
 
 ## 다음
 

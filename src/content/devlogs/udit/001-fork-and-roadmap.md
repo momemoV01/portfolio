@@ -110,15 +110,17 @@ foundation of this project.
 
 핵심: 각 마일스톤마다 **success criteria**가 검증 가능. "v0.4.0이 끝났다"는 명제가 모호하지 않음.
 
-## 메모
-
-**왜 작은 명세를 미리 다 그리나**
+<aside class="callout callout-note">
+<span class="callout-label">왜 작은 명세를 미리 다 그리나</span>
 
 명세 없이 시작하면 "다음에 뭘 할까"마다 의사결정 비용 발생. 한 번에 다 그려두면 매 커밋이 어디로 가는지 명확 — 메일링 리스트 없이 혼자 작업할 때 특히 중요.
+</aside>
 
-**왜 v1.0이 목표인가**
+<aside class="callout callout-note">
+<span class="callout-label">왜 v1.0이 목표인가</span>
 
 SemVer는 신뢰의 약속. v0.x는 "아직 자유롭게 부숴도 됨" 신호고, v1.0부턴 "내가 이 표면 안 망가뜨릴게" 약속. 외부 사용자(특히 AI 에이전트 시스템)에게 v1.0이 있는 도구는 **계약** 있는 도구.
+</aside>
 
 ## 다음
 

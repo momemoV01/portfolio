@@ -171,15 +171,17 @@ Unity 살아있을 때만 동작. 죽어 있으면 정적 완성만.
 
 설치 자동화는 v0.10.0 (auto-install)에서.
 
-## 메모
-
-**왜 .udit.yaml를 strict 모드로?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 .udit.yaml를 strict 모드로?</span>
 
 타이포가 무성능 fail (silent ignore)이면 사용자가 "왜 적용 안 되지?" 디버깅 시간 30분. **strict로 바로 fail** → 1초 내 알림. UX는 **fail-fast**가 friendlier.
+</aside>
 
-**왜 동적 자동완성에 노력 들이는가?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 동적 자동완성에 노력 들이는가?</span>
 
 자동완성 일하면 도구 신뢰도 ↑. 안 일하면 "이거 만든 사람 신경 안 썼네" 시그널. CLI 도구의 첫인상 ~80%가 TAB 동작 여부.
+</aside>
 
 ## 다음
 

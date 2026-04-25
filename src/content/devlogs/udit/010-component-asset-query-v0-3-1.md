@@ -179,19 +179,21 @@ udit asset references --guid abc123
 
 읽기 표면 거의 완성. **이제 mutation 단계**.
 
-## 메모
-
-**왜 component schema 명령이 있나**
+<aside class="callout callout-note">
+<span class="callout-label">왜 component schema 명령이 있나</span>
 
 스키마 알면 mutation이 안전해짐 — 잘못된 필드 set 시도 전에 검증 가능. AI 에이전트가 schema 한 번 받고 → field 5개 set → 모두 검증된 상태.
+</aside>
 
-**dependencies vs references 비대칭**
+<aside class="callout callout-note">
+<span class="callout-label">dependencies vs references 비대칭</span>
 
 방향 다름:
 - dependencies: A → B (A가 B 끌고 있음)
 - references: B ← A (A가 B를 가리킴) — 역방향 검색
 
 다른 Unity 도구도 이 두 개 분리. 이름이 헷갈리지만 표준 따름.
+</aside>
 
 ## 다음
 

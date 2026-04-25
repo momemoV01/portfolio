@@ -59,7 +59,7 @@ const currentSlug = Astro.url.pathname.match(/\/blog\/([^/]+)/)?.[1];
 			<div class="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-10">
 				<BlogTreeNav posts={navData.posts} currentPostId={currentSlug} client:load />
 
-				<article class="min-w-0 lg:max-w-2xl">
+				<article class="min-w-0 lg:max-w-3xl">
 					<header class="mb-8 pb-6 border-b border-[var(--color-border)]">
 						<h1 class="mb-3 leading-tight">{title}</h1>
 						<p class="text-base text-[var(--color-fg-dim)] leading-relaxed mb-4">{description}</p>

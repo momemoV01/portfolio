@@ -165,15 +165,17 @@ return new ErrorResponse {
 - Don't loop — root cause is usually input error
 ```
 
-## 메모
-
-**왜 코드 재사용 금지가 약속인가**
+<aside class="callout callout-note">
+<span class="callout-label">왜 코드 재사용 금지가 약속인가</span>
 
 `UCI-042`가 한 번 "GameObject not found" 의미였다가 다음 버전에서 "Component not found"로 바뀌면, 그 코드를 보고 자동화 짜둔 사람의 모든 코드 깨짐. AI 에이전트 retry 정책도 무너짐. **번호는 싸지만 신뢰는 비싸다.**
+</aside>
 
-**왜 envelope에 data 넣는가, 그냥 평탄화하지 않고?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 envelope에 data 넣는가, 그냥 평탄화하지 않고?</span>
 
 평탄화 (모든 필드를 top-level에) 하면 명령마다 top-level 필드가 다름 → 파싱 코드가 다 다름. envelope 안에 넣으면 항상 같은 4 필드만 보면 됨. 명령별 데이터는 `data` 안에서 자유.
+</aside>
 
 ## 다음
 

@@ -265,19 +265,23 @@ if (Rejected.Contains(type.Name)) reject;
 
 **Unity 까다로운 타입 거의 다 다룸**. v0.9.x는 안정화 라인. v1.0 진입 준비.
 
-## 메모
-
-**왜 4 슬라이스로 쪼갰나**
+<aside class="callout callout-note">
+<span class="callout-label">왜 4 슬라이스로 쪼갰나</span>
 
 각각 100-200줄 변경 + 테스트 + edge case. 한 PR로 전부면 1000줄 변경 + 검증 어려움. 슬라이스 단위 = 각각 head 안에 들어감.
+</aside>
 
-**왜 v0.7/0.8 건너뛰고 0.9?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 v0.7/0.8 건너뛰고 0.9?</span>
 
 v0.7/0.8은 minor bump 안 하고 패치만 한 시리즈. SemVer는 의미 있는 변화에 minor bump. component-set 직렬화는 큰 변화 → 0.9로 점프 (의도적 신호).
+</aside>
 
-**ManagedReference의 한계**
+<aside class="callout callout-note">
+<span class="callout-label">ManagedReference의 한계</span>
 
 Generic types, recursive types 지원 부분적. 깊은 polymorphic 트리는 미래 슬라이스로. 95% 케이스는 커버.
+</aside>
 
 ## 다음
 

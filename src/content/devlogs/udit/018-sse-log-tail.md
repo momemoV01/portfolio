@@ -164,9 +164,8 @@ udit log tail           # 라이브 follow (Ctrl+C까지)
 
 `list`는 `tail -n` 같은 거. CI에서 "지난 에러 보기" 용.
 
-## 메모
-
-**왜 SSE 표준 그대로 쓰는가**
+<aside class="callout callout-note">
+<span class="callout-label">왜 SSE 표준 그대로 쓰는가</span>
 
 JSON-RPC over WebSocket 같은 거 만들면 클라이언트가 SDK 필요. SSE는 `curl`로도 받을 수 있음 — 디버깅 편함.
 
@@ -175,16 +174,21 @@ curl -N http://localhost:8590/logs/stream
 ```
 
 도구 외부에서도 검증 가능 = 개방성.
+</aside>
 
-**도메인 리로드 시 손실?**
+<aside class="callout callout-note">
+<span class="callout-label">도메인 리로드 시 손실?</span>
 
 리로드 ~1-2초 동안 SSE connection 끊김. 그 사이 로그는 손실 (Unity가 메모리에 저장 안 함). 사용자 한정 수용. Tail 용도라 critical 아님.
 
 영구 로그 원하면 `udit log list --since` 같은 거 미래 추가 (시계열 저장 필요).
+</aside>
 
-**왜 client backoff가 max 30초?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 client backoff가 max 30초?</span>
 
 Domain reload는 보통 수 초. 30초 안에 다시 살아남. 30초 넘게 죽어 있으면 사용자가 알아챘을 시점이라 그냥 30초 간격으로 재시도.
+</aside>
 
 ## 다음
 

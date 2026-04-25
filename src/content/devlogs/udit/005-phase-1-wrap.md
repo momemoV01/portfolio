@@ -142,15 +142,17 @@ usings = append(usings, newOnes...)
 
 기능 동일, 한 줄 짧음. **모든 staticcheck 경고를 0으로 유지하는 게 디폴트**. 한 번 허용하기 시작하면 늘어남.
 
-## 메모
-
-**왜 wrap 단계가 따로 필요한가**
+<aside class="callout callout-note">
+<span class="callout-label">왜 wrap 단계가 따로 필요한가</span>
 
 기능 추가만 계속하면 곁가지가 못 자라. 한 phase 끝마다 docs/test/CI 정리 — 다음 phase의 기반이 됨.
+</aside>
 
-**Korean 정책의 함정**
+<aside class="callout callout-note">
+<span class="callout-label">Korean 정책의 함정</span>
 
 번역하기로 했으면 끝까지 갈아야. 안 그러면 "한국어 사용자는 1.0이 1.5처럼 보임" — 부분적 번역이 무번역보다 나쁠 수 있음. 그래서 README + COMMANDS만 강제 번역, 나머진 선택적.
+</aside>
 
 ## 다음
 

@@ -162,17 +162,19 @@ except Exception:
 
 이걸로 v0.4 mutation 단계 완성. **CRUD + 트랜잭션** = 신뢰 가능한 자동화.
 
-## 메모
-
-**왜 nested transaction 안 하나**
+<aside class="callout callout-note">
+<span class="callout-label">왜 nested transaction 안 하나</span>
 
 Unity Undo는 group이 평탄. nested 묘사하려면 별도 가상 stack 관리 — 복잡도 ↑. 95% 케이스에서 nested 안 필요. 5%는 그냥 분리해서 호출.
+</aside>
 
-**Auto-commit에 시간 제한?**
+<aside class="callout callout-note">
+<span class="callout-label">Auto-commit에 시간 제한?</span>
 
 `udit tx begin` 후 30분 commit 안 하면 자동 rollback? — 안 함. 의도된 long transaction (사용자가 작업 중) 망가짐. 명시적 commit/rollback만.
 
 대신 `udit tx status`로 잊어버린 트랜잭션 발견 가능.
+</aside>
 
 ## 다음
 

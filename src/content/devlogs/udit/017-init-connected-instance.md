@@ -153,15 +153,17 @@ udit watch    # AnotherGame의 .udit.yaml 사용 ✓
 
 CI 환경엔 connected Unity 없음 → cwd / `--config` 명시 fallback.
 
-## 메모
-
-**왜 환경변수가 connected-instance보다 우선?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 환경변수가 connected-instance보다 우선?</span>
 
 CI / Docker 같은 격리 환경에서 명시적 override 필요. 환경변수가 가장 명시적.
+</aside>
 
-**connected-instance를 default보다 우선한 이유**
+<aside class="callout callout-note">
+<span class="callout-label">connected-instance를 default보다 우선한 이유</span>
 
 자동화의 핵심 = "내가 어디 있는지 자동으로 알아내기". cwd는 "사용자가 마지막에 cd 친 곳"이지 "사용자 의도"가 아님. Unity 인스턴스는 의도.
+</aside>
 
 ## 다음
 

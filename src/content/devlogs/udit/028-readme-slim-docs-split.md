@@ -203,17 +203,19 @@ MIT — see [LICENSE](./LICENSE).
 
 선형 읽기 순서 + escape route.
 
-## 메모
-
-**왜 README slim이 어려운가**
+<aside class="callout callout-note">
+<span class="callout-label">왜 README slim이 어려운가</span>
 
 길게 쓰는 게 짧게 쓰는 것보다 쉬움. 매 줄 "여기 들어갈 만큼 중요한가" 자체검열 필요.
 
 판단 기준: **첫 방문자가 30초 안에 "이게 뭐 하는 도구고 나한테 필요한가" 결정 가능해야 함**. 그 이상 정보는 docs/.
+</aside>
 
-**왜 architecture 다이어그램 README에 남겼나**
+<aside class="callout callout-note">
+<span class="callout-label">왜 architecture 다이어그램 README에 남겼나</span>
 
 "how it works"는 신뢰 시그널. 30초 사용자는 안 읽고 지나가지만, 1분 사용자는 읽고 "오 진지하구나" 인상. 작은 다이어그램 = 적은 비용 + 큰 신호.
+</aside>
 
 ## 다음
 

@@ -103,19 +103,21 @@ groups:
 
 이제 두 actions이 같이 minor/patch bump 시 **단일 PR**로 묶임. major는 별도 (위에서 차단).
 
-## 메모
-
-**왜 ignore 대신 group 안 썼나**
+<aside class="callout callout-note">
+<span class="callout-label">왜 ignore 대신 group 안 썼나</span>
 
 ignore는 PR 자체 안 만듦 (조용함). group은 PR 만들지만 묶음. major bump을 일단 전혀 보고 싶지 않으면 ignore가 깔끔.
+</aside>
 
-**왜 자동 머지 안 하나**
+<aside class="callout callout-note">
+<span class="callout-label">왜 자동 머지 안 하나</span>
 
 Dependabot auto-merge 가능. 하지만:
 - 의존성이 deeply 변경 (예: action API 자체 변경)
 - 우리 워크플로우가 구체적인 API 사용 → 호환성 깨질 수 있음
 
 수동 검토가 1분 걸리지만 깨진 CI 30분 디버깅보다 싸다.
+</aside>
 
 ## 다음
 

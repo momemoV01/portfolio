@@ -218,15 +218,17 @@ ROADMAP에 Sprint 3 ✓ 마킹:
 Sprint 3 closed. v1.0 readiness improving.
 ```
 
-## 메모
-
-**왜 SLO가 1초인가**
+<aside class="callout callout-note">
+<span class="callout-label">왜 SLO가 1초인가</span>
 
 UI 반응성 임계값 = 100ms (사용자 즉각 인지). CLI는 배치성 → 1초가 "기다림 인지" 임계값. 1초 < 5초 < 30초 단계에서 1초 안에 들어가면 "빠른 도구" 인상.
+</aside>
 
-**커버리지 % 보다 정성적 갭이 중요**
+<aside class="callout callout-note">
+<span class="callout-label">커버리지 % 보다 정성적 갭이 중요</span>
 
 90% 커버리지 보고도 critical 경로 안 덮였을 수 있음. C2는 의도적으로 "not yet covered" 리스트 만들고 채움. % 보단 **검증 안 된 코드 경로 0**이 목표.
+</aside>
 
 ## 다음
 

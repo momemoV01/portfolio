@@ -172,15 +172,17 @@ Windows / Linux 협업 시 line ending drift 방지:
 
 Windows 개발자가 `.go` 파일 저장 시 자동으로 LF. CI에서 CRLF 들어오면 fail.
 
-## 메모
-
-**왜 D1-D8 + R1-R5로 번호 매겼나**
+<aside class="callout callout-note">
+<span class="callout-label">왜 D1-D8 + R1-R5로 번호 매겼나</span>
 
 추적 가능성. 각 항목이 별도 commit (또는 commit 그룹). 나중에 "v1.0에 들어간 모든 정리"가 명확.
+</aside>
 
-**v1.0 = stable 문장의 무게**
+<aside class="callout callout-note">
+<span class="callout-label">v1.0 = stable 문장의 무게</span>
 
 이 약속 한 번 어기면 모든 신뢰 무너짐. 그래서 1.0 진입은 신중. D-R 시리즈는 그 신중함의 표시.
+</aside>
 
 ## 다음
 

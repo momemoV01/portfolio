@@ -184,17 +184,19 @@ public static object Copy(string fromId, string toId, string type) {
 
 이거로 udit이 단순 query 도구가 아닌 **자동화 도구**가 됨. AI 에이전트 + udit 조합으로 prototype 만들기 가능.
 
-## 메모
-
-**왜 Undo 통합을 강제하나**
+<aside class="callout callout-note">
+<span class="callout-label">왜 Undo 통합을 강제하나</span>
 
 `Object.DestroyImmediate` 그냥 쓰면 사용자가 망친 거 못 되돌림. 자동화의 가장 큰 위험 = 잘못된 변경. Undo 통합으로 **모든 udit 동작이 reversible**.
 
 (예외: `asset delete` 같은 디스크 변경은 Undo 안 됨 — 별도 처리, 트랜잭션 의존)
+</aside>
 
-**왜 Add는 `--field` 같이 받지 않나**
+<aside class="callout callout-note">
+<span class="callout-label">왜 Add는 `--field` 같이 받지 않나</span>
 
 `add`는 컴포넌트 추가까지만. 그 이후 set이 가능. 두 명령 분리하는 게 트랜잭션 합성 (v0.4.2)에서 더 깔끔. "Rigidbody add → mass set → useGravity set"이 한 트랜잭션.
+</aside>
 
 ## 다음
 

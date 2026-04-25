@@ -171,17 +171,19 @@ public class SceneTreeBuilder {
 
 빌드 세팅엔 여러 씬 있을 수 있음. `tree`는 **현재 로드되고 active한 씬** 1개만. 멀티 씬 모드는 별도 명령(`udit scene multi-tree`) 미래 추가.
 
-## 메모
-
-**왜 tree가 핵심인가**
+<aside class="callout callout-note">
+<span class="callout-label">왜 tree가 핵심인가</span>
 
 CLI 도구의 1차 가치는 "현재 상태 보기". `git status`, `kubectl get pods`, `docker ps` 같은 거. udit는 `scene tree` — 한 명령으로 씬 전체 파악.
 
 이게 빠르면 (1초 내) 자동화/탐색 매끄러움. 느리면 매 단계가 답답. **벤치마크 1초**가 의미 있는 이유.
+</aside>
 
-**왜 컴포넌트 이름만 기본?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 컴포넌트 이름만 기본?</span>
 
 10k GO × 평균 5 컴포넌트 × 평균 10 필드 = 500k 필드. JSON 직렬화하면 메가바이트 단위. 기본은 가볍게, 깊이는 옵션으로.
+</aside>
 
 ## 다음
 

@@ -197,19 +197,21 @@ udit asset label --guid abc123 --list
 
 CRUD 거의 완성. 다음 v0.4.2 = transactions (이걸 묶기).
 
-## 메모
-
-**왜 asset:guid prefix를 쓰나**
+<aside class="callout callout-note">
+<span class="callout-label">왜 asset:guid prefix를 쓰나</span>
 
 GUID는 unique하지만 의미 없는 32자 hex. `asset:` 접두사로 "이건 자산 참조"임을 명시 + GUID와 short stable ID(`go:`) 충돌 방지.
 
 미래 확장: `prefab:`, `scene:`, `comp:go:X/Rigidbody` 등.
+</aside>
 
-**Asset delete를 Undo 못 하는 이유**
+<aside class="callout callout-note">
+<span class="callout-label">Asset delete를 Undo 못 하는 이유</span>
 
 Unity의 `AssetDatabase.DeleteAsset` = 디스크 삭제. Editor의 Undo stack은 in-memory state만. 디스크 변경 되돌리려면 trash 시스템 필요 (별도 작업).
 
 현재 정책: `--confirm` 강제 + 미래 trash 옵션 (`--soft-delete`) 검토.
+</aside>
 
 ## 다음
 

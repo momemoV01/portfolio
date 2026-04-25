@@ -116,15 +116,17 @@ Claude Desktop이 Windows Store 버전이면 sandbox 안에서 실행 → 외부
 ### `chore(permissions): relax .claude/settings.json for local-only git ops`
 위 설정에서 `git status`/`git diff` 같은 read-only는 허용. 매번 권한 묻기 피로감.
 
-## 메모
-
-**왜 fix를 한 번에 묶는가**
+<aside class="callout callout-note">
+<span class="callout-label">왜 fix를 한 번에 묶는가</span>
 
 각 버그 따로 PR이면 review/merge에 시간 박리. 4개 같이 묶어서 큰 commit으로. 작은 버그라도 retroactively 동시기록 가능.
+</aside>
 
-**Critical 정의**
+<aside class="callout callout-note">
+<span class="callout-label">Critical 정의</span>
 
 여기서 "critical" = "사용자가 우회할 방법 없음 + 작업 데이터 손실 가능". UI 어색함이나 출력 못생김은 critical 아님.
+</aside>
 
 ## 다음
 

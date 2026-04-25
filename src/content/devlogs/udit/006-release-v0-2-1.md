@@ -67,17 +67,19 @@ v1.0 진입 조건 (ROADMAP 명시):
 - v1.0.0: API stability
 ```
 
-## 메모
-
-**왜 0.2.1인가, 0.2.0이 아니라?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 0.2.1인가, 0.2.0이 아니라?</span>
 
 업스트림이 0.2.x였을 가능성 + Phase 1을 "0.2 라인 안의 patch"로 보고. **클린 0.x 시작은 v0.3.0부터**. 그 전까지는 fork 정착 단계.
+</aside>
 
-**작은 릴리스 자주 하는 이유**
+<aside class="callout callout-note">
+<span class="callout-label">작은 릴리스 자주 하는 이유</span>
 
 각 릴리스는 의사결정의 동결 시점. release: vX.Y.Z 커밋이 있으면 git history에서 "이 시점이 의도된 멈춤" 표시. 사용자한테도 "이 버전부턴 이런 모양" 약속.
 
 작은 릴리스 자주 = **각 시점이 검증 가능**한 단위. v1.0에 모든 실험 누적이 아니라, 실험 → 동결 → 다음 실험 사이클.
+</aside>
 
 ## 다음
 

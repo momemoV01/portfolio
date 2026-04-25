@@ -227,19 +227,23 @@ udit console --help
 
 작은 디테일이지만 사용자가 `--help`에서 `--json` 발견 → 자동화 시도 → udit의 진짜 가치 발견.
 
-## 메모
-
-**왜 ParamCoercion에 합치는가, 그냥 BaseClass 만들지 않고**
+<aside class="callout callout-note">
+<span class="callout-label">왜 ParamCoercion에 합치는가, 그냥 BaseClass 만들지 않고</span>
 
 C# static partial class에 상속 안 됨 (static class 자체가 sealed). 헬퍼는 별도 static class에 두고 호출이 정답. + ParamCoercion이 이미 다른 헬퍼 모은 곳.
+</aside>
 
-**왜 CultureInfo.InvariantCulture?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 CultureInfo.InvariantCulture?</span>
 
 독일어 / 프랑스어 locale은 소수점 구분자가 `,`. `1,5` = 1.5 (DE). udit는 항상 `.` 사용해야 일관. invariant culture 강제.
+</aside>
 
-**리팩토링은 새 기능 0 — 그래도 v1.0 전 필수**
+<aside class="callout callout-note">
+<span class="callout-label">리팩토링은 새 기능 0 — 그래도 v1.0 전 필수</span>
 
 코드 청결도 = 유지보수 비용. v1.0 약속에 "API 안정"만 들어가는 거 같지만, 사실 **유지보수 가능한 코드** 약속도 포함. PR 리뷰가 가능하고 새 기여자가 onboard 가능한 코드.
+</aside>
 
 ## 다음
 

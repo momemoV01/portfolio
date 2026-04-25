@@ -158,19 +158,21 @@ func ReplaceAtomically(currentBin, newBin string) error {
 
 복잡도 ↑이지만 supply chain 공격 방어. v1.0엔 안 들어감, 1.x 후속.
 
-## 메모
-
-**왜 작은 변경 (1 커밋)이 release 가치가 있나**
+<aside class="callout callout-note">
+<span class="callout-label">왜 작은 변경 (1 커밋)이 release 가치가 있나</span>
 
 자동 업데이트는 사용자 머신에 자기 자신 덮어씀. 이 한 줄 (`if !checksumMatch return error`)이 **잘못된 코드 실행 차단**의 마지막 라인. 
 
 가장 작은 코드, 가장 큰 책임.
+</aside>
 
-**왜 atomic replacement 신경?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 atomic replacement 신경?</span>
 
 검증 실패 → 부분 교체 → 새 바이너리 깨짐 + 기존 잃음 = 사용자 더 이상 udit 사용 불가. 망가진 도구를 도구로 못 고침.
 
 `rename(2)`는 POSIX atomic. Windows에선 `MoveFileEx(MOVEFILE_REPLACE_EXISTING)` 비슷하게 atomic. Go의 `os.Rename`이 둘 다 적절히 사용.
+</aside>
 
 ## 다음
 

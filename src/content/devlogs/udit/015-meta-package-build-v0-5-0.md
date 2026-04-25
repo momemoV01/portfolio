@@ -204,19 +204,23 @@ udit build targets
 
 **프로젝트 lifecycle 관리 가능 시점**. 코딩, 테스트, 패키지 관리, 빌드 모두 udit으로.
 
-## 메모
-
-**왜 .meta GUID separation이 release-worthy?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 .meta GUID separation이 release-worthy?</span>
 
 작아 보이지만 **공존성**의 문제. 누군가 unity-cli + udit 둘 다 시도하면 좌절. fork 독립성은 협상 불가.
+</aside>
 
-**Build의 timeout**
+<aside class="callout callout-note">
+<span class="callout-label">Build의 timeout</span>
 
 빌드는 길다 (5-30분). HTTP 기본 timeout으론 부족. udit CLI 측 타임아웃 기본 120초 → build 명령 한정 600초로 연장. 추후 SSE로 progress 보내는 계획 (v1.x follow-up).
+</aside>
 
-**왜 Addressables도 처음부터?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 Addressables도 처음부터?</span>
 
 큰 프로젝트는 거의 Addressables 사용. 별개로 다루면 사용자 마찰. 같이 넣음.
+</aside>
 
 ## 다음
 

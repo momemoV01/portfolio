@@ -212,17 +212,19 @@ toolchain go1.25.0
 
 CI와 로컬 toolchain 일치 → "내 컴퓨터에선 빌드되는데 CI에서 안 되는" 케이스 0.
 
-## 메모
-
-**왜 run에 의존성 그래프 안 넣나**
+<aside class="callout callout-note">
+<span class="callout-label">왜 run에 의존성 그래프 안 넣나</span>
 
 설계 결정. CI/Make 같은 도구가 더 잘함. udit `run`은 "한 줄 단축키" 또는 "짧은 시퀀스" 정도. 복잡해지기 시작하면 Make로 옮기시오.
 
 작은 것 작게 유지 = 좋은 도구의 표시.
+</aside>
 
-**watch ad-hoc vs config**
+<aside class="callout callout-note">
+<span class="callout-label">watch ad-hoc vs config</span>
 
 config는 반복 쓸 때, ad-hoc는 일회성. 둘 다 필요한데 둘 다 한 명령에서 — 옵션이 중복되지 않게 신경.
+</aside>
 
 ## 다음
 

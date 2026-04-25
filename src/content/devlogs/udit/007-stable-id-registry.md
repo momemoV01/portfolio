@@ -129,17 +129,19 @@ public void RebuildAfterReload() {
 
 v0.3.0의 모든 후속 기능이 이 위에 얹힘.
 
-## 메모
-
-**왜 8자 hex인가**
+<aside class="callout callout-note">
+<span class="callout-label">왜 8자 hex인가</span>
 
 - 너무 짧으면 충돌 (4자 hex = 65k 슬롯, 큰 씬에서 부족)
 - 너무 길면 사람이 못 외움 (UUID = 32자, 손으로 못 침)
 - 8자 hex = 4 billion 슬롯, 한 세션 내 충돌 사실상 0
+</aside>
 
-**왜 prefix `go:`?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 prefix `go:`?</span>
 
 다른 ID 시스템과 미래 충돌 회피. 곧 `asset:xxxx`, `prefab:xxxx`, `comp:xxxx` 도입 예정. prefix 없으면 모호함.
+</aside>
 
 ## 다음
 

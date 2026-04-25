@@ -206,19 +206,21 @@ Phase 1 wrap에서 staticcheck S1011 한 줄 픽스했고, 이번엔 누적된 e
 
 CI 통합 가능 시점. **udit이 dev tooling 풀스택**으로 들어감.
 
-## 메모
-
-**왜 JUnit XML?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 JUnit XML?</span>
 
 표준이라서. JUnit, NUnit, MSTest 등 다 JUnit format 출력 가능. CI 시스템들이 JUnit 시각화 지원 (실패 테스트 자동 표시 등).
 
 내가 새 포맷 만들 이유 없음.
+</aside>
 
-**왜 preflight 필요한가**
+<aside class="callout callout-note">
+<span class="callout-label">왜 preflight 필요한가</span>
 
 빌드는 비싸. 5분 빌드 후 "씬 누락" 알게 되면 5분 손실. 30초 preflight로 사전 차단 가능.
 
 또 CI에서 PR마다 preflight 돌리면, push 직후 5초 안에 bad config 잡음.
+</aside>
 
 ## 다음
 

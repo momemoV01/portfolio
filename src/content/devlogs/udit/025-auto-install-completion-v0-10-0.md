@@ -140,9 +140,8 @@ Unity 살아있을 때만 동작. 죽어 있으면 정적 완성만.
 
 이게 마지막 minor 전. 다음은 v1.0.
 
-## 메모
-
-**왜 자동완성에 시간 들이는가**
+<aside class="callout callout-note">
+<span class="callout-label">왜 자동완성에 시간 들이는가</span>
 
 CLI 첫 1분 사용자 경험:
 1. 설치 (10초)
@@ -152,12 +151,15 @@ CLI 첫 1분 사용자 경험:
 4b. 안 동작 → "별 거 없네" → 신뢰 -1
 
 이 4번에서 갈림. 자동 설치가 default 동작 → 모든 사용자가 4a 경험.
+</aside>
 
-**왜 `--print-only` 같은 옵션도?**
+<aside class="callout callout-note">
+<span class="callout-label">왜 `--print-only` 같은 옵션도?</span>
 
 custom shell setups (oh-my-zsh, prezto, fish-shell prompt 등)에서 자체 관리하고 싶은 사용자. 강제 설치 대신 path만 출력 → 사용자가 자기 시스템에 통합.
 
 도구가 사용자 시스템을 존중. 이게 적은 마찰.
+</aside>
 
 ## 다음
 

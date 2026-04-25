@@ -289,19 +289,23 @@ graceful shutdown — 진행 중 콜백 완료 대기, 큐 비우고 종료.
 
 자동화 루프의 진짜 시작. 셰이더 작업 / 핫리로드 워크플로우 즉시 가능.
 
-## 메모
-
-**왜 슬라이스로 쪼갰나**
+<aside class="callout callout-note">
+<span class="callout-label">왜 슬라이스로 쪼갰나</span>
 
 watch는 4 영역 전부 섬세함. 한 PR에 다 넣으면 리뷰 불가능. 슬라이스 단위 = 각각 검증 가능, 회복 가능.
+</aside>
 
-**왜 fsnotify 직접 쓰는가, OS-specific 안 쓰고**
+<aside class="callout callout-note">
+<span class="callout-label">왜 fsnotify 직접 쓰는가, OS-specific 안 쓰고</span>
 
 fsnotify는 Linux inotify, macOS FSEvents, Windows ReadDirectoryChangesW 추상화. 직접 쓰면 3 플랫폼 코드 따로. 많이 검증된 라이브러리 사용이 합리.
+</aside>
 
-**Circuit breaker 30초가 적절한가?**
+<aside class="callout callout-note">
+<span class="callout-label">Circuit breaker 30초가 적절한가?</span>
 
 Trial. 3번 fail은 진짜 깨졌을 가능성, 그 시점에 사용자도 알아챘을 거. 30초면 사용자가 콜백 고치고 reset할 시간. 길면 답답, 짧으면 다시 폭주. 30초 = 합리적 mid.
+</aside>
 
 ## 다음
 
