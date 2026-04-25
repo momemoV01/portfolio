@@ -59,26 +59,29 @@ const currentSlug = Astro.url.pathname.match(/\/blog\/([^/]+)/)?.[1];
 			<div class="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-10">
 				<BlogTreeNav posts={navData.posts} currentPostId={currentSlug} client:load />
 
-				<article class="min-w-0 lg:max-w-3xl">
-					<header class="mb-10">
-						<div class="flex items-center gap-3 font-mono text-xs text-[var(--color-muted)] mb-4">
+				<article class="min-w-0 lg:max-w-2xl">
+					<header class="mb-8 pb-6 border-b border-[var(--color-border)]">
+						<h1 class="mb-3 leading-tight">{title}</h1>
+						<p class="text-base text-[var(--color-fg-dim)] leading-relaxed mb-4">{description}</p>
+						<div class="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] text-[var(--color-muted)]">
 							{category && <span class="text-[var(--color-accent)] uppercase">[{category}]</span>}
-							<time>
-								<FormattedDate date={pubDate} />
-							</time>
+							<span class="text-[var(--color-border-strong)]">·</span>
+							<time><FormattedDate date={pubDate} /></time>
 							{updatedDate && (
-								<span class="italic">· updated <FormattedDate date={updatedDate} /></span>
+								<>
+									<span class="text-[var(--color-border-strong)]">·</span>
+									<span class="italic">updated <FormattedDate date={updatedDate} /></span>
+								</>
+							)}
+							{tags && tags.length > 0 && (
+								<>
+									<span class="text-[var(--color-border-strong)]">·</span>
+									{tags.map((tag) => (
+										<span>#{tag}</span>
+									))}
+								</>
 							)}
 						</div>
-						<h1 class="mb-3 leading-tight">{title}</h1>
-						<p class="text-base text-[var(--color-fg-dim)] leading-relaxed">{description}</p>
-						{tags && tags.length > 0 && (
-							<div class="mt-5 flex flex-wrap gap-2 font-mono text-xs">
-								{tags.map((tag) => (
-									<span class="text-[var(--color-muted)]">#{tag}</span>
-								))}
-							</div>
-						)}
 					</header>
 
 					{heroImage && (

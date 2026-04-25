@@ -1,8 +1,10 @@
+@import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 @import "tailwindcss";
 
 @theme {
 	--color-bg: #0a0a0a;
 	--color-bg-elev: #111113;
+	--color-bg-deep: #050507;
 	--color-fg: #e4e4e7;
 	--color-fg-dim: #a1a1aa;
 	--color-muted: #71717a;
@@ -13,9 +15,9 @@
 	--color-accent-glow: rgba(163, 230, 53, 0.15);
 	--color-danger: #f97316;
 
-	--font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+	--font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
 	--font-mono: ui-monospace, 'SFMono-Regular', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
-	--font-display: ui-sans-serif, system-ui, -apple-system, sans-serif;
+	--font-display: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 @layer base {
@@ -24,6 +26,8 @@
 		color: var(--color-fg);
 		font-family: var(--font-sans);
 		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		text-rendering: optimizeLegibility;
 	}
 
 	body {
@@ -32,6 +36,8 @@
 			radial-gradient(circle at 20% 10%, var(--color-accent-glow) 0%, transparent 40%),
 			linear-gradient(to bottom, var(--color-bg) 0%, var(--color-bg) 100%);
 		background-attachment: fixed;
+		word-break: keep-all;            /* Korean-friendly line breaking */
+		overflow-wrap: break-word;
 	}
 
 	body::before {
@@ -54,21 +60,16 @@
 	h1, h2, h3, h4, h5, h6 {
 		font-family: var(--font-display);
 		font-weight: 700;
-		letter-spacing: -0.02em;
-		line-height: 1.1;
+		letter-spacing: -0.015em;
+		line-height: 1.2;
 		color: var(--color-fg);
+		word-break: keep-all;
 	}
 
 	h1 { font-size: clamp(1.875rem, 3vw, 2.5rem); }
 	h2 { font-size: clamp(1.375rem, 2vw, 1.75rem); }
 	h3 { font-size: 1.25rem; }
 	h4 { font-size: 1.125rem; }
-
-	.prose h2 { margin-top: 2.25rem; margin-bottom: 0.75rem; }
-	.prose h3 { margin-top: 1.75rem; margin-bottom: 0.5rem; }
-	.prose p { margin-bottom: 1rem; line-height: 1.75; }
-	.prose ul, .prose ol { margin-bottom: 1rem; padding-left: 1.5rem; }
-	.prose li { margin-bottom: 0.375rem; line-height: 1.6; }
 
 	a {
 		color: var(--color-accent);
@@ -80,8 +81,7 @@
 	code {
 		font-family: var(--font-mono);
 		font-size: 0.875em;
-		background: var(--color-bg-elev);
-		border: 1px solid var(--color-border);
+		background: rgba(255, 255, 255, 0.06);
 		padding: 0.125rem 0.375rem;
 		border-radius: 4px;
 		color: var(--color-accent);
@@ -89,12 +89,14 @@
 
 	pre {
 		font-family: var(--font-mono);
-		background: var(--color-bg-elev);
-		border: 1px solid var(--color-border);
-		padding: 1.25rem;
-		border-radius: 8px;
+		background: var(--color-bg-deep);
+		border: 1px solid rgba(255, 255, 255, 0.06);
+		padding: 1rem 1.25rem;
+		border-radius: 6px;
 		overflow-x: auto;
-		line-height: 1.6;
+		line-height: 1.65;
+		font-size: 0.8125rem;          /* 13px — smaller than body */
+		margin: 1.25rem 0;
 	}
 	pre > code {
 		all: unset;
@@ -112,7 +114,7 @@
 	hr {
 		border: 0;
 		border-top: 1px solid var(--color-border);
-		margin: 2rem 0;
+		margin: 2.5rem 0;
 	}
 
 	img {
@@ -129,16 +131,92 @@
 @layer components {
 	.prose {
 		color: var(--color-fg);
-		line-height: 1.75;
-		font-size: 1.05rem;
+		font-size: 1.0625rem;            /* 17px — Korean reading sweet spot */
+		line-height: 1.85;
+		word-break: keep-all;
+		overflow-wrap: break-word;
 	}
-	.prose p { margin: 0 0 1.25rem; }
-	.prose h2 { margin: 2.5rem 0 1rem; }
-	.prose h3 { margin: 2rem 0 0.75rem; }
-	.prose ul, .prose ol { margin: 0 0 1.25rem; padding-left: 1.5rem; }
-	.prose li { margin-bottom: 0.25rem; }
-	.prose strong { color: var(--color-fg); font-weight: 600; }
-	.prose a { border-bottom: 1px solid currentColor; }
+	.prose p {
+		margin: 0 0 1.25rem;
+	}
+	.prose h2 {
+		margin: 2.25rem 0 0.75rem;
+		letter-spacing: 0;               /* reset for body headings */
+		word-break: keep-all;
+	}
+	.prose h3 {
+		margin: 1.75rem 0 0.5rem;
+		letter-spacing: 0;
+		word-break: keep-all;
+		font-weight: 600;
+	}
+	.prose h4 {
+		margin: 1.25rem 0 0.5rem;
+		letter-spacing: 0;
+		font-weight: 600;
+	}
+	.prose ul, .prose ol {
+		margin: 0 0 1.25rem;
+		padding-left: 1.5rem;
+	}
+	.prose li {
+		margin-bottom: 0.5rem;
+		line-height: 1.75;
+	}
+	.prose li > p {
+		margin-bottom: 0.5rem;
+	}
+	.prose strong {
+		color: var(--color-fg);
+		font-weight: 600;
+	}
+	.prose a {
+		border-bottom: 1px solid currentColor;
+	}
+	.prose table {
+		width: 100%;
+		margin: 1.5rem 0;
+		font-size: 0.9375rem;
+		border-collapse: collapse;
+	}
+	.prose th, .prose td {
+		padding: 0.5rem 0.75rem;
+		border: 1px solid var(--color-border);
+		text-align: left;
+	}
+	.prose th {
+		background: var(--color-bg-elev);
+		font-weight: 600;
+	}
+
+	/* Callouts — usable as raw HTML in .md or as <Callout> in .mdx */
+	.callout {
+		margin: 1.5rem 0;
+		padding: 0.875rem 1.125rem;
+		border-left: 3px solid var(--color-accent);
+		background: var(--color-bg-elev);
+		border-radius: 0 6px 6px 0;
+		font-size: 0.9375rem;
+		line-height: 1.7;
+	}
+	.callout > :first-child { margin-top: 0; }
+	.callout > :last-child { margin-bottom: 0; }
+	.callout-info { border-left-color: var(--color-accent); }
+	.callout-note { border-left-color: var(--color-fg-dim); }
+	.callout-warn { border-left-color: var(--color-danger); }
+	.callout-decision {
+		border-left-color: var(--color-accent);
+		background: var(--color-accent-glow);
+	}
+	.callout-label {
+		font-family: var(--font-mono);
+		font-size: 0.6875rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--color-muted);
+		margin-bottom: 0.375rem;
+		display: block;
+	}
 
 	.terminal-prompt::before {
 		content: '$ ';
@@ -232,12 +310,14 @@ html {
 }
 
 /* Thinner scrollbar for sticky sidebars */
-aside::-webkit-scrollbar {
+aside::-webkit-scrollbar,
+nav::-webkit-scrollbar {
 	width: 6px;
 	height: 6px;
 }
 
-aside::-webkit-scrollbar-thumb {
+aside::-webkit-scrollbar-thumb,
+nav::-webkit-scrollbar-thumb {
 	border-width: 1px;
 }
 

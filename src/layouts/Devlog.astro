@@ -94,45 +94,49 @@ const seqStr = String(seq).padStart(3, '0');
 					client:load
 				/>
 
-				<article class="min-w-0 lg:max-w-3xl">
-					<div class="flex flex-wrap items-center gap-2 font-mono text-xs text-[var(--color-muted)] mb-6">
+				<article class="min-w-0 lg:max-w-2xl">
+					<!-- Compact breadcrumb -->
+					<div class="flex flex-wrap items-center gap-2 font-mono text-[11px] text-[var(--color-muted)] mb-4">
 						<a href={isPrivate ? '/private' : '/projects'} class="hover:text-[var(--color-accent)]">
 							{isPrivate ? '../private' : '../projects'}
 						</a>
 						<span>/</span>
 						<a href={projectLink} class="hover:text-[var(--color-accent)]">{projectEntry.data.title}</a>
 						<span>/</span>
-						<span class="text-[var(--color-fg)]">{seqStr}</span>
+						<span class="text-[var(--color-fg-dim)]">{seqStr}</span>
 					</div>
 
-					<header class="mb-10">
-						<div class="flex flex-wrap items-center gap-3 font-mono text-xs text-[var(--color-muted)] mb-4">
-							<span class="text-[var(--color-accent)] font-semibold tabular-nums">
-								#{seqStr}
-							</span>
+					<!-- Title block: H1 first, then unified one-line meta -->
+					<header class="mb-8 pb-6 border-b border-[var(--color-border)]">
+						<h1 class="mb-3 leading-tight">{title}</h1>
+						<p class="text-base text-[var(--color-fg-dim)] leading-relaxed mb-4">{description}</p>
+
+						<!-- Single meta line: seq · type · date · tags -->
+						<div class="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] text-[var(--color-muted)]">
+							<span class="text-[var(--color-accent)] tabular-nums">#{seqStr}</span>
 							{type && (
-								<span
-									class={`text-[10px] uppercase tracking-wider px-2 py-0.5 rounded border ${typeClass}`}
-								>
-									{type}
-								</span>
+								<>
+									<span class="text-[var(--color-border-strong)]">·</span>
+									<span class={`uppercase tracking-wider ${typeClass.split(' ')[0]}`}>{type}</span>
+								</>
 							)}
-							<time>
-								<FormattedDate date={pubDate} />
-							</time>
+							<span class="text-[var(--color-border-strong)]">·</span>
+							<time><FormattedDate date={pubDate} /></time>
 							{updatedDate && (
-								<span class="italic">· updated <FormattedDate date={updatedDate} /></span>
+								<>
+									<span class="text-[var(--color-border-strong)]">·</span>
+									<span class="italic">updated <FormattedDate date={updatedDate} /></span>
+								</>
+							)}
+							{tags && tags.length > 0 && (
+								<>
+									<span class="text-[var(--color-border-strong)]">·</span>
+									{tags.map((tag) => (
+										<span>#{tag}</span>
+									))}
+								</>
 							)}
 						</div>
-						<h1 class="mb-3 leading-tight">{title}</h1>
-						<p class="text-base text-[var(--color-fg-dim)] leading-relaxed">{description}</p>
-						{tags && tags.length > 0 && (
-							<div class="mt-5 flex flex-wrap gap-2 font-mono text-xs">
-								{tags.map((tag) => (
-									<span class="text-[var(--color-muted)]">#{tag}</span>
-								))}
-							</div>
-						)}
 					</header>
 
 					{heroImage && (

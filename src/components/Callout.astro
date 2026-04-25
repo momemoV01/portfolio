@@ -1,0 +1,20 @@
+---
+type Props = {
+	type?: 'info' | 'note' | 'warn' | 'decision';
+	label?: string;
+};
+
+const { type = 'info', label } = Astro.props;
+const defaultLabels: Record<string, string> = {
+	info: 'note',
+	note: 'memo',
+	warn: 'warning',
+	decision: 'decision',
+};
+const displayLabel = label ?? defaultLabels[type];
+---
+
+<aside class={`callout callout-${type}`}>
+	{displayLabel && <span class="callout-label">{displayLabel}</span>}
+	<slot />
+</aside>
