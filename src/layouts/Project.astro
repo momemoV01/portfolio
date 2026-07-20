@@ -1,14 +1,21 @@
 ---
 import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Comments from '../components/Comments.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import MermaidScript from '../components/MermaidScript.astro';
-import ProjectTreeNav from '../components/ProjectTreeNav';
-import { getProjectNavData } from '../lib/getProjectNavData';
+import RecordCard from '../components/RecordCard.astro';
+import { isPublic } from '../lib/contentFilters';
+import {
+	devlogTypeLabel,
+	labelFrom,
+	projectStatusLabel,
+	resourceStatusLabel,
+	resourceTypeLabel,
+} from '../lib/labels';
 
 type ProjectData = CollectionEntry<'projects'>['data'];
 
@@ -36,7 +43,13 @@ const {
 	isPrivate = false,
 } = Astro.props;
 
-const navData = await getProjectNavData();
+const relatedResources = (await getCollection('resources', ({ data }) => isPublic(data)))
+	.filter((resource) => resource.data.relatedProjects.includes(projectId))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const projectDevlogs = (await getCollection('devlogs', ({ data }) => isPublic(data)))
+	.filter((devlog) => devlog.id.startsWith(`${projectId}/`))
+	.sort((a, b) => a.data.seq - b.data.seq);
 ---
 
 <html lang="ko">
@@ -46,133 +59,131 @@ const navData = await getProjectNavData();
 	</head>
 	<body>
 		<Header />
-		<main class="wide-page mx-auto max-w-[1400px] px-6 py-12">
+		<main class="mx-auto max-w-6xl px-6 py-12">
 			{isPrivate && (
-				<div class="mb-6 px-4 py-3 rounded-lg border border-[var(--color-accent)]/40 bg-[var(--color-accent-glow)] font-mono text-xs flex items-center justify-between gap-3 flex-wrap">
-					<div class="flex items-center gap-2 text-[var(--color-accent)]">
-						<span>📝</span>
-						<span class="font-semibold">DRAFT — only you can see this</span>
-					</div>
-					<a
-						href="/private/"
-						class="text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] transition"
-					>
-						← back to private
-					</a>
+				<div class="mb-6 rounded-lg border border-[var(--color-danger)]/40 bg-[var(--color-danger)]/10 px-4 py-3 text-xs font-bold text-[var(--color-danger)]">
+					비공개 프로젝트 · production 공개 대상 아님
 				</div>
 			)}
 
-			<div class="flex items-center gap-3 font-mono text-xs text-[var(--color-muted)] mb-6">
-				<a href={isPrivate ? '/private' : '/projects'} class="hover:text-[var(--color-accent)]">
-					{isPrivate ? '../private' : '../projects'}
-				</a>
-				<span>/</span>
-				<span class="text-[var(--color-fg)]">{title}</span>
-			</div>
+			<a href={isPrivate ? '/private' : '/projects'} class="mb-8 inline-flex text-sm font-bold text-[var(--color-muted)] hover:text-[var(--color-accent)]">
+				← {isPrivate ? '비공개 기록' : '프로젝트'}
+			</a>
 
-			<div class="mb-10 border border-[var(--color-border)] rounded-lg overflow-hidden">
-				<Image
-					width={1400}
-					height={788}
-					src={coverImage}
-					alt={title}
-					class="w-full h-auto max-h-[420px] object-cover aspect-video"
-				/>
-			</div>
-
-			<div class="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-10">
-				<ProjectTreeNav
-					projects={navData.projects}
-					devlogs={navData.devlogs}
-					currentProjectId={projectId}
-					client:load
-				/>
-
-				<div class="min-w-0 lg:max-w-4xl">
-					<header class="mb-10">
-						<div class="flex flex-wrap items-center gap-2 mb-4 font-mono text-xs">
-							<span class="text-[var(--color-accent)]">[{engine}]</span>
-							<span class="text-[var(--color-muted)]">·</span>
-							<span class="uppercase tracking-wider text-[var(--color-muted)]">{status}</span>
-							<span class="text-[var(--color-muted)]">·</span>
-							<time class="text-[var(--color-muted)]"><FormattedDate date={pubDate} /></time>
-							{updatedDate && <span class="text-[var(--color-muted)] italic">· updated <FormattedDate date={updatedDate} /></span>}
-						</div>
-						<h1 class="mb-3 leading-tight">{title}</h1>
-						<p class="text-lg text-[var(--color-fg-dim)] leading-relaxed">{description}</p>
-					</header>
-
-					<section class="mb-8 border border-[var(--color-border)] rounded-lg">
-						<div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-[var(--color-border)]">
-							<div class="p-5">
-								<div class="font-mono text-xs text-[var(--color-muted)] uppercase tracking-wider mb-2">Role</div>
-								<div class="text-sm">{role}</div>
-							</div>
-							<div class="p-5">
-								<div class="font-mono text-xs text-[var(--color-muted)] uppercase tracking-wider mb-2">Duration</div>
-								<div class="text-sm">{duration || '—'}</div>
-							</div>
-							<div class="p-5">
-								<div class="font-mono text-xs text-[var(--color-muted)] uppercase tracking-wider mb-2">Engine</div>
-								<div class="text-sm">{engine}</div>
-							</div>
-							<div class="p-5">
-								<div class="font-mono text-xs text-[var(--color-muted)] uppercase tracking-wider mb-2">Platform</div>
-								<div class="text-sm">{platforms.length > 0 ? platforms.join(', ') : '—'}</div>
-							</div>
-						</div>
-						{tech.length > 0 && (
-							<div class="border-t border-[var(--color-border)] p-5">
-								<div class="font-mono text-xs text-[var(--color-muted)] uppercase tracking-wider mb-3">Tech Stack</div>
-								<div class="flex flex-wrap gap-2">
-									{tech.map((t) => (
-										<span class="font-mono text-xs px-2.5 py-1 border border-[var(--color-border)] rounded bg-[var(--color-bg-elev)]">
-											{t}
-										</span>
-									))}
-								</div>
-							</div>
+			<section class="grid gap-8 lg:grid-cols-[minmax(0,0.88fr)_minmax(320px,1.12fr)] lg:items-end">
+				<div>
+					<div class="mb-4 flex flex-wrap items-center gap-2">
+						<span class="atlas-label">{engine}</span>
+						<span class="atlas-label">{labelFrom(projectStatusLabel, status)}</span>
+						<time class="text-xs font-bold text-[var(--color-muted)]"><FormattedDate date={pubDate} /></time>
+						{updatedDate && (
+							<span class="text-xs font-bold text-[var(--color-muted)]">수정 <FormattedDate date={updatedDate} /></span>
 						)}
-					</section>
-
+					</div>
+					<h1 class="mb-4">{title}</h1>
+					<p class="text-lg leading-relaxed text-[var(--color-fg-dim)]">{description}</p>
 					{(playableUrl || repoUrl || videoUrl) && (
-						<section class="mb-12 flex flex-wrap gap-3 font-mono text-sm">
-							{playableUrl && (
-								<a
-									href={playableUrl}
-									target="_blank"
-									class="group flex items-center gap-2 border border-[var(--color-accent)] bg-[var(--color-accent-glow)] text-[var(--color-accent)] px-5 py-2.5 rounded hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)] transition"
-								>
-									<span>▶ play_demo</span>
-								</a>
-							)}
-							{videoUrl && (
-								<a
-									href={videoUrl}
-									target="_blank"
-									class="flex items-center gap-2 border border-[var(--color-border-strong)] text-[var(--color-fg)] px-5 py-2.5 rounded hover:border-[var(--color-fg-dim)] transition"
-								>
-									▶ video
-								</a>
-							)}
-							{repoUrl && (
-								<a
-									href={repoUrl}
-									target="_blank"
-									class="flex items-center gap-2 border border-[var(--color-border-strong)] text-[var(--color-fg)] px-5 py-2.5 rounded hover:border-[var(--color-fg-dim)] transition"
-								>
-									github ↗
-								</a>
-							)}
+						<div class="mt-7 flex flex-wrap gap-4 text-sm">
+							{playableUrl && <a href={playableUrl} target="_blank" class="atlas-link">데모 열기 →</a>}
+							{videoUrl && <a href={videoUrl} target="_blank" class="atlas-link">영상 보기 →</a>}
+							{repoUrl && <a href={repoUrl} target="_blank" class="atlas-link">저장소 보기 →</a>}
+						</div>
+					)}
+				</div>
+				<div class="overflow-hidden rounded-lg border border-[var(--color-border)] bg-[rgba(255,250,240,0.7)]">
+					<Image
+						width={1200}
+						height={675}
+						src={coverImage}
+						alt={title}
+						class="aspect-[16/9] w-full object-cover"
+					/>
+				</div>
+			</section>
+
+			<section class="my-10 grid border-y border-[var(--color-border)] md:grid-cols-4">
+				<div class="border-b border-[var(--color-border)] py-5 md:border-b-0 md:border-r md:pr-5">
+					<div class="mb-1 text-xs font-bold text-[var(--color-muted)]">역할</div>
+					<div class="text-sm font-semibold">{role}</div>
+				</div>
+				<div class="border-b border-[var(--color-border)] py-5 md:border-b-0 md:border-r md:px-5">
+					<div class="mb-1 text-xs font-bold text-[var(--color-muted)]">기간</div>
+					<div class="text-sm font-semibold">{duration || '기록 예정'}</div>
+				</div>
+				<div class="border-b border-[var(--color-border)] py-5 md:border-b-0 md:border-r md:px-5">
+					<div class="mb-1 text-xs font-bold text-[var(--color-muted)]">엔진</div>
+					<div class="text-sm font-semibold">{engine}</div>
+				</div>
+				<div class="py-5 md:pl-5">
+					<div class="mb-1 text-xs font-bold text-[var(--color-muted)]">플랫폼</div>
+					<div class="text-sm font-semibold">{platforms.length > 0 ? platforms.join(', ') : '기록 예정'}</div>
+				</div>
+			</section>
+
+			<div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px]">
+				<article class="min-w-0">
+					{tech.length > 0 && (
+						<div class="mb-8 flex flex-wrap gap-2">
+							{tech.map((item) => (
+								<span class="rounded-full border border-[var(--color-border)] bg-[rgba(255,250,240,0.7)] px-3 py-1 text-xs font-semibold text-[var(--color-muted)]">
+									{item}
+								</span>
+							))}
+						</div>
+					)}
+
+					<div class="prose">
+						<slot />
+					</div>
+
+					{projectDevlogs.length > 0 && (
+						<section class="mt-12 border-t border-[var(--color-border)] pt-8">
+							<h2 class="mb-5 text-2xl">작업 기록</h2>
+							<div class="grid gap-3">
+								{projectDevlogs.map((devlog) => {
+									const [, slug] = devlog.id.split('/');
+									return (
+										<a href={`/projects/${projectId}/${slug}/`} class="group block border-b border-[var(--color-border)] pb-4">
+											<div class="mb-1 text-xs font-bold text-[var(--color-muted)]">
+												{String(devlog.data.seq).padStart(3, '0')}번째 기록
+												{devlog.data.type && ` · ${labelFrom(devlogTypeLabel, devlog.data.type)}`}
+											</div>
+											<h3 class="mb-1 text-lg group-hover:text-[var(--color-accent)]">{devlog.data.title}</h3>
+											<p class="line-clamp-2 text-sm leading-relaxed text-[var(--color-fg-dim)]">{devlog.data.description}</p>
+										</a>
+									);
+								})}
+							</div>
 						</section>
 					)}
 
-					<article class="prose">
-						<slot />
-					</article>
-
 					{!isPrivate && <Comments />}
-				</div>
+				</article>
+
+				<aside class="min-w-0">
+					{relatedResources.length > 0 && (
+						<section>
+							<div class="mb-5 border-b border-[var(--color-border)] pb-3">
+								<h2 class="text-2xl">사용한 재료</h2>
+								<p class="mt-2 text-sm leading-relaxed text-[var(--color-fg-dim)]">이 프로젝트와 연결된 플러그인, 에셋, 참고 자료입니다.</p>
+							</div>
+							<div class="grid gap-4">
+								{relatedResources.map((resource) => (
+									<RecordCard
+										href={`/resources/${resource.id}/`}
+										title={resource.data.title}
+										description={resource.data.description}
+										pubDate={resource.data.pubDate}
+										meta={`${labelFrom(resourceTypeLabel, resource.data.resourceType)} · ${labelFrom(resourceStatusLabel, resource.data.status)}`}
+										tags={resource.data.tags}
+										image={resource.data.coverImage}
+										accent={resource.data.status === 'using'}
+									/>
+								))}
+							</div>
+						</section>
+					)}
+				</aside>
 			</div>
 		</main>
 		<Footer />

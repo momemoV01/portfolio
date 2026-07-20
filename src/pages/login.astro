@@ -1,0 +1,73 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import {
+	DOCS_LOGIN_CSRF_COOKIE,
+	createCsrfToken,
+	getAuthConfig,
+	getCsrfCookieOptions,
+	safeReturnTo,
+} from '../lib/auth';
+
+const error = Astro.url.searchParams.get('error');
+const returnTo = safeReturnTo(Astro.url.searchParams.get('returnTo'));
+const isConfigured = Boolean(getAuthConfig());
+let csrfToken = Astro.cookies.get(DOCS_LOGIN_CSRF_COOKIE)?.value;
+
+if (!csrfToken) {
+	csrfToken = createCsrfToken();
+	Astro.cookies.set(
+		DOCS_LOGIN_CSRF_COOKIE,
+		csrfToken,
+		getCsrfCookieOptions(Astro.url.protocol === 'https:'),
+	);
+}
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={`Private Access · ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+	</head>
+	<body class="auth-body">
+		<main class="auth-shell">
+			<section class="auth-card" aria-labelledby="access-title">
+				<div class="auth-mark" aria-hidden="true">RP</div>
+				<p class="eyebrow">Recovery Protocol / Internal</p>
+				<h1 id="access-title">Developer Docs</h1>
+				<p class="auth-description">API 계약, 기능 흐름과 개발 도구는 승인된 사용자만 열람할 수 있습니다.</p>
+
+				{!isConfigured && (
+					<div class="notice notice-danger" role="alert">
+						서버의 문서 접근 비밀값이 아직 설정되지 않았습니다. `.env.example`의 두 항목을 배포 환경에 등록해 주세요.
+					</div>
+				)}
+
+				{error === 'invalid' && (
+					<div class="notice notice-danger" role="alert">비밀번호가 일치하지 않습니다.</div>
+				)}
+
+				{error === 'expired' && (
+					<div class="notice notice-danger" role="alert">로그인 요청이 만료되었습니다. 다시 입력해 주세요.</div>
+				)}
+
+				<form method="post" action="/api/login" class="auth-form">
+					<input type="hidden" name="returnTo" value={returnTo} />
+					<input type="hidden" name="csrfToken" value={csrfToken} />
+					<label for="password">Access password</label>
+					<input
+						id="password"
+						name="password"
+						type="password"
+						autocomplete="current-password"
+						required
+						autofocus
+						disabled={!isConfigured}
+					/>
+					<button type="submit" disabled={!isConfigured}>문서 열기</button>
+				</form>
+				<p class="auth-footnote">12시간 동안 이 브라우저에서만 유지됩니다.</p>
+			</section>
+		</main>
+	</body>
+</html>

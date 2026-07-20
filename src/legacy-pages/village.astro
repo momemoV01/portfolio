@@ -1,0 +1,34 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Village from '../components/village/Village.tsx';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={`village · ${SITE_TITLE}`} description="A small village. Walk to the bulletin board to read about momemo." />
+		<style is:global>
+			html, body {
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				background: #050507;
+			}
+			body::before { display: none !important; }
+			#village-root {
+				position: fixed;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="village-root">
+			<Village client:only="react" />
+		</div>
+	</body>
+</html>

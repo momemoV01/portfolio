@@ -1,5 +1,2 @@
 User-agent: *
-Allow: /
-Disallow: /private/
-
-Sitemap: https://site-seven-delta-10.vercel.app/sitemap-index.xml
+Disallow: /

@@ -1,18 +1,11 @@
 ---
-import { AUTHOR_NAME, AUTHOR_SOCIAL } from '../consts';
 const today = new Date();
 ---
 
-<footer class="mt-24 border-t border-[var(--color-border)]">
-	<div class="mx-auto max-w-6xl px-6 py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 font-mono text-sm text-[var(--color-muted)]">
-		<div>
-			<div>© {today.getFullYear()} {AUTHOR_NAME}</div>
-			<div class="mt-1 text-xs">built with astro · deployed on vercel</div>
-		</div>
-		<div class="flex gap-6">
-			<a href={AUTHOR_SOCIAL.github} target="_blank" class="hover:text-[var(--color-accent)] transition">github</a>
-			<a href={`mailto:${AUTHOR_SOCIAL.email}`} class="hover:text-[var(--color-accent)] transition">email</a>
-			<a href="/rss.xml" class="hover:text-[var(--color-accent)] transition">rss</a>
-		</div>
+<footer class="site-footer">
+	<div>
+		<strong>Recovery Protocol Developer Docs</strong>
+		<span>Canonical source: RP/Docs/docs</span>
 	</div>
+	<p>© {today.getFullYear()} · Private project documentation</p>
 </footer>

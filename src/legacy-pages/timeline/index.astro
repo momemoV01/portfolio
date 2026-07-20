@@ -1,0 +1,31 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import TimelineList from '../../components/TimelineList.astro';
+import { SITE_TITLE } from '../../consts';
+import { getTimelineItems } from '../../lib/timeline';
+
+const items = await getTimelineItems();
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={`시간선 · ${SITE_TITLE}`} description="프로젝트와 생활 기록을 날짜순으로 모아둔 시간선" />
+	</head>
+	<body>
+		<Header />
+		<main class="mx-auto max-w-4xl px-5 py-14 sm:px-6">
+			<SectionHeader
+				kicker="All records"
+				title="시간선"
+				description="프로젝트, 작업 일지, 생활 기록, 도구함, 여행을 월별로 펼쳐 봅니다."
+				level="h1"
+			/>
+			<TimelineList items={items} />
+		</main>
+		<Footer />
+	</body>
+</html>

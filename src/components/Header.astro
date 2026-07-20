@@ -1,47 +1,72 @@
 ---
-import { SITE_TITLE } from '../consts';
-import HeaderLink from './HeaderLink.astro';
+import { SITE_SHORT_TITLE } from '../consts';
+import {
+	DOCS_LOGOUT_CSRF_COOKIE,
+	createCsrfToken,
+	getCsrfCookieOptions,
+} from '../lib/auth';
+import type { RPDocEntry } from '../lib/rpDocs';
+
+interface Props {
+	activeSection?: RPDocEntry['data']['section'];
+	activePage?: 'roadmap' | 'archive';
+}
+
+const { activeSection, activePage } = Astro.props;
+let logoutCsrfToken = Astro.cookies.get(DOCS_LOGOUT_CSRF_COOKIE)?.value;
+
+if (!logoutCsrfToken) {
+	logoutCsrfToken = createCsrfToken();
+	Astro.cookies.set(
+		DOCS_LOGOUT_CSRF_COOKIE,
+		logoutCsrfToken,
+		getCsrfCookieOptions(Astro.url.protocol === 'https:'),
+	);
+}
+
+const links = [
+	{ href: '/roadmap', label: 'Roadmap', page: 'roadmap' },
+	{ href: '/docs/reference/flows/Session_Room_Lifecycle', label: 'Feature Flows', section: 'flow' },
+	{ href: '/docs/reference/Online_Types_Reference', label: 'API Reference', section: 'api' },
+	{ href: '/docs/guides/Debug_Command_Reference', label: 'Guides', section: 'guide' },
+	{ href: '/archive', label: '자료실', page: 'archive' },
+] as const;
 ---
 
-<header
-	class="border-b border-[var(--color-border)] backdrop-blur-md sticky top-0 z-50"
-	style="background: rgba(10, 10, 10, 0.8);"
->
-	<nav class="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
-		<a href="/" class="font-mono text-sm text-[var(--color-fg)] hover:opacity-70 transition">
-			<span class="text-[var(--color-accent)]">$</span> {SITE_TITLE.toLowerCase().replace(/\s+/g, '-')}
-			<span class="text-[var(--color-accent)]">_</span>
+<header class="site-header">
+	<nav class="site-header-inner" aria-label="주 내비게이션">
+		<a href="/" class="brand-link" aria-label="RP Developer Docs 홈">
+			<span class="brand-mark">RP</span>
+			<span class="brand-copy">
+				<strong>{SITE_SHORT_TITLE}</strong>
+				<small>Internal Developer Portal</small>
+			</span>
 		</a>
-		<div class="flex items-center gap-1 font-mono text-sm">
-			<HeaderLink href="/projects">projects</HeaderLink>
-			<HeaderLink href="/blog">blog</HeaderLink>
-			<HeaderLink href="/about">about</HeaderLink>
-			<button
-				id="width-toggle"
-				type="button"
-				aria-label="toggle width mode"
-				title="Toggle wide / narrow layout"
-				class="ml-2 px-2 py-1.5 rounded border border-[var(--color-border)] text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)] transition text-xs"
-			>
-				<span class="when-narrow">⟷ wide</span>
-				<span class="when-wide">][ narrow</span>
-			</button>
+
+		<div class="primary-nav">
+			{links.map((link) => {
+				const isActive = ('section' in link && activeSection === link.section) || ('page' in link && activePage === link.page);
+				return (
+				<a
+					href={link.href}
+					class:list={['nav-link', isActive && 'is-active']}
+					aria-current={isActive ? 'page' : undefined}
+				>
+					{link.label}
+				</a>
+			)})}
+		</div>
+
+		<div class="header-actions">
+			<form action="/search" method="get" class="header-search" role="search">
+				<label class="sr-only" for="global-doc-search">문서 검색</label>
+				<input id="global-doc-search" name="q" type="search" placeholder="Search symbols…" autocomplete="off" />
+				<span aria-hidden="true">⌕</span>
+			</form>
+			<form action="/api/logout" method="post">
+				<input type="hidden" name="csrfToken" value={logoutCsrfToken} />
+				<button class="quiet-button" type="submit">Lock</button>
+			</form>
 		</div>
 	</nav>
 </header>
-
-<script is:inline>
-	document.getElementById('width-toggle')?.addEventListener('click', () => {
-		const html = document.documentElement;
-		const isWide = html.getAttribute('data-width') === 'wide';
-		try {
-			if (isWide) {
-				html.removeAttribute('data-width');
-				localStorage.removeItem('width-mode');
-			} else {
-				html.setAttribute('data-width', 'wide');
-				localStorage.setItem('width-mode', 'wide');
-			}
-		} catch (e) {}
-	});
-</script>

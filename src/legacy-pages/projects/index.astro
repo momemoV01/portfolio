@@ -1,0 +1,75 @@
+---
+import { getImage } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import ProjectsExplorer, {
+	type DevlogItem,
+	type ProjectItem,
+} from '../../components/ProjectsExplorer';
+import { SITE_TITLE } from '../../consts';
+import { isPublic } from '../../lib/contentFilters';
+
+const projects = (await getCollection('projects', ({ data }) => isPublic(data))).sort(
+	(a, b) => Number(b.data.pinned) - Number(a.data.pinned) || Number(b.data.featured) - Number(a.data.featured) || b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const projectsData: ProjectItem[] = await Promise.all(
+	projects.map(async (p) => {
+		const img = await getImage({
+			src: p.data.coverImage,
+			width: 800,
+			height: 450,
+			format: 'webp',
+		});
+		return {
+			id: p.id,
+			title: p.data.title,
+			description: p.data.description,
+			engine: p.data.engine,
+			status: p.data.status,
+			platforms: p.data.platforms,
+			tech: p.data.tech,
+			featured: p.data.featured,
+			pubDate: p.data.pubDate.toISOString(),
+			coverImage: img.src,
+		};
+	}),
+);
+
+const devlogs = await getCollection('devlogs', ({ data }) => isPublic(data));
+const devlogsData: DevlogItem[] = devlogs.map((d) => {
+	const [project, slug] = d.id.split('/');
+	return {
+		id: d.id,
+		title: d.data.title,
+		seq: d.data.seq,
+		slug: slug ?? d.id,
+		pubDate: d.data.pubDate.toISOString(),
+		project,
+	};
+});
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={`프로젝트 · ${SITE_TITLE}`} description="결과물과 작업 기록을 함께 보관하는 프로젝트 케이스 파일" />
+	</head>
+	<body>
+		<Header />
+		<main class="mx-auto max-w-6xl px-6 py-14">
+			<header class="mb-12 max-w-3xl">
+				<div class="mono-tag mb-4">Project case files</div>
+				<h1 class="mb-4">프로젝트</h1>
+				<p class="text-lg leading-relaxed text-[var(--color-fg-dim)]">
+					완성된 결과뿐 아니라 만들면서 남긴 작업 기록, 사용한 도구, 판단의 흔적까지 함께 묶어두는 공간입니다.
+				</p>
+			</header>
+
+			<ProjectsExplorer projects={projectsData} devlogs={devlogsData} client:load />
+		</main>
+		<Footer />
+	</body>
+</html>

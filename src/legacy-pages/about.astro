@@ -1,0 +1,112 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { AUTHOR_FULL_NAME, AUTHOR_NAME, AUTHOR_SOCIAL, SITE_TITLE } from '../consts';
+
+const stack = [
+	{ label: '엔진', items: ['Unity 6', 'Unreal 5'] },
+	{ label: '언어', items: ['C#', 'HLSL', 'TypeScript'] },
+	{ label: '렌더링', items: ['URP', 'Shader Graph', 'Niagara'] },
+	{ label: '도구', items: ['DOTween', 'UniTask', 'Addressables', 'Git'] },
+];
+
+const focus = [
+	{ title: '실시간 렌더링', desc: '셰이더, 후처리, 라이팅처럼 화면의 감각을 만드는 일' },
+	{ title: '프로젝트 기록', desc: '결과물뿐 아니라 판단, 실패, 반복의 흐름까지 남기는 일' },
+	{ title: '개인 아카이브', desc: '일상, 여행, 루틴, 도구를 같은 시간선에 정리하는 일' },
+	{ title: '작업 자동화', desc: '반복을 줄이고 다음 작업을 가볍게 만드는 작은 도구 만들기' },
+];
+
+const places = [
+	{ href: '/projects', label: '프로젝트', desc: '게임과 프로토타입, 작업 과정' },
+	{ href: '/timeline', label: '시간선', desc: '사이트 전체 기록의 흐름' },
+	{ href: '/journal', label: '짧은 기록', desc: '생각, 생활, 작업 루틴' },
+	{ href: '/resources', label: '도구함', desc: '플러그인, 에셋, 참고 자료' },
+];
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={`소개 · ${SITE_TITLE}`} description="개인 아틀라스를 만든 사람과 기록 방식" />
+	</head>
+	<body>
+		<Header />
+		<main class="mx-auto max-w-4xl px-6 py-16">
+			<section class="mb-20">
+				<div class="mono-tag mb-6">About this atlas</div>
+				<h1 class="mb-8 leading-tight">
+					{AUTHOR_FULL_NAME}
+				</h1>
+				<p class="max-w-2xl text-xl leading-relaxed text-[var(--color-fg-dim)]">
+					온라인에서는 <span class="font-bold text-[var(--color-accent)]">@{AUTHOR_NAME}</span>로 기록합니다.
+					Unity와 Unreal로 게임을 만들고, 그 과정에서 생긴 선택과 생활의 조각을 같은 공간에 남깁니다.
+				</p>
+			</section>
+
+			<section class="mb-16 grid gap-8 border-y border-[var(--color-border)] py-10 md:grid-cols-[160px_minmax(0,1fr)]">
+				<h2 class="text-2xl">요즘</h2>
+				<div class="space-y-4">
+					<p class="text-lg leading-relaxed text-[var(--color-fg)]">
+						게임 프로토타입, 렌더링 실험, 프로젝트 문서화, 개인 루틴을 한 시간선에 묶는 중입니다.
+					</p>
+					<p class="leading-relaxed text-[var(--color-fg-dim)]">
+						포트폴리오가 결과를 보여주는 곳이라면, 이 아틀라스는 그 결과가 만들어진 날들을 보관하는 곳입니다.
+					</p>
+				</div>
+			</section>
+
+			<section class="mb-16 grid gap-8 md:grid-cols-[160px_minmax(0,1fr)]">
+				<h2 class="text-2xl">다루는 것</h2>
+				<div class="grid gap-5 sm:grid-cols-2">
+					{focus.map((item) => (
+						<div class="border-b border-[var(--color-border)] pb-5">
+							<h3 class="mb-2">{item.title}</h3>
+							<p class="text-sm leading-relaxed text-[var(--color-fg-dim)]">{item.desc}</p>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<section class="mb-16 grid gap-8 md:grid-cols-[160px_minmax(0,1fr)]">
+				<h2 class="text-2xl">작업 재료</h2>
+				<div class="space-y-5">
+					{stack.map((group) => (
+						<div class="grid gap-3 sm:grid-cols-[96px_minmax(0,1fr)] sm:items-start">
+							<div class="text-sm font-bold text-[var(--color-muted)]">{group.label}</div>
+							<div class="flex flex-wrap gap-2">
+								{group.items.map((item) => (
+									<span class="rounded-full border border-[var(--color-border)] bg-[rgba(255,250,240,0.7)] px-3 py-1 text-xs font-semibold text-[var(--color-muted)]">
+										{item}
+									</span>
+								))}
+							</div>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<section class="mb-16 grid gap-8 md:grid-cols-[160px_minmax(0,1fr)]">
+				<h2 class="text-2xl">둘러보기</h2>
+				<div class="grid gap-3 sm:grid-cols-2">
+					{places.map((place) => (
+						<a href={place.href} class="record-card group">
+							<h3 class="mb-2 text-lg group-hover:text-[var(--color-accent)]">{place.label}</h3>
+							<p class="text-sm leading-relaxed text-[var(--color-fg-dim)]">{place.desc}</p>
+						</a>
+					))}
+				</div>
+			</section>
+
+			<section class="grid gap-8 md:grid-cols-[160px_minmax(0,1fr)]">
+				<h2 class="text-2xl">연락</h2>
+				<div class="flex flex-wrap gap-4 text-sm">
+					<a href={`mailto:${AUTHOR_SOCIAL.email}`} class="atlas-link">email →</a>
+					<a href={AUTHOR_SOCIAL.github} target="_blank" rel="noopener noreferrer" class="atlas-link">github →</a>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

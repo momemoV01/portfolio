@@ -26,4 +26,7 @@ pnpm-debug.log*
 # obsidian vault settings (personal)
 .obsidian/
 
+# local assistant launch settings
+.claude/
+
 .vercel

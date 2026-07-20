@@ -1,0 +1,25 @@
+---
+import { SITE_TITLE } from '../consts';
+import HeaderLink from './HeaderLink.astro';
+---
+
+<header
+	class="sticky top-0 z-50 border-b border-[var(--color-border)] backdrop-blur-md"
+	style="background: color-mix(in srgb, var(--color-bg) 84%, transparent);"
+>
+	<nav class="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+		<a href="/" class="inline-flex items-baseline gap-2 text-[var(--color-fg)] transition hover:text-[var(--color-accent)]">
+			<span class="h-2.5 w-2.5 rounded-full bg-[var(--color-accent)]"></span>
+			<span class="whitespace-nowrap text-base font-extrabold">{SITE_TITLE}</span>
+			<span class="hidden text-sm font-semibold text-[var(--color-muted)] sm:inline">Personal Atlas</span>
+		</a>
+		<div class="flex min-w-0 flex-wrap items-center gap-1.5">
+			<HeaderLink href="/timeline">시간선</HeaderLink>
+			<HeaderLink href="/projects">프로젝트</HeaderLink>
+			<HeaderLink href="/journal">기록</HeaderLink>
+			<HeaderLink href="/resources">도구함</HeaderLink>
+			<HeaderLink href="/travel">여행</HeaderLink>
+			<HeaderLink href="/about">소개</HeaderLink>
+		</div>
+	</nav>
+</header>

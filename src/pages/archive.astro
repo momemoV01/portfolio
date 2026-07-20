@@ -1,0 +1,147 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import MermaidScript from '../components/MermaidScript.astro';
+import { isPublic } from '../lib/contentFilters';
+import {
+	devlogTypeLabel,
+	journalCategoryLabel,
+	labelFrom,
+	projectStatusLabel,
+	resourceStatusLabel,
+	resourceTypeLabel,
+} from '../lib/labels';
+
+const projects = await Promise.all(
+	(await getCollection('projects', ({ data }) => isPublic(data)))
+		.sort((a, b) => Number(b.data.pinned) - Number(a.data.pinned) || Number(b.data.featured) - Number(a.data.featured) || b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+		.map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+);
+const devlogs = await Promise.all(
+	(await getCollection('devlogs', ({ data }) => isPublic(data)))
+		.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf() || b.data.seq - a.data.seq)
+		.map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+);
+const resources = await Promise.all(
+	(await getCollection('resources', ({ data }) => isPublic(data)))
+		.sort((a, b) => Number(b.data.pinned) - Number(a.data.pinned) || b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+		.map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+);
+const journal = await Promise.all(
+	(await getCollection('journal', ({ data }) => isPublic(data)))
+		.sort((a, b) => Number(b.data.pinned) - Number(a.data.pinned) || b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+		.map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+);
+
+const anchorFor = (kind: string, id: string) => `${kind}-${id}`.replace(/[^a-zA-Z0-9_-]+/g, '-');
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title="자료실 · RP Developer Docs" description="이전 웹사이트의 프로젝트, 작업 기록, 도구와 메모를 보존한 내부 자료실." />
+	</head>
+	<body>
+		<Header activePage="archive" />
+		<main class="archive-main">
+			<header class="archive-hero">
+				<div>
+					<p class="eyebrow">Recovered records / internal archive</p>
+					<h1>자료실</h1>
+					<p>Developer Docs 전환 전에 사용하던 프로젝트·작업 기록·도구 자료는 삭제되지 않았습니다. 기존 Markdown 원본을 이곳에서 다시 열람할 수 있습니다.</p>
+				</div>
+				<div class="archive-stats" aria-label="자료실 항목 수">
+					<span><strong>{projects.length}</strong> Projects</span>
+					<span><strong>{devlogs.length}</strong> Devlogs</span>
+					<span><strong>{resources.length}</strong> Resources</span>
+					<span><strong>{journal.length}</strong> Notes</span>
+				</div>
+			</header>
+
+			<nav class="archive-jump" aria-label="자료실 분류">
+				<a href="#projects">프로젝트</a>
+				<a href="#devlogs">작업 기록</a>
+				<a href="#resources">도구·에셋</a>
+				<a href="#notes">메모</a>
+			</nav>
+
+			<section id="projects" class="archive-section">
+				<header><div><p class="eyebrow">Project case files</p><h2>과거 프로젝트</h2></div><span>{String(projects.length).padStart(2, '0')}</span></header>
+				<div class="archive-record-grid">
+					{projects.map(({ entry, Content }) => (
+						<details id={anchorFor('project', entry.id)} class="archive-record">
+							<summary>
+								<div class="archive-record-meta"><code>{entry.data.engine}</code><span>{labelFrom(projectStatusLabel, entry.data.status)}</span><time><FormattedDate date={entry.data.pubDate} /></time></div>
+								<h3>{entry.data.title}</h3>
+								<p>{entry.data.description}</p>
+								<div class="archive-tags">{entry.data.tech.map((tag) => <span>{tag}</span>)}</div>
+								<b>상세 펼치기 <i aria-hidden="true">＋</i></b>
+							</summary>
+							<div class="archive-record-body prose"><Content /></div>
+						</details>
+					))}
+				</div>
+			</section>
+
+			<section id="devlogs" class="archive-section">
+				<header><div><p class="eyebrow">Development history</p><h2>작업 기록</h2></div><span>{String(devlogs.length).padStart(2, '0')}</span></header>
+				<div class="archive-record-grid is-compact">
+					{devlogs.map(({ entry, Content }) => {
+						const [projectId] = entry.id.split('/');
+						return (
+							<details id={anchorFor('devlog', entry.id)} class="archive-record">
+								<summary>
+									<div class="archive-record-meta"><code>{projectId}</code><span>{entry.data.type ? labelFrom(devlogTypeLabel, entry.data.type) : '작업 기록'}</span><time><FormattedDate date={entry.data.pubDate} /></time></div>
+									<h3>{String(entry.data.seq).padStart(3, '0')} · {entry.data.title}</h3>
+									<p>{entry.data.description}</p>
+									<b>상세 펼치기 <i aria-hidden="true">＋</i></b>
+								</summary>
+								<div class="archive-record-body prose"><Content /></div>
+							</details>
+						);
+					})}
+				</div>
+			</section>
+
+			<section id="resources" class="archive-section">
+				<header><div><p class="eyebrow">Tools & materials</p><h2>도구와 에셋</h2></div><span>{String(resources.length).padStart(2, '0')}</span></header>
+				<div class="archive-record-grid is-compact">
+					{resources.map(({ entry, Content }) => (
+						<details id={anchorFor('resource', entry.id)} class="archive-record">
+							<summary>
+								<div class="archive-record-meta"><code>{labelFrom(resourceTypeLabel, entry.data.resourceType)}</code><span>{labelFrom(resourceStatusLabel, entry.data.status)}</span><time><FormattedDate date={entry.data.pubDate} /></time></div>
+								<h3>{entry.data.title}</h3>
+								<p>{entry.data.description}</p>
+								<div class="archive-tags">{entry.data.tags.map((tag) => <span>{tag}</span>)}</div>
+								<b>상세 펼치기 <i aria-hidden="true">＋</i></b>
+							</summary>
+							<div class="archive-record-body prose"><Content /></div>
+						</details>
+					))}
+				</div>
+			</section>
+
+			<section id="notes" class="archive-section">
+				<header><div><p class="eyebrow">Notes</p><h2>이전 메모</h2></div><span>{String(journal.length).padStart(2, '0')}</span></header>
+				<div class="archive-record-grid is-compact">
+					{journal.map(({ entry, Content }) => (
+						<details id={anchorFor('note', entry.id)} class="archive-record">
+							<summary>
+								<div class="archive-record-meta"><code>{labelFrom(journalCategoryLabel, entry.data.category)}</code><time><FormattedDate date={entry.data.pubDate} /></time></div>
+								<h3>{entry.data.title}</h3>
+								<p>{entry.data.description}</p>
+								<b>상세 펼치기 <i aria-hidden="true">＋</i></b>
+							</summary>
+							<div class="archive-record-body prose"><Content /></div>
+						</details>
+					))}
+				</div>
+			</section>
+		</main>
+		<Footer />
+		<MermaidScript />
+	</body>
+</html>

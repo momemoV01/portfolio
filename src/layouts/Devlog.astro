@@ -7,8 +7,8 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import MermaidScript from '../components/MermaidScript.astro';
-import ProjectTreeNav from '../components/ProjectTreeNav';
-import { getProjectNavData } from '../lib/getProjectNavData';
+import MetaPill from '../components/MetaPill.astro';
+import { devlogTypeLabel, labelFrom } from '../lib/labels';
 
 type DevlogData = CollectionEntry<'devlogs'>['data'];
 type ProjectEntry = CollectionEntry<'projects'>;
@@ -31,33 +31,18 @@ const {
 	type,
 	commits,
 	tags,
-	devlogId,
 	projectEntry,
 	prevDevlog,
 	nextDevlog,
 	isPrivate = false,
 } = Astro.props;
 
-const navData = await getProjectNavData();
-
-const projectLink = projectEntry.data.draft
+const projectLink = isPrivate
 	? `/private/projects/${projectEntry.id}/`
 	: `/projects/${projectEntry.id}/`;
 
-const linkPrefix = isPrivate ? '/private' : '';
-
-const TYPE_COLOR: Record<string, string> = {
-	feat: 'text-[var(--color-accent)] border-[var(--color-accent)]/40 bg-[var(--color-accent-glow)]',
-	fix: 'text-blue-300 border-blue-400/40 bg-blue-500/10',
-	refactor: 'text-purple-300 border-purple-400/40 bg-purple-500/10',
-	docs: 'text-zinc-300 border-zinc-500/40 bg-zinc-500/10',
-	ci: 'text-orange-300 border-orange-400/40 bg-orange-500/10',
-	security: 'text-red-300 border-red-400/40 bg-red-500/10',
-	release: 'text-emerald-300 border-emerald-400/40 bg-emerald-500/10',
-	planning: 'text-cyan-300 border-cyan-400/40 bg-cyan-500/10',
-	test: 'text-yellow-300 border-yellow-400/40 bg-yellow-500/10',
-};
-const typeClass = type ? TYPE_COLOR[type] || '' : '';
+const devlogHref = (devlog: { project: string; slug: string }) =>
+	isPrivate ? `/private/devlogs/${devlog.project}/${devlog.slug}/` : `/projects/${devlog.project}/${devlog.slug}/`;
 
 const repoUrl = projectEntry.data.repoUrl;
 const seqStr = String(seq).padStart(3, '0');
@@ -70,169 +55,101 @@ const seqStr = String(seq).padStart(3, '0');
 	</head>
 	<body>
 		<Header />
-		<main class="wide-page mx-auto max-w-[1400px] px-6 py-12">
+		<main class="mx-auto max-w-3xl px-6 py-12">
 			{isPrivate && (
-				<div class="mb-6 px-4 py-3 rounded-lg border border-[var(--color-accent)]/40 bg-[var(--color-accent-glow)] font-mono text-xs flex items-center justify-between gap-3 flex-wrap">
-					<div class="flex items-center gap-2 text-[var(--color-accent)]">
-						<span>📝</span>
-						<span class="font-semibold">DRAFT — only you can see this</span>
-					</div>
-					<a
-						href="/private/"
-						class="text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] transition"
-					>
-						← back to private
-					</a>
+				<div class="mb-6 rounded-lg border border-[var(--color-danger)]/40 bg-[var(--color-danger)]/10 px-4 py-3 text-xs font-bold text-[var(--color-danger)]">
+					비공개 작업 일지 · production 공개 대상 아님
 				</div>
 			)}
 
-			<div class="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-10">
-				<ProjectTreeNav
-					projects={navData.projects}
-					devlogs={navData.devlogs}
-					currentDevlogId={devlogId}
-					client:load
-				/>
+			<a href={projectLink} class="mb-8 inline-flex text-sm font-bold text-[var(--color-muted)] hover:text-[var(--color-accent)]">
+				← {projectEntry.data.title}
+			</a>
 
-				<article class="min-w-0 lg:max-w-3xl">
-					<!-- Compact breadcrumb -->
-					<div class="flex flex-wrap items-center gap-2 font-mono text-[11px] text-[var(--color-muted)] mb-4">
-						<a href={isPrivate ? '/private' : '/projects'} class="hover:text-[var(--color-accent)]">
-							{isPrivate ? '../private' : '../projects'}
-						</a>
-						<span>/</span>
-						<a href={projectLink} class="hover:text-[var(--color-accent)]">{projectEntry.data.title}</a>
-						<span>/</span>
-						<span class="text-[var(--color-fg-dim)]">{seqStr}</span>
+			<article>
+				<header class="mb-8 border-b border-[var(--color-border)] pb-8">
+					<div class="mb-4 flex flex-wrap items-center gap-2">
+						<MetaPill label={`${seqStr}번째 기록`} tone="accent" />
+						{type && <MetaPill label={labelFrom(devlogTypeLabel, type)} tone="slate" />}
+						<time class="text-xs font-bold text-[var(--color-muted)]"><FormattedDate date={pubDate} /></time>
+						{updatedDate && (
+							<span class="text-xs font-bold text-[var(--color-muted)]">수정 <FormattedDate date={updatedDate} /></span>
+						)}
 					</div>
-
-					<!-- Title block: H1 first, then unified one-line meta -->
-					<header class="mb-8 pb-6 border-b border-[var(--color-border)]">
-						<h1 class="mb-3 leading-tight">{title}</h1>
-						<p class="text-base text-[var(--color-fg-dim)] leading-relaxed mb-4">{description}</p>
-
-						<!-- Single meta line: seq · type · date · tags -->
-						<div class="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] text-[var(--color-muted)]">
-							<span class="text-[var(--color-accent)] tabular-nums">#{seqStr}</span>
-							{type && (
-								<>
-									<span class="text-[var(--color-border-strong)]">·</span>
-									<span class={`uppercase tracking-wider ${typeClass.split(' ')[0]}`}>{type}</span>
-								</>
-							)}
-							<span class="text-[var(--color-border-strong)]">·</span>
-							<time><FormattedDate date={pubDate} /></time>
-							{updatedDate && (
-								<>
-									<span class="text-[var(--color-border-strong)]">·</span>
-									<span class="italic">updated <FormattedDate date={updatedDate} /></span>
-								</>
-							)}
-							{tags && tags.length > 0 && (
-								<>
-									<span class="text-[var(--color-border-strong)]">·</span>
-									{tags.map((tag) => (
-										<span>#{tag}</span>
-									))}
-								</>
-							)}
-						</div>
-					</header>
-
-					{heroImage && (
-						<div class="mb-10">
-							<Image
-								width={1020}
-								height={510}
-								src={heroImage}
-								alt=""
-								class="w-full rounded-lg border border-[var(--color-border)]"
-							/>
+					<h1 class="mb-4 leading-tight">{title}</h1>
+					<p class="text-lg leading-relaxed text-[var(--color-fg-dim)]">{description}</p>
+					{tags && tags.length > 0 && (
+						<div class="mt-5 flex flex-wrap gap-2">
+							{tags.map((tag) => <span class="text-xs font-semibold text-[var(--color-muted)]">#{tag}</span>)}
 						</div>
 					)}
+				</header>
 
-					<div class="prose">
-						<slot />
-					</div>
+				{heroImage && (
+					<Image
+						width={1020}
+						height={574}
+						src={heroImage}
+						alt=""
+						class="mb-10 aspect-video w-full rounded-lg border border-[var(--color-border)] object-cover"
+					/>
+				)}
 
-					{commits && commits.length > 0 && (
-						<section class="mt-12 pt-6 border-t border-[var(--color-border)]">
-							<div class="font-mono text-[10px] uppercase tracking-wider text-[var(--color-muted)] mb-3">
-								related commits ({commits.length})
-							</div>
-							<ul class="space-y-1.5 font-mono text-xs">
-								{commits.map((sha) => (
-									repoUrl ? (
-										<li>
-											<a
-												href={`${repoUrl}/commit/${sha}`}
-												target="_blank"
-												rel="noopener noreferrer"
-												class="inline-flex items-center gap-2 text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] transition"
-											>
-												<span class="text-[var(--color-accent)]">●</span>
-												<span class="tabular-nums">{sha.slice(0, 7)}</span>
-												<span class="text-[var(--color-muted)]">↗</span>
-											</a>
-										</li>
+				<div class="prose">
+					<slot />
+				</div>
+
+				{commits && commits.length > 0 && (
+					<section class="mt-12 border-t border-[var(--color-border)] pt-6">
+						<h2 class="mb-4 text-2xl">관련 커밋</h2>
+						<ul class="space-y-2 text-sm">
+							{commits.map((sha) => (
+								<li>
+									{repoUrl ? (
+										<a
+											href={`${repoUrl}/commit/${sha}`}
+											target="_blank"
+											rel="noopener noreferrer"
+											class="atlas-link"
+										>
+											{sha.slice(0, 7)} →
+										</a>
 									) : (
-										<li class="text-[var(--color-fg-dim)]">
-											<span class="text-[var(--color-accent)]">●</span> <span class="tabular-nums">{sha.slice(0, 7)}</span>
-										</li>
-									)
-								))}
-							</ul>
-						</section>
-					)}
+										<span class="font-semibold text-[var(--color-fg-dim)]">{sha.slice(0, 7)}</span>
+									)}
+								</li>
+							))}
+						</ul>
+					</section>
+				)}
 
-					<nav class="mt-12 pt-8 border-t border-[var(--color-border)] grid grid-cols-2 gap-4 font-mono text-sm">
-						<div>
-							{prevDevlog && (
-								<a
-									href={`${linkPrefix}/projects/${prevDevlog.project}/${prevDevlog.slug}/`}
-									class="group block p-4 border border-[var(--color-border)] rounded hover:border-[var(--color-accent)] transition"
-								>
-									<div class="text-[10px] text-[var(--color-muted)] uppercase tracking-wider mb-1">← prev</div>
-									<div class="text-[var(--color-accent)] tabular-nums">
-										#{String(prevDevlog.seq).padStart(3, '0')}
-									</div>
-									<div class="text-sm text-[var(--color-fg-dim)] group-hover:text-[var(--color-fg)] transition truncate">
-										{prevDevlog.title}
-									</div>
-								</a>
-							)}
-						</div>
-						<div>
-							{nextDevlog && (
-								<a
-									href={`${linkPrefix}/projects/${nextDevlog.project}/${nextDevlog.slug}/`}
-									class="group block p-4 border border-[var(--color-border)] rounded hover:border-[var(--color-accent)] transition text-right"
-								>
-									<div class="text-[10px] text-[var(--color-muted)] uppercase tracking-wider mb-1">next →</div>
-									<div class="text-[var(--color-accent)] tabular-nums">
-										#{String(nextDevlog.seq).padStart(3, '0')}
-									</div>
-									<div class="text-sm text-[var(--color-fg-dim)] group-hover:text-[var(--color-fg)] transition truncate">
-										{nextDevlog.title}
-									</div>
-								</a>
-							)}
-						</div>
-					</nav>
-
-					<div class="mt-8">
-						<a
-							href={projectLink}
-							class="inline-flex items-center gap-2 font-mono text-sm text-[var(--color-fg-dim)] hover:text-[var(--color-accent)] transition"
-						>
-							<span class="text-[var(--color-accent)]">→</span>
-							<span>back to project: <span class="underline underline-offset-2">{projectEntry.data.title}</span></span>
-						</a>
+				<nav class="mt-12 grid gap-4 border-t border-[var(--color-border)] pt-8 sm:grid-cols-2">
+					<div>
+						{prevDevlog && (
+							<a href={devlogHref(prevDevlog)} class="record-card group">
+								<div class="mb-2 text-xs font-bold text-[var(--color-muted)]">이전 기록</div>
+								<div class="mb-1 text-sm font-bold text-[var(--color-accent)]">
+									{String(prevDevlog.seq).padStart(3, '0')}
+								</div>
+								<div class="truncate text-sm font-semibold group-hover:text-[var(--color-accent)]">{prevDevlog.title}</div>
+							</a>
+						)}
 					</div>
+					<div>
+						{nextDevlog && (
+							<a href={devlogHref(nextDevlog)} class="record-card group text-right">
+								<div class="mb-2 text-xs font-bold text-[var(--color-muted)]">다음 기록</div>
+								<div class="mb-1 text-sm font-bold text-[var(--color-accent)]">
+									{String(nextDevlog.seq).padStart(3, '0')}
+								</div>
+								<div class="truncate text-sm font-semibold group-hover:text-[var(--color-accent)]">{nextDevlog.title}</div>
+							</a>
+						)}
+					</div>
+				</nav>
+			</article>
 
-					{!isPrivate && <Comments />}
-				</article>
-			</div>
+			{!isPrivate && <Comments />}
 		</main>
 		<Footer />
 		<MermaidScript />

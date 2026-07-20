@@ -1,0 +1,78 @@
+---
+import FormattedDate from './FormattedDate.astro';
+import MetaPill from './MetaPill.astro';
+import { getKindLabel, type TimelineItem } from '../lib/timeline';
+
+interface Props {
+	items: TimelineItem[];
+	emptyText?: string;
+}
+
+type TimelineGroup = {
+	label: string;
+	items: TimelineItem[];
+};
+
+const { items, emptyText = '아직 공개 기록이 없습니다.' } = Astro.props;
+const monthFormatter = new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: 'long' });
+
+const groups = items.reduce<TimelineGroup[]>((acc, item) => {
+	const label = monthFormatter.format(item.date);
+	const last = acc.at(-1);
+	if (last?.label === label) {
+		last.items.push(item);
+	} else {
+		acc.push({ label, items: [item] });
+	}
+	return acc;
+}, []);
+
+const kindTone = {
+	project: 'accent',
+	devlog: 'default',
+	journal: 'default',
+	resource: 'slate',
+	travel: 'rust',
+} as const;
+---
+
+{items.length === 0 ? (
+	<div class="rounded-lg border border-dashed border-[var(--color-border)] px-5 py-10 text-center text-sm text-[var(--color-muted)]">
+		{emptyText}
+	</div>
+) : (
+	<div class="timeline-list">
+		{groups.map((group) => (
+			<section class="mb-9">
+				<div class="timeline-month">{group.label}</div>
+				<ol>
+					{group.items.map((item) => (
+						<li class="timeline-item">
+							<div class="timeline-date">
+								<FormattedDate date={item.date} />
+							</div>
+							<a href={item.href} class="timeline-entry group">
+								<div class="mb-2 flex flex-wrap items-center gap-2">
+									<MetaPill label={getKindLabel(item.kind)} tone={kindTone[item.kind]} />
+									<span class="text-xs font-semibold text-[var(--color-muted)]">{item.meta}</span>
+								</div>
+								<h3 class="mb-1 text-lg">{item.title}</h3>
+								{item.projectTitle && (
+									<div class="mb-1 text-xs font-semibold text-[var(--color-muted)]">프로젝트: {item.projectTitle}</div>
+								)}
+								<p class="line-clamp-2 text-sm leading-relaxed text-[var(--color-fg-dim)]">{item.description}</p>
+								{item.tags.length > 0 && (
+									<div class="mt-3 flex flex-wrap gap-1.5">
+										{item.tags.slice(0, 3).map((tag) => (
+											<span class="text-[11px] font-semibold text-[var(--color-muted)]">#{tag}</span>
+										))}
+									</div>
+								)}
+							</a>
+						</li>
+					))}
+				</ol>
+			</section>
+		))}
+	</div>
+)}

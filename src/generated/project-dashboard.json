@@ -1,0 +1,4055 @@
+{
+  "schemaVersion": 1,
+  "snapshotAt": "2026-07-20T07:20:51.700Z",
+  "project": {
+    "name": "Recovery Protocol",
+    "roadmapTitle": "RP Project Roadmap",
+    "currentPhaseId": "rp-roadmap-ph17",
+    "currentPhaseCode": "PH-17",
+    "currentPhaseTitle": "Bureau Room Blockout and Interaction Layout",
+    "phaseStage": "Next",
+    "evidencePhaseCode": "PH-16",
+    "progress": 0,
+    "start": "2026-07-28",
+    "due": "2026-08-10",
+    "reviewCount": 0,
+    "blockedCount": 0,
+    "nextMilestone": {
+      "code": "MS-17-DONE",
+      "title": "Phase 17 Completion Gate",
+      "due": "2026-08-10"
+    }
+  },
+  "phases": [
+    {
+      "id": "rp-roadmap-ph16",
+      "code": "PH-16",
+      "title": "Steam Lobby UX Completion",
+      "type": "task",
+      "status": "done",
+      "priority": "high",
+      "start": "2026-07-13",
+      "due": "2026-07-27",
+      "progress": 100,
+      "parentId": "",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-16",
+        "tentative",
+        "done"
+      ],
+      "subtaskIds": [
+        "rp-roadmap-act16-001",
+        "rp-roadmap-act16-002",
+        "rp-roadmap-act16-003",
+        "rp-roadmap-act16-004",
+        "rp-roadmap-act16-005",
+        "rp-roadmap-act16-006",
+        "rp-roadmap-act16-007",
+        "rp-roadmap-act16-008",
+        "rp-roadmap-act16-009",
+        "rp-roadmap-ms16-done"
+      ],
+      "dependencies": [],
+      "goal": "Steam Lobby UX, 안정적인 Join, Host 선택형 Late Join Observer와 연결 실패 복구를 제품 흐름 수준으로 마감한다.",
+      "doneCriteria": [
+        {
+          "completed": true,
+          "text": "Editor와 PIE 1 Player 검증 근거가 기록됨"
+        },
+        {
+          "completed": true,
+          "text": "PIE 23 Players / Listen Server Observer 검증 근거가 기록됨"
+        },
+        {
+          "completed": true,
+          "text": "Windows Development 두 계정·두 기기 Steam 검증 근거가 기록됨"
+        },
+        {
+          "completed": true,
+          "text": "Shipping target compile/Debug 비노출과 전체 smoke 후속 이관, Phase 16 완료 문서가 마감됨"
+        }
+      ],
+      "blockingReason": "없음. Phase 16 제품 Gate를 완료하고 비범위 검증의 후속 소유자를 기록했다.",
+      "evidence": [
+        "UE 5.8 Editor/Game Development/Shipping target build와 전체 RP Automation 20/20 통과",
+        "자동화 보고서: Saved/Automation/Pipeline/manual-20260720-mission-outcome-rp20-scoped/index.json",
+        "2026-07-20 사용자 WBP/Editor, PIE 1 Player, PIE 23 Players와 Windows Development 두 기기 Steam 검증 완료"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 16",
+          "sourcePath": "phases/Phase_16_Steam_Lobby_UX_Completion.md",
+          "href": "/docs/phases/phase_16_steam_lobby_ux_completion",
+          "external": false
+        },
+        {
+          "label": "Phase 16 Work Report",
+          "sourcePath": "reports/Phase_16_Work_Report.md",
+          "href": "/docs/reports/phase_16_work_report",
+          "external": false
+        },
+        {
+          "label": "Phase 16 Editor Verification Checklist",
+          "sourcePath": "checklists/Phase_16_Editor_Verification_Checklist.md",
+          "href": "/docs/checklists/phase_16_editor_verification_checklist",
+          "external": false
+        }
+      ],
+      "notes": [
+        "Phase 상태는 Work Report와 CODEXINDEX가 함께 충족된 뒤에만 Done으로 바꾼다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[ph-16]-steam-lobby-ux-completion.md"
+    },
+    {
+      "id": "rp-roadmap-ph17",
+      "code": "PH-17",
+      "title": "Bureau Room Blockout and Interaction Layout",
+      "type": "task",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-07-28",
+      "due": "2026-08-10",
+      "progress": 0,
+      "parentId": "",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-17",
+        "tentative",
+        "planned"
+      ],
+      "subtaskIds": [
+        "rp-roadmap-act17-001",
+        "rp-roadmap-act17-002",
+        "rp-roadmap-act17-003",
+        "rp-roadmap-ms17-done"
+      ],
+      "dependencies": [
+        "rp-roadmap-ms16-done"
+      ],
+      "goal": "관리국 룸의 공간 스케일, 동선과 Ready Panel, Mission Terminal, Door, Deposit 후보 배치를 블록아웃으로 검증한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "Kickoff에서 Phase 15 Door/Portal과 구조 분리 후보의 범위를 결정함"
+        },
+        {
+          "completed": false,
+          "text": "Bureau Room 핵심 동선과 상호작용 위치를 배치함"
+        },
+        {
+          "completed": false,
+          "text": "Editor와 PIE 2 Players 검증 근거를 기록함"
+        }
+      ],
+      "blockingReason": "Phase 16 완료 Gate가 선행 조건이다.",
+      "evidence": [
+        "아직 시작하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 17",
+          "sourcePath": "phases/Phase_17_Bureau_Room_Blockout_Interaction_Layout.md",
+          "href": "/docs/phases/phase_17_bureau_room_blockout_interaction_layout",
+          "external": false
+        },
+        {
+          "label": "Phase 15 Work Report",
+          "sourcePath": "reports/Phase_15_Work_Report.md",
+          "href": "/docs/reports/phase_15_work_report",
+          "external": false
+        }
+      ],
+      "notes": [
+        "최종 아트가 아니라 공간과 기능 배치 검증이 범위다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[ph-17]-bureau-room-blockout-and-interaction-layout.md"
+    },
+    {
+      "id": "rp-roadmap-ph18",
+      "code": "PH-18",
+      "title": "Recoverable Item Drop Physics and Deposit Flow",
+      "type": "task",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-08-11",
+      "due": "2026-08-24",
+      "progress": 0,
+      "parentId": "",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-18",
+        "tentative",
+        "planned"
+      ],
+      "subtaskIds": [
+        "rp-roadmap-act18-001",
+        "rp-roadmap-act18-002",
+        "rp-roadmap-act18-003",
+        "rp-roadmap-ms18-done"
+      ],
+      "dependencies": [
+        "rp-roadmap-ms17-done"
+      ],
+      "goal": "회수품을 서버 권위로 내려놓고 다시 들며 Deposit 후보로 모은 뒤 최종 제출하는 흐름을 검증한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "Phase 18 Kickoff Plan 승인"
+        },
+        {
+          "completed": false,
+          "text": "Drop, Physics, Deposit 핵심 흐름 구현"
+        },
+        {
+          "completed": false,
+          "text": "Host/Client와 Phase 09 회귀 검증 근거 기록"
+        }
+      ],
+      "blockingReason": "Phase 17 완료 Gate가 선행 조건이다.",
+      "evidence": [
+        "아직 시작하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 18",
+          "sourcePath": "phases/Phase_18_Recoverable_Item_Drop_Physics_Deposit_Flow.md",
+          "href": "/docs/phases/phase_18_recoverable_item_drop_physics_deposit_flow",
+          "external": false
+        }
+      ],
+      "notes": [
+        "완성형 인벤토리와 경제 시스템은 범위 밖이다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[ph-18]-recoverable-item-drop-physics-and-deposit-flow.md"
+    },
+    {
+      "id": "rp-roadmap-ph19",
+      "code": "PH-19",
+      "title": "Anomaly Zone Blockout Expansion",
+      "type": "task",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-08-25",
+      "due": "2026-09-14",
+      "progress": 0,
+      "parentId": "",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-19",
+        "tentative",
+        "planned"
+      ],
+      "subtaskIds": [
+        "rp-roadmap-act19-001",
+        "rp-roadmap-act19-002",
+        "rp-roadmap-act19-003",
+        "rp-roadmap-ms19-done"
+      ],
+      "dependencies": [
+        "rp-roadmap-ms18-done"
+      ],
+      "goal": "이상구역의 진입, 탐색, 회수와 귀환 동선을 실제 플레이 공간에 가까운 블록아웃으로 확장한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "Phase 19 Kickoff와 대상 맵 결정"
+        },
+        {
+          "completed": false,
+          "text": "Anomaly Zone 핵심 동선과 회수 위치 배치"
+        },
+        {
+          "completed": false,
+          "text": "1 Player와 2 Players 검증 근거 기록"
+        }
+      ],
+      "blockingReason": "Phase 18 완료 Gate가 선행 조건이다.",
+      "evidence": [
+        "아직 시작하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 19",
+          "sourcePath": "phases/Phase_19_Anomaly_Zone_Blockout_Expansion.md",
+          "href": "/docs/phases/phase_19_anomaly_zone_blockout_expansion",
+          "external": false
+        }
+      ],
+      "notes": [
+        "괴이 AI와 최종 배경 아트는 범위 밖이다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[ph-19]-anomaly-zone-blockout-expansion.md"
+    },
+    {
+      "id": "rp-roadmap-ph20",
+      "code": "PH-20",
+      "title": "Visual and UX Polish Pass",
+      "type": "task",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-09-15",
+      "due": "2026-09-28",
+      "progress": 0,
+      "parentId": "",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-20",
+        "tentative",
+        "planned"
+      ],
+      "subtaskIds": [
+        "rp-roadmap-act20-001",
+        "rp-roadmap-act20-002",
+        "rp-roadmap-act20-003",
+        "rp-roadmap-ms20-done"
+      ],
+      "dependencies": [
+        "rp-roadmap-ms19-done"
+      ],
+      "goal": "검증된 세션, 준비, 미션 선택과 회수 흐름의 UI, 레벨, 사운드 피드백을 실제 게임처럼 다듬는다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "Phase 20 Kickoff에서 적용할 시각·UX 범위 확정"
+        },
+        {
+          "completed": false,
+          "text": "핵심 흐름의 시각·사운드·사용성 Polish 적용"
+        },
+        {
+          "completed": false,
+          "text": "Host/Client 제품 흐름 회귀 검증 근거 기록"
+        }
+      ],
+      "blockingReason": "Phase 19 완료 Gate가 선행 조건이다.",
+      "evidence": [
+        "아직 시작하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 20",
+          "sourcePath": "phases/Phase_20_Visual_UX_Polish_Pass.md",
+          "href": "/docs/phases/phase_20_visual_ux_polish_pass",
+          "external": false
+        }
+      ],
+      "notes": [
+        "기능 구조 대개편은 Phase 20에서 처리하지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[ph-20]-visual-and-ux-polish-pass.md"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "rp-roadmap-act16-001",
+      "code": "ACT-16-001",
+      "title": "Session and Late Join Foundation",
+      "type": "subtask",
+      "status": "done",
+      "priority": "high",
+      "start": "2026-07-13",
+      "due": "2026-07-18",
+      "progress": 100,
+      "parentId": "rp-roadmap-ph16",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-16",
+        "tentative",
+        "session",
+        "late-join"
+      ],
+      "subtaskIds": [],
+      "dependencies": [],
+      "goal": "Room metadata, Host 정책, 서버 재검증과 LateJoinObserver에서 Active로의 승격 계약을 완성한다.",
+      "doneCriteria": [
+        {
+          "completed": true,
+          "text": "C++ 권위 흐름과 Automation 계약 구현"
+        },
+        {
+          "completed": true,
+          "text": "UE 5.8 incremental build와 전체 RP Automation 통과"
+        },
+        {
+          "completed": true,
+          "text": "PIE 2 Players에서 Observer 스폰, Ready 차단, 관전과 승격 확인"
+        }
+      ],
+      "blockingReason": "없음. 사용자 PIE에서 Observer 스폰·차단·관전·승격을 확인했다.",
+      "evidence": [
+        "전체 RP Automation 17/17, failed 0, warnings 0",
+        "Saved/Automation/Pipeline/manual-20260719-044834-ui-selector-back/index.json"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Late Join Observer Flow",
+          "sourcePath": "reference/flows/Late_Join_Observer.md",
+          "href": "/docs/reference/flows/late_join_observer",
+          "external": false
+        },
+        {
+          "label": "Phase 16 Work Report",
+          "sourcePath": "reports/Phase_16_Work_Report.md",
+          "href": "/docs/reports/phase_16_work_report",
+          "external": false
+        }
+      ],
+      "notes": [
+        "Editor/PIE 근거 전에는 done으로 승격하지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-16-001]-session-and-late-join-foundation.md"
+    },
+    {
+      "id": "rp-roadmap-act16-002",
+      "code": "ACT-16-002",
+      "title": "Session UI and Stable Join",
+      "type": "subtask",
+      "status": "done",
+      "priority": "high",
+      "start": "2026-07-13",
+      "due": "2026-07-20",
+      "progress": 100,
+      "parentId": "rp-roadmap-ph16",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-16",
+        "tentative",
+        "session-ui",
+        "stable-join"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act16-001"
+      ],
+      "goal": "Room List 표시, Session Notice, stable request와 Join 취소·실패 복구가 오래된 방이나 다른 방에 연결되지 않게 한다.",
+      "doneCriteria": [
+        {
+          "completed": true,
+          "text": "SearchGeneration, RoomId와 Room Instance 기반 Join 방어 구현"
+        },
+        {
+          "completed": true,
+          "text": "Find/Join 취소와 화면 수명주기 Automation 계약 구현"
+        },
+        {
+          "completed": true,
+          "text": "실제 WBP 메뉴 전환과 Steam 실패 UX 재검증"
+        }
+      ],
+      "blockingReason": "없음. WBP 메뉴 전환과 Windows Development 두 기기 실패 UX까지 확인했다.",
+      "evidence": [
+        "UE 5.8 incremental build와 전체 RP Automation 17/17 통과",
+        "Room Instance 불일치 거절은 두 기기에서 부분 확인, crash 보강 뒤 재검증 대기"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Session Room Lifecycle",
+          "sourcePath": "reference/flows/Session_Room_Lifecycle.md",
+          "href": "/docs/reference/flows/session_room_lifecycle",
+          "external": false
+        },
+        {
+          "label": "Phase 16 Work Report",
+          "sourcePath": "reports/Phase_16_Work_Report.md",
+          "href": "/docs/reports/phase_16_work_report",
+          "external": false
+        }
+      ],
+      "notes": [
+        "provider 결과 성공과 실제 ClientTravel 완료를 같은 상태로 취급하지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-16-002]-session-ui-and-stable-join.md"
+    },
+    {
+      "id": "rp-roadmap-ph16",
+      "code": "PH-16",
+      "title": "Steam Lobby UX Completion",
+      "type": "task",
+      "status": "done",
+      "priority": "high",
+      "start": "2026-07-13",
+      "due": "2026-07-27",
+      "progress": 100,
+      "parentId": "",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-16",
+        "tentative",
+        "done"
+      ],
+      "subtaskIds": [
+        "rp-roadmap-act16-001",
+        "rp-roadmap-act16-002",
+        "rp-roadmap-act16-003",
+        "rp-roadmap-act16-004",
+        "rp-roadmap-act16-005",
+        "rp-roadmap-act16-006",
+        "rp-roadmap-act16-007",
+        "rp-roadmap-act16-008",
+        "rp-roadmap-act16-009",
+        "rp-roadmap-ms16-done"
+      ],
+      "dependencies": [],
+      "goal": "Steam Lobby UX, 안정적인 Join, Host 선택형 Late Join Observer와 연결 실패 복구를 제품 흐름 수준으로 마감한다.",
+      "doneCriteria": [
+        {
+          "completed": true,
+          "text": "Editor와 PIE 1 Player 검증 근거가 기록됨"
+        },
+        {
+          "completed": true,
+          "text": "PIE 23 Players / Listen Server Observer 검증 근거가 기록됨"
+        },
+        {
+          "completed": true,
+          "text": "Windows Development 두 계정·두 기기 Steam 검증 근거가 기록됨"
+        },
+        {
+          "completed": true,
+          "text": "Shipping target compile/Debug 비노출과 전체 smoke 후속 이관, Phase 16 완료 문서가 마감됨"
+        }
+      ],
+      "blockingReason": "없음. Phase 16 제품 Gate를 완료하고 비범위 검증의 후속 소유자를 기록했다.",
+      "evidence": [
+        "UE 5.8 Editor/Game Development/Shipping target build와 전체 RP Automation 20/20 통과",
+        "자동화 보고서: Saved/Automation/Pipeline/manual-20260720-mission-outcome-rp20-scoped/index.json",
+        "2026-07-20 사용자 WBP/Editor, PIE 1 Player, PIE 23 Players와 Windows Development 두 기기 Steam 검증 완료"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 16",
+          "sourcePath": "phases/Phase_16_Steam_Lobby_UX_Completion.md",
+          "href": "/docs/phases/phase_16_steam_lobby_ux_completion",
+          "external": false
+        },
+        {
+          "label": "Phase 16 Work Report",
+          "sourcePath": "reports/Phase_16_Work_Report.md",
+          "href": "/docs/reports/phase_16_work_report",
+          "external": false
+        },
+        {
+          "label": "Phase 16 Editor Verification Checklist",
+          "sourcePath": "checklists/Phase_16_Editor_Verification_Checklist.md",
+          "href": "/docs/checklists/phase_16_editor_verification_checklist",
+          "external": false
+        }
+      ],
+      "notes": [
+        "Phase 상태는 Work Report와 CODEXINDEX가 함께 충족된 뒤에만 Done으로 바꾼다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[ph-16]-steam-lobby-ux-completion.md"
+    },
+    {
+      "id": "rp-roadmap-act16-004",
+      "code": "ACT-16-004",
+      "title": "Room Settings and In-Game Menu WBP",
+      "type": "subtask",
+      "status": "done",
+      "priority": "high",
+      "start": "2026-07-15",
+      "due": "2026-07-22",
+      "progress": 100,
+      "parentId": "rp-roadmap-ph16",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-16",
+        "tentative",
+        "ui",
+        "room-settings",
+        "common-ui"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act16-001",
+        "rp-roadmap-act16-002"
+      ],
+      "goal": "Host Room Settings, In-Game Menu, Session Notice와 공용 Control을 Native 계약에 맞게 WBP에 연결한다.",
+      "doneCriteria": [
+        {
+          "completed": true,
+          "text": "Host Create ON 값이 Room Settings Selector와 상태 문구에 ON으로 표시됨"
+        },
+        {
+          "completed": true,
+          "text": "첫 PIE에서 월드 표시 위젯의 CommonUI Back ensure가 발생하지 않음"
+        },
+        {
+          "completed": true,
+          "text": "ESC 열기, 하위 Back, 최상위 닫기, WASD와 gameplay 입력 복구 확인"
+        },
+        {
+          "completed": true,
+          "text": "Invite, Notice와 공용 Button/Option SizeBox binding 확인"
+        }
+      ],
+      "blockingReason": "없음. 사용자 Editor와 PIE에서 Native/WBP 연결과 입력 복구를 확인했다.",
+      "evidence": [
+        "관련 C++ 빌드와 전체 RP Automation 17/17 통과",
+        "Editor/PIE 결과는 아직 성공으로 승격하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "In-Game Menu Navigation",
+          "sourcePath": "reference/flows/InGame_Menu_Navigation.md",
+          "href": "/docs/reference/flows/ingame_menu_navigation",
+          "external": false
+        },
+        {
+          "label": "Phase 16 Editor Verification Checklist",
+          "sourcePath": "checklists/Phase_16_Editor_Verification_Checklist.md",
+          "href": "/docs/checklists/phase_16_editor_verification_checklist",
+          "external": false
+        }
+      ],
+      "notes": [
+        "IMCUI 교체 없이 항상 활성인 gameplay mapping과 CommonUI Back 계약을 사용한다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-16-004]-room-settings-and-in-game-menu-wbp.md"
+    },
+    {
+      "id": "rp-roadmap-act16-003",
+      "code": "ACT-16-003",
+      "title": "API Reference and Docs Foundation",
+      "type": "subtask",
+      "status": "done",
+      "priority": "medium",
+      "start": "2026-07-18",
+      "due": "2026-07-21",
+      "progress": 100,
+      "parentId": "rp-roadmap-ph16",
+      "assignees": [
+        "Codex"
+      ],
+      "tags": [
+        "phase-16",
+        "tentative",
+        "docs",
+        "reference"
+      ],
+      "subtaskIds": [],
+      "dependencies": [],
+      "goal": "API Contract, Feature Flow, Work Report와 Roadmap의 책임을 분리하고 stale 문서를 자동 검사한다.",
+      "doneCriteria": [
+        {
+          "completed": true,
+          "text": "Reference 구조와 direct validator fixture 통과"
+        },
+        {
+          "completed": true,
+          "text": "MkDocs strict build 통과"
+        },
+        {
+          "completed": true,
+          "text": "Work Report v2, PRR, Project Manager Roadmap 통합 검사 완료"
+        },
+        {
+          "completed": true,
+          "text": "중앙 Docs CheckOnly 차단 원인을 사용자 파일과 분리 기록"
+        },
+        {
+          "completed": true,
+          "text": "direct Reference/Project Docs validator, fixture, MkDocs strict와 Developer Docs production build 통과"
+        },
+        {
+          "completed": true,
+          "text": "중앙 Closure Gate를 실행해 기존 Config EOF diff 차단을 문서 결함과 분리 기록"
+        }
+      ],
+      "blockingReason": "없음. 중앙 Gate의 기존 사용자 Config/DefaultGame.ini EOF diff는 보존하며 direct 문서 검사 성공을 완료 근거로 사용한다.",
+      "evidence": [
+        "ValidateDocs.ps1: exit 0, Reference Documents=10, CanonicalSymbols=47, MkDocsNavTargets=100",
+        "Project Manager Projects=1, Tasks=29, PRRs=2, WorkReportsV2=1, RelativeLinks=119",
+        "Project Docs fixture 4/4와 PowerShell parser 통과",
+        "2026-07-19 18:48 KST mkdocs build --strict -f Docs/mkdocs.yml 성공",
+        "중앙 Gate는 사용자 Config를 수정하지 않고 Partial로 유지"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Reference Index",
+          "sourcePath": "reference/index.md",
+          "href": "/docs/reference",
+          "external": false
+        },
+        {
+          "label": "Phase 16 Work Report",
+          "sourcePath": "reports/Phase_16_Work_Report.md",
+          "href": "/docs/reports/phase_16_work_report",
+          "external": false
+        }
+      ],
+      "notes": [
+        "direct 검사 성공을 중앙 파이프라인 성공으로 승격하지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-16-003]-api-reference-and-docs-foundation.md"
+    },
+    {
+      "id": "rp-roadmap-act16-008",
+      "code": "ACT-16-008",
+      "title": "Development Debug HUD Split",
+      "type": "subtask",
+      "status": "done",
+      "priority": "medium",
+      "start": "2026-07-20",
+      "due": "2026-07-22",
+      "progress": 100,
+      "parentId": "rp-roadmap-ph16",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-16",
+        "tentative",
+        "debug",
+        "ui",
+        "developer-tool",
+        "non-blocking"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act16-001"
+      ],
+      "goal": "기존 상시 표시 Debug HUD를 읽기 전용 Status와 Host User Management로 분리하고, Development 입력·서버 권위·Shipping 제외 경계를 고정한다.",
+      "doneCriteria": [
+        {
+          "completed": true,
+          "text": "Hidden / Status / UserManagement 전환과 Host 권위 정책을 관련 Automation으로 확인함"
+        },
+        {
+          "completed": true,
+          "text": "PIE 1 Player에서 숫자열 0/9 상호 전환과 cursor·move/look 복구를 확인함"
+        },
+        {
+          "completed": true,
+          "text": "PIE 2 Players에서 Host mutation, Client read-only와 LateJoinObserver Ready 제외를 확인함"
+        },
+        {
+          "completed": true,
+          "text": "Shipping package에서 DebugExec, CheatManager와 Debug HUD 생성이 비활성임을 확인함"
+        },
+        {
+          "completed": true,
+          "text": "Work Report와 Editor Checklist에 실제 검증 근거를 기록함"
+        }
+      ],
+      "blockingReason": "없음. Development 전용 도구로 검증을 완료했으며 제품 기능 Gate를 대체하지 않는다.",
+      "evidence": [
+        "로컬 작업 트리에 3상태 Native HUD, DebugExecBindings와 Host 명령 계약이 반영됨",
+        "UE 5.8 preflight/incremental Unity와 RP.Debug.HUD.Policy 1/1 통과",
+        "정확한 StartsWith:RP 전체 RP Automation 19/19 통과",
+        "PIE/Shipping 성공 근거는 아직 기록하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Debug HUD Guide",
+          "sourcePath": "guides/Debug_HUD_Guide.md",
+          "href": "/docs/guides/debug_hud_guide",
+          "external": false
+        },
+        {
+          "label": "Debug Command Reference",
+          "sourcePath": "guides/Debug_Command_Reference.md",
+          "href": "/docs/guides/debug_command_reference",
+          "external": false
+        },
+        {
+          "label": "Phase 16 Editor Verification Checklist",
+          "sourcePath": "checklists/Phase_16_Editor_Verification_Checklist.md",
+          "href": "/docs/checklists/phase_16_editor_verification_checklist",
+          "external": false
+        },
+        {
+          "label": "Phase 16 Work Report",
+          "sourcePath": "reports/Phase_16_Work_Report.md",
+          "href": "/docs/reports/phase_16_work_report",
+          "external": false
+        }
+      ],
+      "notes": [
+        "제품 Ready UI, Client별 실제 Ready 요청, Steam 참가와 Shipping 제품 UI 검증을 대신하지 않는다.",
+        "non-blocking 개발 편의 작업이므로 [MS-16-DONE]의 선행 dependency에는 추가하지 않는다.",
+        "Shipping에서 Debug code/asset byte까지 완전히 제거해야 할 정도로 규모가 커질 때만 별도 Developer module을 검토한다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-16-008]-development-debug-hud-split.md"
+    },
+    {
+      "id": "rp-roadmap-act16-009",
+      "code": "ACT-16-009",
+      "title": "Development Mission Outcome Commands",
+      "type": "subtask",
+      "status": "done",
+      "priority": "medium",
+      "start": "2026-07-20",
+      "due": "2026-07-22",
+      "progress": 100,
+      "parentId": "rp-roadmap-ph16",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-16",
+        "tentative",
+        "debug",
+        "mission",
+        "developer-tool",
+        "non-blocking"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act16-001"
+      ],
+      "goal": "반복 PIE에서 성공·실패 terminal 결과와 Session/Observer/UI 후처리를 빠르게 검증할 수 있는 서버 권위 Development 명령을 제공한다.",
+      "doneCriteria": [
+        {
+          "completed": true,
+          "text": "RPDevForceMissionSuccess와 RPDevForceMissionFailure가 MissionDirector의 검증된 전이만 사용함"
+        },
+        {
+          "completed": true,
+          "text": "기존 RPForceCompleteMission이 성공 호환 별칭으로 유지됨"
+        },
+        {
+          "completed": true,
+          "text": "terminal transition Automation, UE 5.8 build와 전체 RP Automation이 통과함"
+        },
+        {
+          "completed": true,
+          "text": "PIE Host 성공/실패 결과, Client 거절, Observer 승격과 Session Waiting을 확인함"
+        },
+        {
+          "completed": true,
+          "text": "Work Report와 Editor Checklist에 실제 검증 근거를 기록함"
+        }
+      ],
+      "blockingReason": "없음. 사용자 PIE 확인까지 완료했다. 실제 실패 판정·정산·결과 연출·레벨 travel을 만들지 않는 Development 도구다.",
+      "evidence": [
+        "Failed / MissionFailed를 기존 enum 끝에 추가해 uasset ordinal을 보존함",
+        "Failed를 실패 처리와 Bureau 복귀까지 끝난 terminal 결과로 정의함",
+        "UE 5.8 RPEditor Development, RP Win64 Development/Shipping build 성공",
+        "RP.Mission.State.TerminalTransitions 1/1과 정확한 StartsWith:RP 전체 20/20 통과",
+        "report: Saved/Automation/Pipeline/manual-20260720-mission-outcome-rp20-scoped/index.json",
+        "PIE 성공 근거는 아직 기록하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Debug Command Reference",
+          "sourcePath": "guides/Debug_Command_Reference.md",
+          "href": "/docs/guides/debug_command_reference",
+          "external": false
+        },
+        {
+          "label": "Late Join Observer Flow",
+          "sourcePath": "reference/flows/Late_Join_Observer.md",
+          "href": "/docs/reference/flows/late_join_observer",
+          "external": false
+        },
+        {
+          "label": "Phase 16 Editor Verification Checklist",
+          "sourcePath": "checklists/Phase_16_Editor_Verification_Checklist.md",
+          "href": "/docs/checklists/phase_16_editor_verification_checklist",
+          "external": false
+        },
+        {
+          "label": "Phase 16 Work Report",
+          "sourcePath": "reports/Phase_16_Work_Report.md",
+          "href": "/docs/reports/phase_16_work_report",
+          "external": false
+        }
+      ],
+      "notes": [
+        "제품 실패 trigger, 사망/전멸, 보상·손실 정산과 실제 관리국 귀환은 후속 콘텐츠 범위다.",
+        "non-blocking 개발 편의 작업이므로 [MS-16-DONE]의 선행 dependency에는 추가하지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-16-009]-development-mission-outcome-commands.md"
+    },
+    {
+      "id": "rp-roadmap-act16-005",
+      "code": "ACT-16-005",
+      "title": "Observer PIE Verification",
+      "type": "subtask",
+      "status": "done",
+      "priority": "high",
+      "start": "2026-07-22",
+      "due": "2026-07-24",
+      "progress": 100,
+      "parentId": "rp-roadmap-ph16",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-16",
+        "tentative",
+        "pie",
+        "observer"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act16-001",
+        "rp-roadmap-act16-004"
+      ],
+      "goal": "PIE 2 Players에서 LateJoinObserver의 차단과 승격을 확인하고, 3 Players 개발 하네스에서 수동 대상 순환과 대상 이탈 자동 전환을 확인한다.",
+      "doneCriteria": [
+        {
+          "completed": true,
+          "text": "OFF 참가 차단과 ON Observer 참가 확인"
+        },
+        {
+          "completed": true,
+          "text": "일반 Pawn, 이동, Ready, 상호작용 차단 확인"
+        },
+        {
+          "completed": true,
+          "text": "관전 대상 이탈 시 자동 전환 확인"
+        },
+        {
+          "completed": true,
+          "text": "LMB/RMB가 Active Pawn 사이에서만 다음/이전 대상으로 순환하는지 확인"
+        },
+        {
+          "completed": true,
+          "text": "Mission Succeeded 뒤 Active, Pawn spawn, 입력 복구, Ready=false 확인"
+        }
+      ],
+      "blockingReason": "없음. 실제 레벨 귀환과 다음 미션 E2E는 이 작업의 완료 조건에서 분리해 ACT-19-003으로 이관했다.",
+      "evidence": [
+        "기본 Observer 진입, Pawn/이동/Ready/상호작용 차단은 2026-07-19 사용자 PIE 확인",
+        "LMB/RMB 대상 순환, 대상 이탈 자동 전환과 Mission Succeeded 승격은 2026-07-20 사용자 PIE 확인",
+        "상세 체크 근거는 Phase 16 Editor Verification Checklist 3.23.3에 기록"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 16 Editor Verification Checklist",
+          "sourcePath": "checklists/Phase_16_Editor_Verification_Checklist.md",
+          "href": "/docs/checklists/phase_16_editor_verification_checklist",
+          "external": false
+        },
+        {
+          "label": "Late Join Observer Flow",
+          "sourcePath": "reference/flows/Late_Join_Observer.md",
+          "href": "/docs/reference/flows/late_join_observer",
+          "external": false
+        }
+      ],
+      "notes": [
+        "Automation 통과만으로 이 작업을 완료하지 않는다.",
+        "실제 Waiting/Bureau 레벨 귀환과 다음 미션 정상 참가 E2E는 콘텐츠/레벨 전환 구현 이후 ACT-19-003으로 이관하며 Phase 16 완료를 막지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-16-005]-observer-pie-2p-verification.md"
+    },
+    {
+      "id": "rp-roadmap-act16-006",
+      "code": "ACT-16-006",
+      "title": "Steam Two-Device Verification",
+      "type": "subtask",
+      "status": "done",
+      "priority": "high",
+      "start": "2026-07-22",
+      "due": "2026-07-26",
+      "progress": 100,
+      "parentId": "rp-roadmap-ph16",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-16",
+        "tentative",
+        "steam",
+        "two-device"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act16-002",
+        "rp-roadmap-act16-005"
+      ],
+      "goal": "동일 Windows Development 패키지의 두 계정·두 기기에서 Lobby, Late Join, Invite와 연결 실패 복구를 검증한다.",
+      "doneCriteria": [
+        {
+          "completed": true,
+          "text": "Waiting와 미션 위치 metadata 표시 확인"
+        },
+        {
+          "completed": true,
+          "text": "ON Observer 참가, OFF 미노출·직접 참가 거절 확인"
+        },
+        {
+          "completed": true,
+          "text": "Host 종료와 Join 도중 종료의 안전한 Title 복귀 확인"
+        },
+        {
+          "completed": true,
+          "text": "이전 Room Instance가 새 방으로 자동 연결되지 않음 확인"
+        }
+      ],
+      "blockingReason": "없음. 같은 Windows Development package와 두 기기에서 전체 시나리오를 재검증했다.",
+      "evidence": [
+        "Windows Development 두 기기에서 RPROOMINSTANCECHANGED 거절 부분 확인",
+        "PendingNetGame crash 보강 이후 동일 시나리오 재검증 대기",
+        "crash 근거: E:/Workspace/GameBulids/RP/Windows/RP/Saved/Crashes/UECC-Windows-C9FB6CD54EE7B15BE96F728B1D62E9F40000"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 16 Work Report",
+          "sourcePath": "reports/Phase_16_Work_Report.md",
+          "href": "/docs/reports/phase_16_work_report",
+          "external": false
+        },
+        {
+          "label": "Phase 16 Steam Packaging Guide",
+          "sourcePath": "guides/Phase_16_Steam_Packaging_Guide.md",
+          "href": "/docs/guides/phase_16_steam_packaging_guide",
+          "external": false
+        }
+      ],
+      "notes": [
+        "부분 근거를 전체 Steam Gate 성공으로 승격하지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-16-006]-steam-two-device-verification.md"
+    },
+    {
+      "id": "rp-roadmap-act16-007",
+      "code": "ACT-16-007",
+      "title": "Shipping Smoke and Closure Docs",
+      "type": "subtask",
+      "status": "done",
+      "priority": "high",
+      "start": "2026-07-25",
+      "due": "2026-07-27",
+      "progress": 100,
+      "parentId": "rp-roadmap-ph16",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-16",
+        "tentative",
+        "shipping",
+        "closure"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act16-003",
+        "rp-roadmap-act16-005",
+        "rp-roadmap-act16-006"
+      ],
+      "goal": "Phase 16 문서의 최종 근거와 남은 제한을 마감하고 전체 Shipping smoke의 후속 소유자를 확정한다.",
+      "doneCriteria": [
+        {
+          "completed": true,
+          "text": "Shipping target compile과 Debug 기능 비노출 근거 기록"
+        },
+        {
+          "completed": true,
+          "text": "전체 Shipping Cook·Stage·Package·Launch를 후속 콘텐츠 통합/릴리스 Gate로 이관"
+        },
+        {
+          "completed": true,
+          "text": "Work Report 최신 Snapshot과 Evidence Ledger 마감"
+        },
+        {
+          "completed": true,
+          "text": "Editor Checklist와 Steam 근거 연결"
+        },
+        {
+          "completed": true,
+          "text": "Phase Done 승격 조건을 사용자와 최종 확인"
+        }
+      ],
+      "blockingReason": "없음. PIE와 Steam Gate를 완료했고 Shipping 전체 smoke 이관 경계를 기록했다.",
+      "evidence": [
+        "RP Win64 Shipping target compile과 Debug 기능 비노출 확인",
+        "전체 Cook·Stage·Package·Launch는 Phase 16 비차단 후속 릴리스 Gate"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 16 Work Report",
+          "sourcePath": "reports/Phase_16_Work_Report.md",
+          "href": "/docs/reports/phase_16_work_report",
+          "external": false
+        },
+        {
+          "label": "Phase 16 Steam Packaging Guide",
+          "sourcePath": "guides/Phase_16_Steam_Packaging_Guide.md",
+          "href": "/docs/guides/phase_16_steam_packaging_guide",
+          "external": false
+        }
+      ],
+      "notes": [
+        "Git merge와 push는 제품 완료와 별도의 사용자 승인 경계다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-16-007]-shipping-smoke-and-closure-docs.md"
+    },
+    {
+      "id": "rp-roadmap-ms16-done",
+      "code": "MS-16-DONE",
+      "title": "Phase 16 Completion Gate",
+      "type": "milestone",
+      "status": "done",
+      "priority": "high",
+      "start": "2026-07-27",
+      "due": "2026-07-27",
+      "progress": 100,
+      "parentId": "rp-roadmap-ph16",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-16",
+        "tentative",
+        "milestone",
+        "gate"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act16-001",
+        "rp-roadmap-act16-002",
+        "rp-roadmap-act16-003",
+        "rp-roadmap-act16-004",
+        "rp-roadmap-act16-005",
+        "rp-roadmap-act16-006",
+        "rp-roadmap-act16-007"
+      ],
+      "goal": "Phase 16의 제품 검증과 문서 완료 경계를 한 지점에서 확인한다.",
+      "doneCriteria": [
+        {
+          "completed": true,
+          "text": "ACT-16-001009의 완료 근거가 Work Report에 기록됨"
+        },
+        {
+          "completed": true,
+          "text": "Work Report 상태와 CODEXINDEX가 함께 Done으로 갱신됨"
+        },
+        {
+          "completed": true,
+          "text": "남은 비범위와 Git 통합·배포 승인 상태가 명시됨"
+        }
+      ],
+      "blockingReason": "없음. 모든 Phase 16 작업과 완료 문서가 동기화됐다.",
+      "evidence": [
+        "2026-07-20 사용자 Done 승인",
+        "Phase 16 Work Report, CODEXINDEX와 Roadmap task 완료 동기화",
+        "전체 Shipping smoke와 실제 레벨 왕복 E2E의 후속 소유자 기록"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 16",
+          "sourcePath": "phases/Phase_16_Steam_Lobby_UX_Completion.md",
+          "href": "/docs/phases/phase_16_steam_lobby_ux_completion",
+          "external": false
+        },
+        {
+          "label": "Phase 16 Work Report",
+          "sourcePath": "reports/Phase_16_Work_Report.md",
+          "href": "/docs/reports/phase_16_work_report",
+          "external": false
+        }
+      ],
+      "notes": [
+        "잠정 목표일은 완료 약속이 아니며 미충족 Gate를 건너뛰지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[ms-16-done]-phase-16-completion-gate.md"
+    },
+    {
+      "id": "rp-roadmap-act17-001",
+      "code": "ACT-17-001",
+      "title": "Kickoff and Door-Portal Split Decision",
+      "type": "subtask",
+      "status": "todo",
+      "priority": "high",
+      "start": "2026-07-28",
+      "due": "2026-07-29",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph17",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-17",
+        "tentative",
+        "kickoff",
+        "architecture"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-ms16-done"
+      ],
+      "goal": "Phase 17 범위와 완료 Gate를 확정하고 Phase 15에서 이관된 Door/Portal, EntryAuthorized와 Director 분리 후보를 이번 Phase에 포함할지 결정한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "Phase 17 Kickoff Plan 승인"
+        },
+        {
+          "completed": false,
+          "text": "실제 Door/Open Gate/Portal 이동 범위 결정"
+        },
+        {
+          "completed": false,
+          "text": "MissionDirector와 Portal transaction 분리 여부 기록"
+        }
+      ],
+      "blockingReason": "Phase 16 완료가 선행 조건이다.",
+      "evidence": [
+        "Phase 15 Work Report에 후속 후보로 기록됨"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 17",
+          "sourcePath": "phases/Phase_17_Bureau_Room_Blockout_Interaction_Layout.md",
+          "href": "/docs/phases/phase_17_bureau_room_blockout_interaction_layout",
+          "external": false
+        },
+        {
+          "label": "Phase 15 Work Report",
+          "sourcePath": "reports/Phase_15_Work_Report.md",
+          "href": "/docs/reports/phase_15_work_report",
+          "external": false
+        }
+      ],
+      "notes": [
+        "Kickoff 승인 전에 새 C++ 권위 흐름을 구현하지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-17-001]-kickoff-and-door-portal-split-decision.md"
+    },
+    {
+      "id": "rp-roadmap-ph17",
+      "code": "PH-17",
+      "title": "Bureau Room Blockout and Interaction Layout",
+      "type": "task",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-07-28",
+      "due": "2026-08-10",
+      "progress": 0,
+      "parentId": "",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-17",
+        "tentative",
+        "planned"
+      ],
+      "subtaskIds": [
+        "rp-roadmap-act17-001",
+        "rp-roadmap-act17-002",
+        "rp-roadmap-act17-003",
+        "rp-roadmap-ms17-done"
+      ],
+      "dependencies": [
+        "rp-roadmap-ms16-done"
+      ],
+      "goal": "관리국 룸의 공간 스케일, 동선과 Ready Panel, Mission Terminal, Door, Deposit 후보 배치를 블록아웃으로 검증한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "Kickoff에서 Phase 15 Door/Portal과 구조 분리 후보의 범위를 결정함"
+        },
+        {
+          "completed": false,
+          "text": "Bureau Room 핵심 동선과 상호작용 위치를 배치함"
+        },
+        {
+          "completed": false,
+          "text": "Editor와 PIE 2 Players 검증 근거를 기록함"
+        }
+      ],
+      "blockingReason": "Phase 16 완료 Gate가 선행 조건이다.",
+      "evidence": [
+        "아직 시작하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 17",
+          "sourcePath": "phases/Phase_17_Bureau_Room_Blockout_Interaction_Layout.md",
+          "href": "/docs/phases/phase_17_bureau_room_blockout_interaction_layout",
+          "external": false
+        },
+        {
+          "label": "Phase 15 Work Report",
+          "sourcePath": "reports/Phase_15_Work_Report.md",
+          "href": "/docs/reports/phase_15_work_report",
+          "external": false
+        }
+      ],
+      "notes": [
+        "최종 아트가 아니라 공간과 기능 배치 검증이 범위다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[ph-17]-bureau-room-blockout-and-interaction-layout.md"
+    },
+    {
+      "id": "rp-roadmap-act17-002",
+      "code": "ACT-17-002",
+      "title": "Bureau Room Blockout",
+      "type": "subtask",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-07-30",
+      "due": "2026-08-06",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph17",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-17",
+        "tentative",
+        "blockout",
+        "bureau-room"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act17-001"
+      ],
+      "goal": "Ready Panel, Mission Terminal, Door와 Deposit 후보가 자연스럽게 이어지는 Bureau Room 블록아웃을 만든다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "Spawn과 대기 구역 배치"
+        },
+        {
+          "completed": false,
+          "text": "주요 UI와 상호작용 위치 배치"
+        },
+        {
+          "completed": false,
+          "text": "회수·정산 구역 후보 배치"
+        }
+      ],
+      "blockingReason": "Phase 17 Kickoff 결정이 선행 조건이다.",
+      "evidence": [
+        "아직 시작하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 17",
+          "sourcePath": "phases/Phase_17_Bureau_Room_Blockout_Interaction_Layout.md",
+          "href": "/docs/phases/phase_17_bureau_room_blockout_interaction_layout",
+          "external": false
+        }
+      ],
+      "notes": [
+        "Level Blueprint와 임시 Actor가 권위 상태를 소유하지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-17-002]-bureau-room-blockout.md"
+    },
+    {
+      "id": "rp-roadmap-act17-003",
+      "code": "ACT-17-003",
+      "title": "Bureau Room Editor and PIE Verification",
+      "type": "subtask",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-08-07",
+      "due": "2026-08-09",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph17",
+      "assignees": [
+        "User"
+      ],
+      "tags": [
+        "phase-17",
+        "tentative",
+        "editor",
+        "pie"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act17-002"
+      ],
+      "goal": "Host와 Client 관점에서 Bureau Room 동선, 거리, 시야와 상호작용 위치를 검증한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "PIE 1 Player 공간과 상호작용 확인"
+        },
+        {
+          "completed": false,
+          "text": "PIE 2 Players Host/Client 시야와 동선 확인"
+        },
+        {
+          "completed": false,
+          "text": "Phase 1416 UI 흐름과 배치 충돌 없음 확인"
+        }
+      ],
+      "blockingReason": "Bureau Room 블록아웃이 선행 조건이다.",
+      "evidence": [
+        "아직 실행하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 17",
+          "sourcePath": "phases/Phase_17_Bureau_Room_Blockout_Interaction_Layout.md",
+          "href": "/docs/phases/phase_17_bureau_room_blockout_interaction_layout",
+          "external": false
+        }
+      ],
+      "notes": [
+        "시각적 완성도보다 기능 배치와 공간감을 먼저 판정한다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-17-003]-bureau-room-editor-and-pie-verification.md"
+    },
+    {
+      "id": "rp-roadmap-ms17-done",
+      "code": "MS-17-DONE",
+      "title": "Phase 17 Completion Gate",
+      "type": "milestone",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-08-10",
+      "due": "2026-08-10",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph17",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-17",
+        "tentative",
+        "milestone",
+        "gate"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act17-001",
+        "rp-roadmap-act17-002",
+        "rp-roadmap-act17-003"
+      ],
+      "goal": "Phase 17 블록아웃과 사용자 검증의 완료 경계를 확인한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "ACT-17-001003 근거가 Phase 17 Work Report에 기록됨"
+        },
+        {
+          "completed": false,
+          "text": "CODEXINDEX와 Roadmap 상태가 함께 갱신됨"
+        }
+      ],
+      "blockingReason": "모든 Phase 17 작업이 선행 조건이다.",
+      "evidence": [
+        "아직 Milestone 근거 없음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 17",
+          "sourcePath": "phases/Phase_17_Bureau_Room_Blockout_Interaction_Layout.md",
+          "href": "/docs/phases/phase_17_bureau_room_blockout_interaction_layout",
+          "external": false
+        }
+      ],
+      "notes": [
+        "목표일은 잠정이다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[ms-17-done]-phase-17-completion-gate.md"
+    },
+    {
+      "id": "rp-roadmap-act18-001",
+      "code": "ACT-18-001",
+      "title": "Phase 18 Kickoff",
+      "type": "subtask",
+      "status": "todo",
+      "priority": "high",
+      "start": "2026-08-11",
+      "due": "2026-08-12",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph18",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-18",
+        "tentative",
+        "kickoff"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-ms17-done"
+      ],
+      "goal": "Drop, Physics, Deposit의 서버 권위 경계와 Phase 18 완료 Gate를 확정한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "Phase 18 Kickoff Plan 승인"
+        },
+        {
+          "completed": false,
+          "text": "CarryComponent, RecoverableItem, Deposit와 TurnIn 책임 확정"
+        },
+        {
+          "completed": false,
+          "text": "네트워크와 회귀 검증 계획 확정"
+        }
+      ],
+      "blockingReason": "Phase 17 완료가 선행 조건이다.",
+      "evidence": [
+        "아직 시작하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 18",
+          "sourcePath": "phases/Phase_18_Recoverable_Item_Drop_Physics_Deposit_Flow.md",
+          "href": "/docs/phases/phase_18_recoverable_item_drop_physics_deposit_flow",
+          "external": false
+        }
+      ],
+      "notes": [
+        "전역 InventoryManager는 만들지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-18-001]-phase-18-kickoff.md"
+    },
+    {
+      "id": "rp-roadmap-ph18",
+      "code": "PH-18",
+      "title": "Recoverable Item Drop Physics and Deposit Flow",
+      "type": "task",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-08-11",
+      "due": "2026-08-24",
+      "progress": 0,
+      "parentId": "",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-18",
+        "tentative",
+        "planned"
+      ],
+      "subtaskIds": [
+        "rp-roadmap-act18-001",
+        "rp-roadmap-act18-002",
+        "rp-roadmap-act18-003",
+        "rp-roadmap-ms18-done"
+      ],
+      "dependencies": [
+        "rp-roadmap-ms17-done"
+      ],
+      "goal": "회수품을 서버 권위로 내려놓고 다시 들며 Deposit 후보로 모은 뒤 최종 제출하는 흐름을 검증한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "Phase 18 Kickoff Plan 승인"
+        },
+        {
+          "completed": false,
+          "text": "Drop, Physics, Deposit 핵심 흐름 구현"
+        },
+        {
+          "completed": false,
+          "text": "Host/Client와 Phase 09 회귀 검증 근거 기록"
+        }
+      ],
+      "blockingReason": "Phase 17 완료 Gate가 선행 조건이다.",
+      "evidence": [
+        "아직 시작하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 18",
+          "sourcePath": "phases/Phase_18_Recoverable_Item_Drop_Physics_Deposit_Flow.md",
+          "href": "/docs/phases/phase_18_recoverable_item_drop_physics_deposit_flow",
+          "external": false
+        }
+      ],
+      "notes": [
+        "완성형 인벤토리와 경제 시스템은 범위 밖이다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[ph-18]-recoverable-item-drop-physics-and-deposit-flow.md"
+    },
+    {
+      "id": "rp-roadmap-act18-002",
+      "code": "ACT-18-002",
+      "title": "Drop Physics and Deposit Flow",
+      "type": "subtask",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-08-13",
+      "due": "2026-08-20",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph18",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-18",
+        "tentative",
+        "item",
+        "deposit"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act18-001"
+      ],
+      "goal": "회수품의 내려놓기, 다시 들기, 물리 상태와 Deposit 후보·최종 제출 흐름을 구현한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "서버 검증 Drop과 pickup 구현"
+        },
+        {
+          "completed": false,
+          "text": "소유권과 물리 상태 복제"
+        },
+        {
+          "completed": false,
+          "text": "Deposit 후보 감지와 TurnIn 최종 확정 구현"
+        }
+      ],
+      "blockingReason": "Phase 18 Kickoff 승인이 선행 조건이다.",
+      "evidence": [
+        "아직 시작하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 18",
+          "sourcePath": "phases/Phase_18_Recoverable_Item_Drop_Physics_Deposit_Flow.md",
+          "href": "/docs/phases/phase_18_recoverable_item_drop_physics_deposit_flow",
+          "external": false
+        }
+      ],
+      "notes": [
+        "Client는 요청만 하고 소유권이나 제출을 확정하지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-18-002]-drop-physics-and-deposit-flow.md"
+    },
+    {
+      "id": "rp-roadmap-act18-003",
+      "code": "ACT-18-003",
+      "title": "Item Flow and Regression Verification",
+      "type": "subtask",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-08-21",
+      "due": "2026-08-23",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph18",
+      "assignees": [
+        "User"
+      ],
+      "tags": [
+        "phase-18",
+        "tentative",
+        "pie",
+        "regression"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act18-002"
+      ],
+      "goal": "Host/Client 아이템 흐름과 기존 Phase 09 Mission Succeeded 회귀를 검증한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "Host와 Client Drop, pickup, Deposit 동기화 확인"
+        },
+        {
+          "completed": false,
+          "text": "물리 안정성과 제출 후보 표시 확인"
+        },
+        {
+          "completed": false,
+          "text": "Phase 09 성공 흐름 회귀 확인"
+        }
+      ],
+      "blockingReason": "Drop, Physics, Deposit 구현이 선행 조건이다.",
+      "evidence": [
+        "아직 실행하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 18",
+          "sourcePath": "phases/Phase_18_Recoverable_Item_Drop_Physics_Deposit_Flow.md",
+          "href": "/docs/phases/phase_18_recoverable_item_drop_physics_deposit_flow",
+          "external": false
+        }
+      ],
+      "notes": [
+        "Build 성공과 PIE 성공을 분리 기록한다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-18-003]-item-flow-and-regression-verification.md"
+    },
+    {
+      "id": "rp-roadmap-ms18-done",
+      "code": "MS-18-DONE",
+      "title": "Phase 18 Completion Gate",
+      "type": "milestone",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-08-24",
+      "due": "2026-08-24",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph18",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-18",
+        "tentative",
+        "milestone",
+        "gate"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act18-001",
+        "rp-roadmap-act18-002",
+        "rp-roadmap-act18-003"
+      ],
+      "goal": "Phase 18 구현과 회귀 검증의 완료 경계를 확인한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "ACT-18-001003 근거가 Work Report에 기록됨"
+        },
+        {
+          "completed": false,
+          "text": "CODEXINDEX와 Roadmap 상태가 함께 갱신됨"
+        }
+      ],
+      "blockingReason": "모든 Phase 18 작업이 선행 조건이다.",
+      "evidence": [
+        "아직 Milestone 근거 없음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 18",
+          "sourcePath": "phases/Phase_18_Recoverable_Item_Drop_Physics_Deposit_Flow.md",
+          "href": "/docs/phases/phase_18_recoverable_item_drop_physics_deposit_flow",
+          "external": false
+        }
+      ],
+      "notes": [
+        "목표일은 잠정이다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[ms-18-done]-phase-18-completion-gate.md"
+    },
+    {
+      "id": "rp-roadmap-act19-001",
+      "code": "ACT-19-001",
+      "title": "Phase 19 Kickoff",
+      "type": "subtask",
+      "status": "todo",
+      "priority": "high",
+      "start": "2026-08-25",
+      "due": "2026-08-26",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph19",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-19",
+        "tentative",
+        "kickoff"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-ms18-done"
+      ],
+      "goal": "확장 대상 맵, 블록아웃 범위, 회수·귀환 검증과 책임 분리 Gate를 확정한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "Phase 19 Kickoff Plan 승인"
+        },
+        {
+          "completed": false,
+          "text": "확장 대상 맵 결정"
+        },
+        {
+          "completed": false,
+          "text": "LevelZone, MissionDirector, Portal과 Carry 책임 확정"
+        }
+      ],
+      "blockingReason": "Phase 18 완료가 선행 조건이다.",
+      "evidence": [
+        "아직 시작하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 19",
+          "sourcePath": "phases/Phase_19_Anomaly_Zone_Blockout_Expansion.md",
+          "href": "/docs/phases/phase_19_anomaly_zone_blockout_expansion",
+          "external": false
+        }
+      ],
+      "notes": [
+        "괴이 AI는 이 Phase 범위 밖이다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-19-001]-phase-19-kickoff.md"
+    },
+    {
+      "id": "rp-roadmap-ph19",
+      "code": "PH-19",
+      "title": "Anomaly Zone Blockout Expansion",
+      "type": "task",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-08-25",
+      "due": "2026-09-14",
+      "progress": 0,
+      "parentId": "",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-19",
+        "tentative",
+        "planned"
+      ],
+      "subtaskIds": [
+        "rp-roadmap-act19-001",
+        "rp-roadmap-act19-002",
+        "rp-roadmap-act19-003",
+        "rp-roadmap-ms19-done"
+      ],
+      "dependencies": [
+        "rp-roadmap-ms18-done"
+      ],
+      "goal": "이상구역의 진입, 탐색, 회수와 귀환 동선을 실제 플레이 공간에 가까운 블록아웃으로 확장한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "Phase 19 Kickoff와 대상 맵 결정"
+        },
+        {
+          "completed": false,
+          "text": "Anomaly Zone 핵심 동선과 회수 위치 배치"
+        },
+        {
+          "completed": false,
+          "text": "1 Player와 2 Players 검증 근거 기록"
+        }
+      ],
+      "blockingReason": "Phase 18 완료 Gate가 선행 조건이다.",
+      "evidence": [
+        "아직 시작하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 19",
+          "sourcePath": "phases/Phase_19_Anomaly_Zone_Blockout_Expansion.md",
+          "href": "/docs/phases/phase_19_anomaly_zone_blockout_expansion",
+          "external": false
+        }
+      ],
+      "notes": [
+        "괴이 AI와 최종 배경 아트는 범위 밖이다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[ph-19]-anomaly-zone-blockout-expansion.md"
+    },
+    {
+      "id": "rp-roadmap-act19-002",
+      "code": "ACT-19-002",
+      "title": "Anomaly Zone Blockout",
+      "type": "subtask",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-08-27",
+      "due": "2026-09-09",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph19",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-19",
+        "tentative",
+        "blockout",
+        "anomaly-zone"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act19-001"
+      ],
+      "goal": "진입, 탐색, 회수품 분산과 귀환 경로가 의미 있는 Anomaly Zone 블록아웃을 만든다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "진입, 탐색과 귀환 동선 배치"
+        },
+        {
+          "completed": false,
+          "text": "회수품과 위험 구역 후보 배치"
+        },
+        {
+          "completed": false,
+          "text": "멀티플레이 시야와 거리 후보 반영"
+        }
+      ],
+      "blockingReason": "Phase 19 Kickoff 승인이 선행 조건이다.",
+      "evidence": [
+        "아직 시작하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 19",
+          "sourcePath": "phases/Phase_19_Anomaly_Zone_Blockout_Expansion.md",
+          "href": "/docs/phases/phase_19_anomaly_zone_blockout_expansion",
+          "external": false
+        }
+      ],
+      "notes": [
+        "완성 아트보다 공간 스케일과 반복 가능한 루프를 우선한다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-19-002]-anomaly-zone-blockout.md"
+    },
+    {
+      "id": "rp-roadmap-act19-003",
+      "code": "ACT-19-003",
+      "title": "Anomaly Loop PIE Verification",
+      "type": "subtask",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-09-10",
+      "due": "2026-09-13",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph19",
+      "assignees": [
+        "User"
+      ],
+      "tags": [
+        "phase-19",
+        "tentative",
+        "pie",
+        "mission-loop"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act19-002"
+      ],
+      "goal": "1 Player와 2 Players에서 진입, 탐색, 회수, 귀환과 제출 루프를 검증한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "1 Player 전체 루프 성공"
+        },
+        {
+          "completed": false,
+          "text": "2 Players Host/Client 위치와 회수 흐름 확인"
+        },
+        {
+          "completed": false,
+          "text": "Portal, MissionDirector, Carry 책임 혼합 없음 확인"
+        },
+        {
+          "completed": false,
+          "text": "실제 Waiting/Bureau 레벨 귀환과 LateJoinObserver 출신 Player의 다음 미션 정상 참가 E2E 확인"
+        }
+      ],
+      "blockingReason": "Anomaly Zone 블록아웃이 선행 조건이다.",
+      "evidence": [
+        "아직 실행하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 19",
+          "sourcePath": "phases/Phase_19_Anomaly_Zone_Blockout_Expansion.md",
+          "href": "/docs/phases/phase_19_anomaly_zone_blockout_expansion",
+          "external": false
+        }
+      ],
+      "notes": [
+        "실제 플레이 근거 없이 완료로 바꾸지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-19-003]-anomaly-loop-pie-verification.md"
+    },
+    {
+      "id": "rp-roadmap-ms19-done",
+      "code": "MS-19-DONE",
+      "title": "Phase 19 Completion Gate",
+      "type": "milestone",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-09-14",
+      "due": "2026-09-14",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph19",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-19",
+        "tentative",
+        "milestone",
+        "gate"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act19-001",
+        "rp-roadmap-act19-002",
+        "rp-roadmap-act19-003"
+      ],
+      "goal": "Phase 19 공간과 미션 루프 검증의 완료 경계를 확인한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "ACT-19-001003 근거가 Work Report에 기록됨"
+        },
+        {
+          "completed": false,
+          "text": "CODEXINDEX와 Roadmap 상태가 함께 갱신됨"
+        }
+      ],
+      "blockingReason": "모든 Phase 19 작업이 선행 조건이다.",
+      "evidence": [
+        "아직 Milestone 근거 없음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 19",
+          "sourcePath": "phases/Phase_19_Anomaly_Zone_Blockout_Expansion.md",
+          "href": "/docs/phases/phase_19_anomaly_zone_blockout_expansion",
+          "external": false
+        }
+      ],
+      "notes": [
+        "목표일은 잠정이다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[ms-19-done]-phase-19-completion-gate.md"
+    },
+    {
+      "id": "rp-roadmap-act20-001",
+      "code": "ACT-20-001",
+      "title": "Phase 20 Kickoff",
+      "type": "subtask",
+      "status": "todo",
+      "priority": "high",
+      "start": "2026-09-15",
+      "due": "2026-09-16",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph20",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-20",
+        "tentative",
+        "kickoff"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-ms19-done"
+      ],
+      "goal": "검증된 기능을 유지하면서 적용할 UI, 레벨, 사운드 Polish 범위와 회귀 Gate를 확정한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "Phase 20 Kickoff Plan 승인"
+        },
+        {
+          "completed": false,
+          "text": "적용할 UI 스타일과 Fab 후보의 제한 범위 결정"
+        },
+        {
+          "completed": false,
+          "text": "제품 흐름 회귀 기준 확정"
+        }
+      ],
+      "blockingReason": "Phase 19 완료가 선행 조건이다.",
+      "evidence": [
+        "아직 시작하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 20",
+          "sourcePath": "phases/Phase_20_Visual_UX_Polish_Pass.md",
+          "href": "/docs/phases/phase_20_visual_ux_polish_pass",
+          "external": false
+        }
+      ],
+      "notes": [
+        "기능 구조 대개편은 후속 Phase 후보로 분리한다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-20-001]-phase-20-kickoff.md"
+    },
+    {
+      "id": "rp-roadmap-ph20",
+      "code": "PH-20",
+      "title": "Visual and UX Polish Pass",
+      "type": "task",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-09-15",
+      "due": "2026-09-28",
+      "progress": 0,
+      "parentId": "",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-20",
+        "tentative",
+        "planned"
+      ],
+      "subtaskIds": [
+        "rp-roadmap-act20-001",
+        "rp-roadmap-act20-002",
+        "rp-roadmap-act20-003",
+        "rp-roadmap-ms20-done"
+      ],
+      "dependencies": [
+        "rp-roadmap-ms19-done"
+      ],
+      "goal": "검증된 세션, 준비, 미션 선택과 회수 흐름의 UI, 레벨, 사운드 피드백을 실제 게임처럼 다듬는다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "Phase 20 Kickoff에서 적용할 시각·UX 범위 확정"
+        },
+        {
+          "completed": false,
+          "text": "핵심 흐름의 시각·사운드·사용성 Polish 적용"
+        },
+        {
+          "completed": false,
+          "text": "Host/Client 제품 흐름 회귀 검증 근거 기록"
+        }
+      ],
+      "blockingReason": "Phase 19 완료 Gate가 선행 조건이다.",
+      "evidence": [
+        "아직 시작하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 20",
+          "sourcePath": "phases/Phase_20_Visual_UX_Polish_Pass.md",
+          "href": "/docs/phases/phase_20_visual_ux_polish_pass",
+          "external": false
+        }
+      ],
+      "notes": [
+        "기능 구조 대개편은 Phase 20에서 처리하지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[ph-20]-visual-and-ux-polish-pass.md"
+    },
+    {
+      "id": "rp-roadmap-act20-002",
+      "code": "ACT-20-002",
+      "title": "Visual and UX Polish",
+      "type": "subtask",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-09-17",
+      "due": "2026-09-24",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph20",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-20",
+        "tentative",
+        "visual",
+        "ux"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act20-001"
+      ],
+      "goal": "세션, Ready, Mission, Door와 Recovery 상태의 시각·사운드·사용성 피드백을 일관되게 다듬는다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "메뉴와 상태 표시 시각 정리"
+        },
+        {
+          "completed": false,
+          "text": "Bureau Room과 Anomaly Zone 분위기 1차 정리"
+        },
+        {
+          "completed": false,
+          "text": "주요 상호작용과 성공·실패 피드백 보강"
+        }
+      ],
+      "blockingReason": "Phase 20 Kickoff 승인이 선행 조건이다.",
+      "evidence": [
+        "아직 시작하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 20",
+          "sourcePath": "phases/Phase_20_Visual_UX_Polish_Pass.md",
+          "href": "/docs/phases/phase_20_visual_ux_polish_pass",
+          "external": false
+        }
+      ],
+      "notes": [
+        "UI는 검증된 session/gameplay 표시 데이터만 읽는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-20-002]-visual-and-ux-polish.md"
+    },
+    {
+      "id": "rp-roadmap-act20-003",
+      "code": "ACT-20-003",
+      "title": "Product Flow Regression Verification",
+      "type": "subtask",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-09-25",
+      "due": "2026-09-27",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph20",
+      "assignees": [
+        "User"
+      ],
+      "tags": [
+        "phase-20",
+        "tentative",
+        "regression",
+        "product-flow"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act20-002"
+      ],
+      "goal": "메뉴부터 방, Bureau, Ready, Mission, 회수와 제출까지 제품 흐름이 Host/Client에서 이해 가능하고 일관적인지 검증한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "전체 제품 흐름을 시각적으로 이해할 수 있음"
+        },
+        {
+          "completed": false,
+          "text": "Host/Client UI 상태 불일치 없음"
+        },
+        {
+          "completed": false,
+          "text": "Polish가 서버 권위 게임 상태를 변경하지 않음"
+        }
+      ],
+      "blockingReason": "Visual과 UX Polish 적용이 선행 조건이다.",
+      "evidence": [
+        "아직 실행하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 20",
+          "sourcePath": "phases/Phase_20_Visual_UX_Polish_Pass.md",
+          "href": "/docs/phases/phase_20_visual_ux_polish_pass",
+          "external": false
+        }
+      ],
+      "notes": [
+        "제품 UI와 Debug UI를 섞지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-20-003]-product-flow-regression-verification.md"
+    },
+    {
+      "id": "rp-roadmap-ms20-done",
+      "code": "MS-20-DONE",
+      "title": "Phase 20 Completion Gate",
+      "type": "milestone",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-09-28",
+      "due": "2026-09-28",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph20",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-20",
+        "tentative",
+        "milestone",
+        "gate"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act20-001",
+        "rp-roadmap-act20-002",
+        "rp-roadmap-act20-003"
+      ],
+      "goal": "Phase 20 Polish와 전체 제품 흐름 회귀의 완료 경계를 확인한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "ACT-20-001003 근거가 Work Report에 기록됨"
+        },
+        {
+          "completed": false,
+          "text": "CODEXINDEX와 Roadmap 상태가 함께 갱신됨"
+        },
+        {
+          "completed": false,
+          "text": "후속 Phase 우선순위 후보가 기록됨"
+        }
+      ],
+      "blockingReason": "모든 Phase 20 작업이 선행 조건이다.",
+      "evidence": [
+        "아직 Milestone 근거 없음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 20",
+          "sourcePath": "phases/Phase_20_Visual_UX_Polish_Pass.md",
+          "href": "/docs/phases/phase_20_visual_ux_polish_pass",
+          "external": false
+        }
+      ],
+      "notes": [
+        "목표일은 잠정이다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[ms-20-done]-phase-20-completion-gate.md"
+    }
+  ],
+  "currentActions": [
+    {
+      "id": "rp-roadmap-act17-001",
+      "code": "ACT-17-001",
+      "title": "Kickoff and Door-Portal Split Decision",
+      "type": "subtask",
+      "status": "todo",
+      "priority": "high",
+      "start": "2026-07-28",
+      "due": "2026-07-29",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph17",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-17",
+        "tentative",
+        "kickoff",
+        "architecture"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-ms16-done"
+      ],
+      "goal": "Phase 17 범위와 완료 Gate를 확정하고 Phase 15에서 이관된 Door/Portal, EntryAuthorized와 Director 분리 후보를 이번 Phase에 포함할지 결정한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "Phase 17 Kickoff Plan 승인"
+        },
+        {
+          "completed": false,
+          "text": "실제 Door/Open Gate/Portal 이동 범위 결정"
+        },
+        {
+          "completed": false,
+          "text": "MissionDirector와 Portal transaction 분리 여부 기록"
+        }
+      ],
+      "blockingReason": "Phase 16 완료가 선행 조건이다.",
+      "evidence": [
+        "Phase 15 Work Report에 후속 후보로 기록됨"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 17",
+          "sourcePath": "phases/Phase_17_Bureau_Room_Blockout_Interaction_Layout.md",
+          "href": "/docs/phases/phase_17_bureau_room_blockout_interaction_layout",
+          "external": false
+        },
+        {
+          "label": "Phase 15 Work Report",
+          "sourcePath": "reports/Phase_15_Work_Report.md",
+          "href": "/docs/reports/phase_15_work_report",
+          "external": false
+        }
+      ],
+      "notes": [
+        "Kickoff 승인 전에 새 C++ 권위 흐름을 구현하지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-17-001]-kickoff-and-door-portal-split-decision.md"
+    },
+    {
+      "id": "rp-roadmap-act17-002",
+      "code": "ACT-17-002",
+      "title": "Bureau Room Blockout",
+      "type": "subtask",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-07-30",
+      "due": "2026-08-06",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph17",
+      "assignees": [
+        "Shared"
+      ],
+      "tags": [
+        "phase-17",
+        "tentative",
+        "blockout",
+        "bureau-room"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act17-001"
+      ],
+      "goal": "Ready Panel, Mission Terminal, Door와 Deposit 후보가 자연스럽게 이어지는 Bureau Room 블록아웃을 만든다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "Spawn과 대기 구역 배치"
+        },
+        {
+          "completed": false,
+          "text": "주요 UI와 상호작용 위치 배치"
+        },
+        {
+          "completed": false,
+          "text": "회수·정산 구역 후보 배치"
+        }
+      ],
+      "blockingReason": "Phase 17 Kickoff 결정이 선행 조건이다.",
+      "evidence": [
+        "아직 시작하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 17",
+          "sourcePath": "phases/Phase_17_Bureau_Room_Blockout_Interaction_Layout.md",
+          "href": "/docs/phases/phase_17_bureau_room_blockout_interaction_layout",
+          "external": false
+        }
+      ],
+      "notes": [
+        "Level Blueprint와 임시 Actor가 권위 상태를 소유하지 않는다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-17-002]-bureau-room-blockout.md"
+    },
+    {
+      "id": "rp-roadmap-act17-003",
+      "code": "ACT-17-003",
+      "title": "Bureau Room Editor and PIE Verification",
+      "type": "subtask",
+      "status": "todo",
+      "priority": "medium",
+      "start": "2026-08-07",
+      "due": "2026-08-09",
+      "progress": 0,
+      "parentId": "rp-roadmap-ph17",
+      "assignees": [
+        "User"
+      ],
+      "tags": [
+        "phase-17",
+        "tentative",
+        "editor",
+        "pie"
+      ],
+      "subtaskIds": [],
+      "dependencies": [
+        "rp-roadmap-act17-002"
+      ],
+      "goal": "Host와 Client 관점에서 Bureau Room 동선, 거리, 시야와 상호작용 위치를 검증한다.",
+      "doneCriteria": [
+        {
+          "completed": false,
+          "text": "PIE 1 Player 공간과 상호작용 확인"
+        },
+        {
+          "completed": false,
+          "text": "PIE 2 Players Host/Client 시야와 동선 확인"
+        },
+        {
+          "completed": false,
+          "text": "Phase 1416 UI 흐름과 배치 충돌 없음 확인"
+        }
+      ],
+      "blockingReason": "Bureau Room 블록아웃이 선행 조건이다.",
+      "evidence": [
+        "아직 실행하지 않음"
+      ],
+      "relatedDocs": [
+        {
+          "label": "Phase 17",
+          "sourcePath": "phases/Phase_17_Bureau_Room_Blockout_Interaction_Layout.md",
+          "href": "/docs/phases/phase_17_bureau_room_blockout_interaction_layout",
+          "external": false
+        }
+      ],
+      "notes": [
+        "시각적 완성도보다 기능 배치와 공간감을 먼저 판정한다."
+      ],
+      "sourcePath": "roadmap/data/RP Project Roadmap_tasks/[act-17-003]-bureau-room-editor-and-pie-verification.md"
+    }
+  ],
+  "openActions": [],
+  "validations": [
+    {
+      "label": "Build",
+      "status": "Pass",
+      "detail": "2026-07-20 05:00 KST UE 5.8 preflight, RPEditor Development, RP Win64 Development/Shipping build 성공",
+      "evidence": "신규 Failed terminal/Dev 명령 delta 포함; Shipping cook/launch는 별도"
+    },
+    {
+      "label": "Automation",
+      "status": "Pass",
+      "detail": "RP.Mission.State.TerminalTransitions 1/1, 정확한 StartsWith:RP 전체 RP Automation 20/20 통과",
+      "evidence": "Saved/Automation/Pipeline/manual-20260720-mission-outcome-rp20-scoped/index.json"
+    },
+    {
+      "label": "Docs",
+      "status": "Partial",
+      "detail": "Reference/Project Docs direct validator, MkDocs strict와 Developer Docs production build 성공. 2026-07-20 14:57 KST Closure Gate는 기존 Config/DefaultGame.ini:127 EOF blank line으로 build 전 차단",
+      "evidence": "EVD-16-006, 4.25, 4.32; 사용자 Config는 미수정"
+    },
+    {
+      "label": "Editor",
+      "status": "Pass",
+      "detail": "WBP 연결, Host Create ON 실제값, 첫 PIE CommonUI ensure 미발생과 Terminal E/Q/Escape 확인",
+      "evidence": "2026-07-20 Editor Checklist"
+    },
+    {
+      "label": "PIE 1 Player",
+      "status": "Pass",
+      "detail": "Host Create/Room Settings, ESC/Back/WASD, 0/9 Debug HUD와 입력 복구 확인",
+      "evidence": "2026-07-20 사용자 체크"
+    },
+    {
+      "label": "PIE 23 Players",
+      "status": "Pass",
+      "detail": "Observer 생성·차단·LMB/RMB 순환·대상 이탈·승격, Host/Client Debug 권위와 미션 결과 명령 확인",
+      "evidence": "2026-07-20 사용자 체크"
+    },
+    {
+      "label": "Steam Development",
+      "status": "Pass",
+      "detail": "동일 package 두 계정·두 기기의 Create/Find/Join/Leave/Invite, Join 정책과 전체 failure recovery 확인",
+      "evidence": "2026-07-20 사용자 체크"
+    },
+    {
+      "label": "Shipping",
+      "status": "N/A",
+      "detail": "RP Win64 Shipping target compile과 Debug 기능 비노출 확인. 전체 Cook·Stage·Package·Launch smoke는 후속 Gate로 이관",
+      "evidence": "Editor Checklist Section 5"
+    }
+  ],
+  "git": {
+    "branch": "phase/16",
+    "repositoryUrl": "https://github.com/momemoV01/RP",
+    "commitsLastYear": 70,
+    "commitsThisMonth": 54,
+    "activity": [
+      {
+        "date": "2025-07-21",
+        "count": 0
+      },
+      {
+        "date": "2025-07-22",
+        "count": 0
+      },
+      {
+        "date": "2025-07-23",
+        "count": 0
+      },
+      {
+        "date": "2025-07-24",
+        "count": 0
+      },
+      {
+        "date": "2025-07-25",
+        "count": 0
+      },
+      {
+        "date": "2025-07-26",
+        "count": 0
+      },
+      {
+        "date": "2025-07-27",
+        "count": 0
+      },
+      {
+        "date": "2025-07-28",
+        "count": 0
+      },
+      {
+        "date": "2025-07-29",
+        "count": 0
+      },
+      {
+        "date": "2025-07-30",
+        "count": 0
+      },
+      {
+        "date": "2025-07-31",
+        "count": 0
+      },
+      {
+        "date": "2025-08-01",
+        "count": 0
+      },
+      {
+        "date": "2025-08-02",
+        "count": 0
+      },
+      {
+        "date": "2025-08-03",
+        "count": 0
+      },
+      {
+        "date": "2025-08-04",
+        "count": 0
+      },
+      {
+        "date": "2025-08-05",
+        "count": 0
+      },
+      {
+        "date": "2025-08-06",
+        "count": 0
+      },
+      {
+        "date": "2025-08-07",
+        "count": 0
+      },
+      {
+        "date": "2025-08-08",
+        "count": 0
+      },
+      {
+        "date": "2025-08-09",
+        "count": 0
+      },
+      {
+        "date": "2025-08-10",
+        "count": 0
+      },
+      {
+        "date": "2025-08-11",
+        "count": 0
+      },
+      {
+        "date": "2025-08-12",
+        "count": 0
+      },
+      {
+        "date": "2025-08-13",
+        "count": 0
+      },
+      {
+        "date": "2025-08-14",
+        "count": 0
+      },
+      {
+        "date": "2025-08-15",
+        "count": 0
+      },
+      {
+        "date": "2025-08-16",
+        "count": 0
+      },
+      {
+        "date": "2025-08-17",
+        "count": 0
+      },
+      {
+        "date": "2025-08-18",
+        "count": 0
+      },
+      {
+        "date": "2025-08-19",
+        "count": 0
+      },
+      {
+        "date": "2025-08-20",
+        "count": 0
+      },
+      {
+        "date": "2025-08-21",
+        "count": 0
+      },
+      {
+        "date": "2025-08-22",
+        "count": 0
+      },
+      {
+        "date": "2025-08-23",
+        "count": 0
+      },
+      {
+        "date": "2025-08-24",
+        "count": 0
+      },
+      {
+        "date": "2025-08-25",
+        "count": 0
+      },
+      {
+        "date": "2025-08-26",
+        "count": 0
+      },
+      {
+        "date": "2025-08-27",
+        "count": 0
+      },
+      {
+        "date": "2025-08-28",
+        "count": 0
+      },
+      {
+        "date": "2025-08-29",
+        "count": 0
+      },
+      {
+        "date": "2025-08-30",
+        "count": 0
+      },
+      {
+        "date": "2025-08-31",
+        "count": 0
+      },
+      {
+        "date": "2025-09-01",
+        "count": 0
+      },
+      {
+        "date": "2025-09-02",
+        "count": 0
+      },
+      {
+        "date": "2025-09-03",
+        "count": 0
+      },
+      {
+        "date": "2025-09-04",
+        "count": 0
+      },
+      {
+        "date": "2025-09-05",
+        "count": 0
+      },
+      {
+        "date": "2025-09-06",
+        "count": 0
+      },
+      {
+        "date": "2025-09-07",
+        "count": 0
+      },
+      {
+        "date": "2025-09-08",
+        "count": 0
+      },
+      {
+        "date": "2025-09-09",
+        "count": 0
+      },
+      {
+        "date": "2025-09-10",
+        "count": 0
+      },
+      {
+        "date": "2025-09-11",
+        "count": 0
+      },
+      {
+        "date": "2025-09-12",
+        "count": 0
+      },
+      {
+        "date": "2025-09-13",
+        "count": 0
+      },
+      {
+        "date": "2025-09-14",
+        "count": 0
+      },
+      {
+        "date": "2025-09-15",
+        "count": 0
+      },
+      {
+        "date": "2025-09-16",
+        "count": 0
+      },
+      {
+        "date": "2025-09-17",
+        "count": 0
+      },
+      {
+        "date": "2025-09-18",
+        "count": 0
+      },
+      {
+        "date": "2025-09-19",
+        "count": 0
+      },
+      {
+        "date": "2025-09-20",
+        "count": 0
+      },
+      {
+        "date": "2025-09-21",
+        "count": 0
+      },
+      {
+        "date": "2025-09-22",
+        "count": 0
+      },
+      {
+        "date": "2025-09-23",
+        "count": 0
+      },
+      {
+        "date": "2025-09-24",
+        "count": 0
+      },
+      {
+        "date": "2025-09-25",
+        "count": 0
+      },
+      {
+        "date": "2025-09-26",
+        "count": 0
+      },
+      {
+        "date": "2025-09-27",
+        "count": 0
+      },
+      {
+        "date": "2025-09-28",
+        "count": 0
+      },
+      {
+        "date": "2025-09-29",
+        "count": 0
+      },
+      {
+        "date": "2025-09-30",
+        "count": 0
+      },
+      {
+        "date": "2025-10-01",
+        "count": 0
+      },
+      {
+        "date": "2025-10-02",
+        "count": 0
+      },
+      {
+        "date": "2025-10-03",
+        "count": 0
+      },
+      {
+        "date": "2025-10-04",
+        "count": 0
+      },
+      {
+        "date": "2025-10-05",
+        "count": 0
+      },
+      {
+        "date": "2025-10-06",
+        "count": 0
+      },
+      {
+        "date": "2025-10-07",
+        "count": 0
+      },
+      {
+        "date": "2025-10-08",
+        "count": 0
+      },
+      {
+        "date": "2025-10-09",
+        "count": 0
+      },
+      {
+        "date": "2025-10-10",
+        "count": 0
+      },
+      {
+        "date": "2025-10-11",
+        "count": 0
+      },
+      {
+        "date": "2025-10-12",
+        "count": 0
+      },
+      {
+        "date": "2025-10-13",
+        "count": 0
+      },
+      {
+        "date": "2025-10-14",
+        "count": 0
+      },
+      {
+        "date": "2025-10-15",
+        "count": 0
+      },
+      {
+        "date": "2025-10-16",
+        "count": 0
+      },
+      {
+        "date": "2025-10-17",
+        "count": 0
+      },
+      {
+        "date": "2025-10-18",
+        "count": 0
+      },
+      {
+        "date": "2025-10-19",
+        "count": 0
+      },
+      {
+        "date": "2025-10-20",
+        "count": 0
+      },
+      {
+        "date": "2025-10-21",
+        "count": 0
+      },
+      {
+        "date": "2025-10-22",
+        "count": 0
+      },
+      {
+        "date": "2025-10-23",
+        "count": 0
+      },
+      {
+        "date": "2025-10-24",
+        "count": 0
+      },
+      {
+        "date": "2025-10-25",
+        "count": 0
+      },
+      {
+        "date": "2025-10-26",
+        "count": 0
+      },
+      {
+        "date": "2025-10-27",
+        "count": 0
+      },
+      {
+        "date": "2025-10-28",
+        "count": 0
+      },
+      {
+        "date": "2025-10-29",
+        "count": 0
+      },
+      {
+        "date": "2025-10-30",
+        "count": 0
+      },
+      {
+        "date": "2025-10-31",
+        "count": 0
+      },
+      {
+        "date": "2025-11-01",
+        "count": 0
+      },
+      {
+        "date": "2025-11-02",
+        "count": 0
+      },
+      {
+        "date": "2025-11-03",
+        "count": 0
+      },
+      {
+        "date": "2025-11-04",
+        "count": 0
+      },
+      {
+        "date": "2025-11-05",
+        "count": 0
+      },
+      {
+        "date": "2025-11-06",
+        "count": 0
+      },
+      {
+        "date": "2025-11-07",
+        "count": 0
+      },
+      {
+        "date": "2025-11-08",
+        "count": 0
+      },
+      {
+        "date": "2025-11-09",
+        "count": 0
+      },
+      {
+        "date": "2025-11-10",
+        "count": 0
+      },
+      {
+        "date": "2025-11-11",
+        "count": 0
+      },
+      {
+        "date": "2025-11-12",
+        "count": 0
+      },
+      {
+        "date": "2025-11-13",
+        "count": 0
+      },
+      {
+        "date": "2025-11-14",
+        "count": 0
+      },
+      {
+        "date": "2025-11-15",
+        "count": 0
+      },
+      {
+        "date": "2025-11-16",
+        "count": 0
+      },
+      {
+        "date": "2025-11-17",
+        "count": 0
+      },
+      {
+        "date": "2025-11-18",
+        "count": 0
+      },
+      {
+        "date": "2025-11-19",
+        "count": 0
+      },
+      {
+        "date": "2025-11-20",
+        "count": 0
+      },
+      {
+        "date": "2025-11-21",
+        "count": 0
+      },
+      {
+        "date": "2025-11-22",
+        "count": 0
+      },
+      {
+        "date": "2025-11-23",
+        "count": 0
+      },
+      {
+        "date": "2025-11-24",
+        "count": 0
+      },
+      {
+        "date": "2025-11-25",
+        "count": 0
+      },
+      {
+        "date": "2025-11-26",
+        "count": 0
+      },
+      {
+        "date": "2025-11-27",
+        "count": 0
+      },
+      {
+        "date": "2025-11-28",
+        "count": 0
+      },
+      {
+        "date": "2025-11-29",
+        "count": 0
+      },
+      {
+        "date": "2025-11-30",
+        "count": 0
+      },
+      {
+        "date": "2025-12-01",
+        "count": 0
+      },
+      {
+        "date": "2025-12-02",
+        "count": 0
+      },
+      {
+        "date": "2025-12-03",
+        "count": 0
+      },
+      {
+        "date": "2025-12-04",
+        "count": 0
+      },
+      {
+        "date": "2025-12-05",
+        "count": 0
+      },
+      {
+        "date": "2025-12-06",
+        "count": 0
+      },
+      {
+        "date": "2025-12-07",
+        "count": 0
+      },
+      {
+        "date": "2025-12-08",
+        "count": 0
+      },
+      {
+        "date": "2025-12-09",
+        "count": 0
+      },
+      {
+        "date": "2025-12-10",
+        "count": 0
+      },
+      {
+        "date": "2025-12-11",
+        "count": 0
+      },
+      {
+        "date": "2025-12-12",
+        "count": 0
+      },
+      {
+        "date": "2025-12-13",
+        "count": 0
+      },
+      {
+        "date": "2025-12-14",
+        "count": 0
+      },
+      {
+        "date": "2025-12-15",
+        "count": 0
+      },
+      {
+        "date": "2025-12-16",
+        "count": 0
+      },
+      {
+        "date": "2025-12-17",
+        "count": 0
+      },
+      {
+        "date": "2025-12-18",
+        "count": 0
+      },
+      {
+        "date": "2025-12-19",
+        "count": 0
+      },
+      {
+        "date": "2025-12-20",
+        "count": 0
+      },
+      {
+        "date": "2025-12-21",
+        "count": 0
+      },
+      {
+        "date": "2025-12-22",
+        "count": 0
+      },
+      {
+        "date": "2025-12-23",
+        "count": 0
+      },
+      {
+        "date": "2025-12-24",
+        "count": 0
+      },
+      {
+        "date": "2025-12-25",
+        "count": 0
+      },
+      {
+        "date": "2025-12-26",
+        "count": 0
+      },
+      {
+        "date": "2025-12-27",
+        "count": 0
+      },
+      {
+        "date": "2025-12-28",
+        "count": 0
+      },
+      {
+        "date": "2025-12-29",
+        "count": 0
+      },
+      {
+        "date": "2025-12-30",
+        "count": 0
+      },
+      {
+        "date": "2025-12-31",
+        "count": 0
+      },
+      {
+        "date": "2026-01-01",
+        "count": 0
+      },
+      {
+        "date": "2026-01-02",
+        "count": 0
+      },
+      {
+        "date": "2026-01-03",
+        "count": 0
+      },
+      {
+        "date": "2026-01-04",
+        "count": 0
+      },
+      {
+        "date": "2026-01-05",
+        "count": 0
+      },
+      {
+        "date": "2026-01-06",
+        "count": 0
+      },
+      {
+        "date": "2026-01-07",
+        "count": 0
+      },
+      {
+        "date": "2026-01-08",
+        "count": 0
+      },
+      {
+        "date": "2026-01-09",
+        "count": 0
+      },
+      {
+        "date": "2026-01-10",
+        "count": 0
+      },
+      {
+        "date": "2026-01-11",
+        "count": 0
+      },
+      {
+        "date": "2026-01-12",
+        "count": 0
+      },
+      {
+        "date": "2026-01-13",
+        "count": 0
+      },
+      {
+        "date": "2026-01-14",
+        "count": 0
+      },
+      {
+        "date": "2026-01-15",
+        "count": 0
+      },
+      {
+        "date": "2026-01-16",
+        "count": 0
+      },
+      {
+        "date": "2026-01-17",
+        "count": 0
+      },
+      {
+        "date": "2026-01-18",
+        "count": 0
+      },
+      {
+        "date": "2026-01-19",
+        "count": 0
+      },
+      {
+        "date": "2026-01-20",
+        "count": 0
+      },
+      {
+        "date": "2026-01-21",
+        "count": 0
+      },
+      {
+        "date": "2026-01-22",
+        "count": 0
+      },
+      {
+        "date": "2026-01-23",
+        "count": 0
+      },
+      {
+        "date": "2026-01-24",
+        "count": 0
+      },
+      {
+        "date": "2026-01-25",
+        "count": 0
+      },
+      {
+        "date": "2026-01-26",
+        "count": 0
+      },
+      {
+        "date": "2026-01-27",
+        "count": 0
+      },
+      {
+        "date": "2026-01-28",
+        "count": 0
+      },
+      {
+        "date": "2026-01-29",
+        "count": 0
+      },
+      {
+        "date": "2026-01-30",
+        "count": 0
+      },
+      {
+        "date": "2026-01-31",
+        "count": 0
+      },
+      {
+        "date": "2026-02-01",
+        "count": 0
+      },
+      {
+        "date": "2026-02-02",
+        "count": 0
+      },
+      {
+        "date": "2026-02-03",
+        "count": 0
+      },
+      {
+        "date": "2026-02-04",
+        "count": 0
+      },
+      {
+        "date": "2026-02-05",
+        "count": 0
+      },
+      {
+        "date": "2026-02-06",
+        "count": 0
+      },
+      {
+        "date": "2026-02-07",
+        "count": 0
+      },
+      {
+        "date": "2026-02-08",
+        "count": 0
+      },
+      {
+        "date": "2026-02-09",
+        "count": 0
+      },
+      {
+        "date": "2026-02-10",
+        "count": 0
+      },
+      {
+        "date": "2026-02-11",
+        "count": 0
+      },
+      {
+        "date": "2026-02-12",
+        "count": 0
+      },
+      {
+        "date": "2026-02-13",
+        "count": 0
+      },
+      {
+        "date": "2026-02-14",
+        "count": 0
+      },
+      {
+        "date": "2026-02-15",
+        "count": 0
+      },
+      {
+        "date": "2026-02-16",
+        "count": 0
+      },
+      {
+        "date": "2026-02-17",
+        "count": 0
+      },
+      {
+        "date": "2026-02-18",
+        "count": 0
+      },
+      {
+        "date": "2026-02-19",
+        "count": 0
+      },
+      {
+        "date": "2026-02-20",
+        "count": 0
+      },
+      {
+        "date": "2026-02-21",
+        "count": 0
+      },
+      {
+        "date": "2026-02-22",
+        "count": 0
+      },
+      {
+        "date": "2026-02-23",
+        "count": 0
+      },
+      {
+        "date": "2026-02-24",
+        "count": 0
+      },
+      {
+        "date": "2026-02-25",
+        "count": 0
+      },
+      {
+        "date": "2026-02-26",
+        "count": 0
+      },
+      {
+        "date": "2026-02-27",
+        "count": 0
+      },
+      {
+        "date": "2026-02-28",
+        "count": 0
+      },
+      {
+        "date": "2026-03-01",
+        "count": 0
+      },
+      {
+        "date": "2026-03-02",
+        "count": 0
+      },
+      {
+        "date": "2026-03-03",
+        "count": 0
+      },
+      {
+        "date": "2026-03-04",
+        "count": 0
+      },
+      {
+        "date": "2026-03-05",
+        "count": 0
+      },
+      {
+        "date": "2026-03-06",
+        "count": 0
+      },
+      {
+        "date": "2026-03-07",
+        "count": 0
+      },
+      {
+        "date": "2026-03-08",
+        "count": 0
+      },
+      {
+        "date": "2026-03-09",
+        "count": 0
+      },
+      {
+        "date": "2026-03-10",
+        "count": 0
+      },
+      {
+        "date": "2026-03-11",
+        "count": 0
+      },
+      {
+        "date": "2026-03-12",
+        "count": 0
+      },
+      {
+        "date": "2026-03-13",
+        "count": 0
+      },
+      {
+        "date": "2026-03-14",
+        "count": 0
+      },
+      {
+        "date": "2026-03-15",
+        "count": 0
+      },
+      {
+        "date": "2026-03-16",
+        "count": 0
+      },
+      {
+        "date": "2026-03-17",
+        "count": 0
+      },
+      {
+        "date": "2026-03-18",
+        "count": 0
+      },
+      {
+        "date": "2026-03-19",
+        "count": 0
+      },
+      {
+        "date": "2026-03-20",
+        "count": 0
+      },
+      {
+        "date": "2026-03-21",
+        "count": 0
+      },
+      {
+        "date": "2026-03-22",
+        "count": 0
+      },
+      {
+        "date": "2026-03-23",
+        "count": 0
+      },
+      {
+        "date": "2026-03-24",
+        "count": 0
+      },
+      {
+        "date": "2026-03-25",
+        "count": 0
+      },
+      {
+        "date": "2026-03-26",
+        "count": 0
+      },
+      {
+        "date": "2026-03-27",
+        "count": 0
+      },
+      {
+        "date": "2026-03-28",
+        "count": 0
+      },
+      {
+        "date": "2026-03-29",
+        "count": 0
+      },
+      {
+        "date": "2026-03-30",
+        "count": 0
+      },
+      {
+        "date": "2026-03-31",
+        "count": 0
+      },
+      {
+        "date": "2026-04-01",
+        "count": 0
+      },
+      {
+        "date": "2026-04-02",
+        "count": 0
+      },
+      {
+        "date": "2026-04-03",
+        "count": 0
+      },
+      {
+        "date": "2026-04-04",
+        "count": 0
+      },
+      {
+        "date": "2026-04-05",
+        "count": 0
+      },
+      {
+        "date": "2026-04-06",
+        "count": 0
+      },
+      {
+        "date": "2026-04-07",
+        "count": 0
+      },
+      {
+        "date": "2026-04-08",
+        "count": 0
+      },
+      {
+        "date": "2026-04-09",
+        "count": 0
+      },
+      {
+        "date": "2026-04-10",
+        "count": 0
+      },
+      {
+        "date": "2026-04-11",
+        "count": 0
+      },
+      {
+        "date": "2026-04-12",
+        "count": 0
+      },
+      {
+        "date": "2026-04-13",
+        "count": 0
+      },
+      {
+        "date": "2026-04-14",
+        "count": 0
+      },
+      {
+        "date": "2026-04-15",
+        "count": 0
+      },
+      {
+        "date": "2026-04-16",
+        "count": 0
+      },
+      {
+        "date": "2026-04-17",
+        "count": 0
+      },
+      {
+        "date": "2026-04-18",
+        "count": 0
+      },
+      {
+        "date": "2026-04-19",
+        "count": 0
+      },
+      {
+        "date": "2026-04-20",
+        "count": 0
+      },
+      {
+        "date": "2026-04-21",
+        "count": 0
+      },
+      {
+        "date": "2026-04-22",
+        "count": 0
+      },
+      {
+        "date": "2026-04-23",
+        "count": 0
+      },
+      {
+        "date": "2026-04-24",
+        "count": 0
+      },
+      {
+        "date": "2026-04-25",
+        "count": 0
+      },
+      {
+        "date": "2026-04-26",
+        "count": 0
+      },
+      {
+        "date": "2026-04-27",
+        "count": 0
+      },
+      {
+        "date": "2026-04-28",
+        "count": 0
+      },
+      {
+        "date": "2026-04-29",
+        "count": 0
+      },
+      {
+        "date": "2026-04-30",
+        "count": 0
+      },
+      {
+        "date": "2026-05-01",
+        "count": 0
+      },
+      {
+        "date": "2026-05-02",
+        "count": 0
+      },
+      {
+        "date": "2026-05-03",
+        "count": 0
+      },
+      {
+        "date": "2026-05-04",
+        "count": 0
+      },
+      {
+        "date": "2026-05-05",
+        "count": 0
+      },
+      {
+        "date": "2026-05-06",
+        "count": 0
+      },
+      {
+        "date": "2026-05-07",
+        "count": 0
+      },
+      {
+        "date": "2026-05-08",
+        "count": 0
+      },
+      {
+        "date": "2026-05-09",
+        "count": 0
+      },
+      {
+        "date": "2026-05-10",
+        "count": 0
+      },
+      {
+        "date": "2026-05-11",
+        "count": 0
+      },
+      {
+        "date": "2026-05-12",
+        "count": 0
+      },
+      {
+        "date": "2026-05-13",
+        "count": 0
+      },
+      {
+        "date": "2026-05-14",
+        "count": 0
+      },
+      {
+        "date": "2026-05-15",
+        "count": 0
+      },
+      {
+        "date": "2026-05-16",
+        "count": 0
+      },
+      {
+        "date": "2026-05-17",
+        "count": 0
+      },
+      {
+        "date": "2026-05-18",
+        "count": 0
+      },
+      {
+        "date": "2026-05-19",
+        "count": 0
+      },
+      {
+        "date": "2026-05-20",
+        "count": 0
+      },
+      {
+        "date": "2026-05-21",
+        "count": 0
+      },
+      {
+        "date": "2026-05-22",
+        "count": 0
+      },
+      {
+        "date": "2026-05-23",
+        "count": 0
+      },
+      {
+        "date": "2026-05-24",
+        "count": 0
+      },
+      {
+        "date": "2026-05-25",
+        "count": 0
+      },
+      {
+        "date": "2026-05-26",
+        "count": 0
+      },
+      {
+        "date": "2026-05-27",
+        "count": 0
+      },
+      {
+        "date": "2026-05-28",
+        "count": 0
+      },
+      {
+        "date": "2026-05-29",
+        "count": 0
+      },
+      {
+        "date": "2026-05-30",
+        "count": 0
+      },
+      {
+        "date": "2026-05-31",
+        "count": 0
+      },
+      {
+        "date": "2026-06-01",
+        "count": 0
+      },
+      {
+        "date": "2026-06-02",
+        "count": 0
+      },
+      {
+        "date": "2026-06-03",
+        "count": 0
+      },
+      {
+        "date": "2026-06-04",
+        "count": 0
+      },
+      {
+        "date": "2026-06-05",
+        "count": 0
+      },
+      {
+        "date": "2026-06-06",
+        "count": 0
+      },
+      {
+        "date": "2026-06-07",
+        "count": 4
+      },
+      {
+        "date": "2026-06-08",
+        "count": 8
+      },
+      {
+        "date": "2026-06-09",
+        "count": 0
+      },
+      {
+        "date": "2026-06-10",
+        "count": 2
+      },
+      {
+        "date": "2026-06-11",
+        "count": 0
+      },
+      {
+        "date": "2026-06-12",
+        "count": 0
+      },
+      {
+        "date": "2026-06-13",
+        "count": 1
+      },
+      {
+        "date": "2026-06-14",
+        "count": 0
+      },
+      {
+        "date": "2026-06-15",
+        "count": 0
+      },
+      {
+        "date": "2026-06-16",
+        "count": 0
+      },
+      {
+        "date": "2026-06-17",
+        "count": 0
+      },
+      {
+        "date": "2026-06-18",
+        "count": 0
+      },
+      {
+        "date": "2026-06-19",
+        "count": 0
+      },
+      {
+        "date": "2026-06-20",
+        "count": 0
+      },
+      {
+        "date": "2026-06-21",
+        "count": 0
+      },
+      {
+        "date": "2026-06-22",
+        "count": 0
+      },
+      {
+        "date": "2026-06-23",
+        "count": 0
+      },
+      {
+        "date": "2026-06-24",
+        "count": 0
+      },
+      {
+        "date": "2026-06-25",
+        "count": 0
+      },
+      {
+        "date": "2026-06-26",
+        "count": 0
+      },
+      {
+        "date": "2026-06-27",
+        "count": 0
+      },
+      {
+        "date": "2026-06-28",
+        "count": 0
+      },
+      {
+        "date": "2026-06-29",
+        "count": 1
+      },
+      {
+        "date": "2026-06-30",
+        "count": 0
+      },
+      {
+        "date": "2026-07-01",
+        "count": 0
+      },
+      {
+        "date": "2026-07-02",
+        "count": 0
+      },
+      {
+        "date": "2026-07-03",
+        "count": 0
+      },
+      {
+        "date": "2026-07-04",
+        "count": 0
+      },
+      {
+        "date": "2026-07-05",
+        "count": 0
+      },
+      {
+        "date": "2026-07-06",
+        "count": 0
+      },
+      {
+        "date": "2026-07-07",
+        "count": 0
+      },
+      {
+        "date": "2026-07-08",
+        "count": 0
+      },
+      {
+        "date": "2026-07-09",
+        "count": 1
+      },
+      {
+        "date": "2026-07-10",
+        "count": 16
+      },
+      {
+        "date": "2026-07-11",
+        "count": 0
+      },
+      {
+        "date": "2026-07-12",
+        "count": 4
+      },
+      {
+        "date": "2026-07-13",
+        "count": 27
+      },
+      {
+        "date": "2026-07-14",
+        "count": 6
+      },
+      {
+        "date": "2026-07-15",
+        "count": 0
+      },
+      {
+        "date": "2026-07-16",
+        "count": 0
+      },
+      {
+        "date": "2026-07-17",
+        "count": 0
+      },
+      {
+        "date": "2026-07-18",
+        "count": 0
+      },
+      {
+        "date": "2026-07-19",
+        "count": 0
+      },
+      {
+        "date": "2026-07-20",
+        "count": 0
+      }
+    ],
+    "recentCommits": [
+      {
+        "hash": "3ff2b1a2285c203c4ac872c1c5a1d4dbdde303c5",
+        "shortHash": "3ff2b1a",
+        "date": "2026-07-14",
+        "subject": "docs: record phase 16 late join integration",
+        "url": "https://github.com/momemoV01/RP/commit/3ff2b1a2285c203c4ac872c1c5a1d4dbdde303c5"
+      },
+      {
+        "hash": "15b1ccd3d53a312fd19d7382971808b3dc60850d",
+        "shortHash": "15b1ccd",
+        "date": "2026-07-14",
+        "subject": "merge: integrate phase 16 late join observer",
+        "url": "https://github.com/momemoV01/RP/commit/15b1ccd3d53a312fd19d7382971808b3dc60850d"
+      },
+      {
+        "hash": "d4c062951ba164681b8404af36e30ea0715563e9",
+        "shortHash": "d4c0629",
+        "date": "2026-07-14",
+        "subject": "feat: add phase 16 late join observer",
+        "url": "https://github.com/momemoV01/RP/commit/d4c062951ba164681b8404af36e30ea0715563e9"
+      },
+      {
+        "hash": "0e140ee67d65b2c7961b8fd62510f81902b6a389",
+        "shortHash": "0e140ee",
+        "date": "2026-07-14",
+        "subject": "docs: extend phase 16 for late join observer",
+        "url": "https://github.com/momemoV01/RP/commit/0e140ee67d65b2c7961b8fd62510f81902b6a389"
+      },
+      {
+        "hash": "2c7f4caf8951f1c20b2307517833eadff10bd7f8",
+        "shortHash": "2c7f4ca",
+        "date": "2026-07-14",
+        "subject": "merge: integrate phase 16 session hardening",
+        "url": "https://github.com/momemoV01/RP/commit/2c7f4caf8951f1c20b2307517833eadff10bd7f8"
+      },
+      {
+        "hash": "f3653c346529806c997bff4e2485e704c3811a9b",
+        "shortHash": "f3653c3",
+        "date": "2026-07-14",
+        "subject": "fix: harden phase 16 session recovery",
+        "url": "https://github.com/momemoV01/RP/commit/f3653c346529806c997bff4e2485e704c3811a9b"
+      }
+    ]
+  }
+}

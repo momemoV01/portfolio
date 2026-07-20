@@ -1,0 +1,34 @@
+---
+import type { RPDocEntry } from '../../lib/rpDocs';
+import { groupRPDocs, RP_DOC_SECTION_LABELS, rpDocHref } from '../../lib/rpDocs';
+
+interface Props {
+	docs: RPDocEntry[];
+	currentId?: string;
+	activeSection?: RPDocEntry['data']['section'];
+}
+
+const { docs, currentId = '', activeSection } = Astro.props;
+const groups = groupRPDocs(docs);
+const visibleGroups = activeSection && activeSection !== 'overview'
+	? (['overview', activeSection] as const).map((section) => [section, groups.get(section) ?? []] as const)
+	: Array.from(groups.entries());
+---
+
+<aside class="docs-sidebar" aria-label="문서 목차">
+	<div class="sidebar-kicker">Documentation</div>
+	{visibleGroups.map(([section, entries]) => entries.length > 0 && (
+		<section class="sidebar-section">
+			<h2>{RP_DOC_SECTION_LABELS[section]}</h2>
+			<ul>
+				{entries.map((entry) => (
+					<li>
+						<a href={rpDocHref(entry)} class:list={[entry.id === currentId && 'is-current']} aria-current={entry.id === currentId ? 'page' : undefined}>
+							{entry.data.title.replace(/ API Contract$/i, '').replace(/^RP /, '')}
+						</a>
+					</li>
+				))}
+			</ul>
+		</section>
+	))}
+</aside>

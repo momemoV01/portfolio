@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import { isRoutable } from '../../lib/contentFilters';
+
+export async function getStaticPaths() {
+	const entries = await getCollection('journal', ({ data }) => isRoutable(data));
+	return entries.map((entry) => ({
+		params: { slug: entry.id },
+		props: { target: `/journal/${entry.id}/` },
+	}));
+}
+
+const { target } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<meta http-equiv="refresh" content={`0;url=${target}`} />
+		<link rel="canonical" href={new URL(target, Astro.site)} />
+		<title>journal로 이동 중</title>
+	</head>
+	<body>
+		<a href={target}>journal로 이동</a>
+	</body>
+</html>

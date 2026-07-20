@@ -1,0 +1,99 @@
+---
+import { render } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import RecordCard from '../../components/RecordCard.astro';
+import { SITE_TITLE } from '../../consts';
+import { collectPrivateRecords, toPrivateListItem, type PrivateEntry, type PrivateKind, type PrivateListItem } from '../../lib/privateRecords';
+
+export async function getStaticPaths() {
+	if (import.meta.env.PROD) return [];
+
+	const records = await collectPrivateRecords();
+	return [
+		{
+			params: { slug: undefined },
+			props: { mode: 'index', records: records.map(toPrivateListItem) },
+		},
+		...records.map((record) => ({
+			params: { slug: `${record.kind}/${record.entry.id}` },
+			props: { mode: 'detail', kind: record.kind, entry: record.entry },
+		})),
+	];
+}
+
+const { mode, records = [], kind, entry } = Astro.props as {
+	mode: 'index' | 'detail';
+	records?: PrivateListItem[];
+	kind?: PrivateKind;
+	entry?: PrivateEntry;
+};
+
+let Content: any;
+if (entry) {
+	({ Content } = await render(entry));
+}
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead
+			title={entry ? `[PRIVATE] ${entry.data.title}` : `private · ${SITE_TITLE}`}
+			description={entry?.data.description ?? 'Local-only private records'}
+		/>
+		<meta name="robots" content="noindex,nofollow" />
+	</head>
+	<body>
+		<Header />
+		<main class="mx-auto max-w-5xl px-5 py-14 sm:px-6">
+			{mode === 'index' ? (
+				<>
+					<div class="mb-10">
+						<div class="mono-tag mb-3">로컬 전용</div>
+						<h1 class="mb-3">비공개 기록</h1>
+						<p class="text-[var(--color-fg-dim)]">
+							개발 서버에서만 생성되는 private/draft 기록입니다. production build에서는 이 경로를 만들지 않습니다.
+						</p>
+					</div>
+					<div class="grid gap-4 md:grid-cols-2">
+						{records.map((item) => (
+							<RecordCard
+								href={item.href}
+								title={item.title}
+								description={item.description}
+								pubDate={item.pubDate}
+								meta={item.kind}
+							/>
+						))}
+					</div>
+				</>
+			) : entry && Content ? (
+				<article class="mx-auto max-w-3xl">
+					<a href="/private" class="mb-8 inline-flex text-sm font-bold text-[var(--color-muted)] hover:text-[var(--color-accent)]">
+						← 비공개 기록
+					</a>
+					<div class="mb-6 rounded-lg border border-[var(--color-danger)]/40 bg-[var(--color-danger)]/10 px-4 py-3 text-xs font-bold text-[var(--color-danger)]">
+						비공개 기록 · production 공개 대상 아님
+					</div>
+					<header class="mb-8 border-b border-[var(--color-border)] pb-7">
+						<div class="mono-tag mb-3">{kind ?? 'private'}</div>
+						<h1 class="mb-4">{entry.data.title}</h1>
+						{entry.data.description && (
+							<p class="text-lg leading-relaxed text-[var(--color-fg-dim)]">{entry.data.description}</p>
+						)}
+					</header>
+					<div class="prose">
+						<Content />
+					</div>
+				</article>
+			) : (
+				<div class="mb-10">
+					<h1>비공개 기록을 찾지 못했습니다</h1>
+				</div>
+			)}
+		</main>
+		<Footer />
+	</body>
+</html>

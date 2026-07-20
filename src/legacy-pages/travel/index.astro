@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import RecordCard from '../../components/RecordCard.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import { SITE_TITLE } from '../../consts';
+import { isPublic } from '../../lib/contentFilters';
+
+const entries = (await getCollection('travel', ({ data }) => isPublic(data))).sort(
+	(a, b) => Number(b.data.pinned) - Number(a.data.pinned) || b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={`여행 · ${SITE_TITLE}`} description="여행 장소, 사진, 비용, 기억할 장면을 남기는 기록" />
+	</head>
+	<body>
+		<Header />
+		<main class="mx-auto max-w-5xl px-5 py-14 sm:px-6">
+			<SectionHeader
+				kicker="Places"
+				title="여행과 장소"
+				description="장소, 기간, 비용, 다시 꺼내보고 싶은 장면을 나중에 찾기 좋게 남깁니다."
+				level="h1"
+			/>
+			<div class="grid gap-4 md:grid-cols-2">
+				{entries.map((entry) => (
+					<RecordCard
+						href={`/travel/${entry.id}/`}
+						title={entry.data.title}
+						description={entry.data.description}
+						pubDate={entry.data.pubDate}
+						meta={entry.data.location}
+						tags={entry.data.tags}
+						image={entry.data.coverImage}
+						accent={entry.data.pinned}
+					/>
+				))}
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

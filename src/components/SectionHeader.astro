@@ -1,0 +1,25 @@
+---
+interface Props {
+	kicker?: string;
+	title: string;
+	description?: string;
+	href?: string;
+	linkLabel?: string;
+	level?: 'h1' | 'h2';
+}
+
+const { kicker, title, description, href, linkLabel = '전체 보기', level = 'h2' } = Astro.props;
+---
+
+<div class="mb-8 flex flex-col gap-4 border-b border-[var(--color-border)] pb-5 sm:flex-row sm:items-end sm:justify-between">
+	<div>
+		{kicker && <div class="mb-3 text-xs font-bold text-[var(--color-muted)]">{kicker}</div>}
+		{level === 'h1' ? <h1 class="mb-2">{title}</h1> : <h2 class="mb-2">{title}</h2>}
+		{description && <p class="max-w-2xl text-[0.95rem] leading-relaxed text-[var(--color-fg-dim)]">{description}</p>}
+	</div>
+	{href && (
+		<a href={href} class="atlas-link shrink-0 text-sm">
+			{linkLabel} →
+		</a>
+	)}
+</div>

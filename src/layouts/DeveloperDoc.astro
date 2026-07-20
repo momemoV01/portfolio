@@ -1,0 +1,75 @@
+---
+import type { MarkdownHeading } from 'astro';
+import BaseHead from '../components/BaseHead.astro';
+import DocsSidebar from '../components/docs/DocsSidebar.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import MermaidScript from '../components/MermaidScript.astro';
+import { SITE_SHORT_TITLE } from '../consts';
+import type { RPDocEntry } from '../lib/rpDocs';
+import { RP_DOC_SECTION_LABELS, rpDocHref } from '../lib/rpDocs';
+
+interface Props {
+	entry: RPDocEntry;
+	docs: RPDocEntry[];
+	headings: MarkdownHeading[];
+	previous?: RPDocEntry;
+	next?: RPDocEntry;
+}
+
+const { entry, docs, headings, previous, next } = Astro.props;
+const toc = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={`${entry.data.title} · ${SITE_SHORT_TITLE}`} description={entry.data.description} />
+	</head>
+	<body>
+		<Header activeSection={entry.data.section} />
+		<div class="docs-frame">
+			<DocsSidebar docs={docs} currentId={entry.id} activeSection={entry.data.section} />
+
+			<main class="doc-main">
+				<div class="doc-breadcrumb">
+					<a href="/">RP Docs</a><span>/</span><span>{RP_DOC_SECTION_LABELS[entry.data.section]}</span>
+				</div>
+				<article class="doc-article">
+					<header class="doc-header">
+						<div class="doc-kind">{entry.data.documentType}</div>
+						<h1>{entry.data.title}</h1>
+						<p>{entry.data.description}</p>
+						<div class="doc-meta" aria-label="문서 메타데이터">
+							<span class:list={['status-pill', entry.data.status.toLowerCase() === 'current' && 'is-current']}>{entry.data.status}</span>
+							{entry.data.lastReviewed && <span>Reviewed {entry.data.lastReviewed}</span>}
+							<code>{entry.data.sourcePath}</code>
+						</div>
+					</header>
+
+					<div class="prose rp-doc-body">
+						<slot />
+					</div>
+
+					<nav class="doc-pagination" aria-label="이전 및 다음 문서">
+						{previous ? <a href={rpDocHref(previous)}><small>Previous</small><strong>{previous.data.title}</strong></a> : <span />}
+						{next && <a href={rpDocHref(next)} class="is-next"><small>Next</small><strong>{next.data.title}</strong></a>}
+					</nav>
+				</article>
+			</main>
+
+			<aside class="toc-sidebar" aria-label="현재 문서의 목차">
+				<div class="toc-title">On this page</div>
+				{toc.length > 0 ? (
+					<ul>
+						{toc.map((heading) => (
+							<li class:list={[heading.depth === 3 && 'is-nested']}><a href={`#${heading.slug}`}>{heading.text}</a></li>
+						))}
+					</ul>
+				) : <p>이 문서에는 하위 목차가 없습니다.</p>}
+			</aside>
+		</div>
+		<Footer />
+		<MermaidScript />
+	</body>
+</html>

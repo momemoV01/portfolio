@@ -1,34 +1,49 @@
 {
-  "name": "site",
+  "name": "recovery-protocol-developer-docs",
   "type": "module",
   "version": "0.0.1",
   "engines": {
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "node scripts/sync-rp-docs.mjs --if-available && astro dev",
+    "build": "node scripts/sync-rp-docs.mjs --if-available && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "new:blog": "node scripts/new-post.mjs blog",
+    "sync:rp-docs": "node scripts/sync-rp-docs.mjs",
+    "new:journal": "node scripts/new-post.mjs journal",
     "new:project": "node scripts/new-post.mjs project",
-    "new:devlog": "node scripts/new-post.mjs devlog"
+    "new:devlog": "node scripts/new-post.mjs devlog",
+    "new:resource": "node scripts/new-post.mjs resource",
+    "new:travel": "node scripts/new-post.mjs travel",
+    "new:health": "node scripts/new-post.mjs health"
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.4",
-    "@astrojs/react": "^5.0.4",
+    "@astrojs/mdx": "^7.0.3",
+    "@astrojs/react": "^6.0.1",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/vercel": "^11.0.3",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.0",
+    "@react-three/rapier": "^2.2.0",
     "@tailwindcss/vite": "^4.2.4",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.184.0",
     "@vercel/analytics": "^2.0.1",
-    "astro": "^6.1.9",
+    "astro": "^7.1.1",
     "mermaid": "^11.14.0",
     "pretendard": "^1.3.9",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "sharp": "^0.34.3",
-    "tailwindcss": "^4.2.4"
+    "tailwindcss": "^4.2.4",
+    "three": "^0.184.0"
+  },
+  "overrides": {
+    "@vercel/routing-utils": {
+      "path-to-regexp": "6.3.0"
+    }
   }
 }

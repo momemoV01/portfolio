@@ -1,0 +1,69 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import manifest from '../generated/rp-docs-manifest.json';
+import { SITE_SHORT_TITLE } from '../consts';
+
+const query = (Astro.url.searchParams.get('q') ?? '').trim();
+const terms = query.toLocaleLowerCase('ko').split(/\s+/).filter(Boolean);
+
+function score(entry: (typeof manifest)[number]): number {
+	if (terms.length === 0) return 1;
+	const title = entry.title.toLocaleLowerCase('ko');
+	const keywords = entry.searchKeywords.join(' ').toLocaleLowerCase('ko');
+	const text = `${entry.description} ${entry.searchText}`.toLocaleLowerCase('ko');
+	let total = 0;
+	for (const term of terms) {
+		if (!title.includes(term) && !keywords.includes(term) && !text.includes(term)) return 0;
+		if (title === term) total += 80;
+		else if (title.includes(term)) total += 30;
+		if (keywords.includes(term)) total += 18;
+		if (text.includes(term)) total += 2;
+	}
+	return total;
+}
+
+const results = manifest
+	.map((entry) => ({ entry, score: score(entry) }))
+	.filter((result) => result.score > 0)
+	.sort((left, right) => right.score - left.score || left.entry.order - right.entry.order);
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={`Search · ${SITE_SHORT_TITLE}`} description="Recovery Protocol 개발 문서 검색" />
+	</head>
+	<body>
+		<Header />
+		<main class="search-main">
+			<p class="eyebrow">Full documentation search</p>
+			<h1>Search</h1>
+			<form action="/search" method="get" class="search-page-form" role="search">
+				<label class="sr-only" for="page-doc-search">문서 검색</label>
+				<input id="page-doc-search" name="q" type="search" value={query} placeholder="예: HostedState, Ready Panel, 관전" autofocus />
+				<button type="submit">Search</button>
+			</form>
+
+			<div class="search-summary">
+				{query ? <><strong>“{query}”</strong> 검색 결과 {results.length}개</> : <>전체 문서 {results.length}개</>}
+			</div>
+
+			<div class="search-results">
+				{results.map(({ entry }) => (
+					<a href={`/docs/${entry.id}`}>
+						<div><span>{entry.documentType}</span><span>{entry.status}</span></div>
+						<h2>{entry.title}</h2>
+						<p>{entry.description}</p>
+						<small>{entry.searchKeywords.slice(0, 6).join(' · ')}</small>
+					</a>
+				))}
+				{results.length === 0 && (
+					<div class="empty-state"><strong>일치하는 문서가 없습니다.</strong><p>정확한 C++ 타입명 또는 더 짧은 기능 이름으로 다시 검색해 보세요.</p></div>
+				)}
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

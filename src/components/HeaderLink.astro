@@ -12,11 +12,11 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 <a
 	href={href}
 	class:list={[
-		'px-3 py-1.5 rounded transition-colors',
+		'rounded-full px-3 py-1.5 text-sm font-semibold transition-colors',
 		className,
 		isActive
-			? 'text-[var(--color-accent)] bg-[var(--color-accent-glow)]'
-			: 'text-[var(--color-fg-dim)] hover:text-[var(--color-fg)]',
+			? 'bg-[var(--color-accent)] text-[var(--color-bg-elev)]'
+			: 'text-[var(--color-fg-dim)] hover:bg-[rgba(255,250,240,0.72)] hover:text-[var(--color-fg)]',
 	]}
 	{...props}
 >

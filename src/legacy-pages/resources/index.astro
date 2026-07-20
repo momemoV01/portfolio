@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import RecordCard from '../../components/RecordCard.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import { SITE_TITLE } from '../../consts';
+import { isPublic } from '../../lib/contentFilters';
+import { labelFrom, resourceStatusLabel, resourceTypeLabel } from '../../lib/labels';
+
+const entries = (await getCollection('resources', ({ data }) => isPublic(data))).sort(
+	(a, b) => Number(b.data.pinned) - Number(a.data.pinned) || b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={`도구함 · ${SITE_TITLE}`} description="프로젝트에 필요한 플러그인, 에셋, 도구 기록" />
+	</head>
+	<body>
+		<Header />
+		<main class="mx-auto max-w-5xl px-5 py-14 sm:px-6">
+			<SectionHeader
+				kicker="Tools & materials"
+				title="도구와 에셋"
+				description="도입 후보와 사용 중인 플러그인, 에셋, 참고 자료를 프로젝트 맥락과 함께 보관합니다."
+				level="h1"
+			/>
+			<div class="grid gap-4 md:grid-cols-2">
+				{entries.map((entry) => (
+					<RecordCard
+						href={`/resources/${entry.id}/`}
+						title={entry.data.title}
+						description={entry.data.description}
+						pubDate={entry.data.pubDate}
+						meta={`${labelFrom(resourceTypeLabel, entry.data.resourceType)} · ${labelFrom(resourceStatusLabel, entry.data.status)}`}
+						tags={entry.data.tags}
+						image={entry.data.coverImage}
+						accent={entry.data.status === 'using' || entry.data.pinned}
+					/>
+				))}
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

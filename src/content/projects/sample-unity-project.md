@@ -10,6 +10,7 @@ role: 'Solo Developer'
 duration: '2개월'
 status: 'prototype'
 featured: true
+pinned: true
 ---
 
 ## 개요

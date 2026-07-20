@@ -1,0 +1,30 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import RoadmapExplorer from '../components/roadmap/RoadmapExplorer';
+import dashboard from '../generated/project-dashboard.json';
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title="RP Project Roadmap · RP Docs" description="Obsidian Project Manager가 관리하는 Recovery Protocol Phase와 작업의 읽기 전용 Table, Gantt, Board 스냅샷." />
+	</head>
+	<body>
+		<Header activePage="roadmap" />
+		<main class="roadmap-main">
+			<header class="roadmap-hero">
+				<div>
+					<p class="eyebrow">Project Manager / read-only</p>
+					<h1>RP Project Roadmap</h1>
+					<p>Table, Gantt, Board에서 전체 일정을 살펴보고 항목을 선택해 원본 작업 문서를 사이드 뷰로 확인합니다. 상태·날짜·담당자 수정은 계속 Obsidian Project Manager가 소유합니다.</p>
+				</div>
+				<a class="dash-link" href="/">Dashboard로 돌아가기 <span aria-hidden="true">→</span></a>
+			</header>
+
+			<RoadmapExplorer snapshot={dashboard} client:load />
+		</main>
+		<Footer />
+	</body>
+</html>

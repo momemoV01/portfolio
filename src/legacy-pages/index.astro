@@ -1,0 +1,221 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import RecordCard from '../components/RecordCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import TimelineList from '../components/TimelineList.astro';
+import { AUTHOR_NAME, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { isPublic } from '../lib/contentFilters';
+import {
+	journalCategoryLabel,
+	labelFrom,
+	projectStatusLabel,
+	resourceStatusLabel,
+	resourceTypeLabel,
+} from '../lib/labels';
+import { getTimelineItems } from '../lib/timeline';
+
+const timeline = await getTimelineItems(7);
+
+const allProjects = (await getCollection('projects', ({ data }) => isPublic(data))).sort(
+	(a, b) => Number(b.data.pinned) - Number(a.data.pinned) || Number(b.data.featured) - Number(a.data.featured) || b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const allJournal = (await getCollection('journal', ({ data }) => isPublic(data))).sort(
+	(a, b) => Number(b.data.pinned) - Number(a.data.pinned) || b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const allResources = (await getCollection('resources', ({ data }) => isPublic(data))).sort(
+	(a, b) => Number(b.data.pinned) - Number(a.data.pinned) || b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const allTravel = (await getCollection('travel', ({ data }) => isPublic(data))).sort(
+	(a, b) => Number(b.data.pinned) - Number(a.data.pinned) || b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const featuredProject = allProjects[0];
+const featuredJournal = allJournal[0];
+const featuredResource = allResources[0];
+const featuredTravel = allTravel[0];
+const latestDate = timeline[0]?.date;
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+
+		<main class="mx-auto max-w-6xl px-5 py-12 sm:px-6">
+			<section class="grid gap-10 py-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(300px,0.7fr)] lg:items-end">
+				<div>
+					<div class="mb-6 flex flex-wrap items-center gap-3">
+						<span class="atlas-label">{AUTHOR_NAME} Personal Atlas</span>
+						{latestDate && (
+							<span class="text-xs font-bold text-[var(--color-muted)]">
+								최근 업데이트 {latestDate.toLocaleDateString('ko-KR')}
+							</span>
+						)}
+					</div>
+					<h1 class="mb-6 max-w-4xl leading-tight">
+						작업과 생활이<br />
+						같은 지도 위에 쌓입니다.
+					</h1>
+					<p class="max-w-2xl text-lg leading-relaxed text-[var(--color-fg-dim)]">
+						프로젝트의 결과물, 그 과정에서 남긴 일지, 쓰는 도구와 에셋, 여행과 생활의 흔적을 한곳에 모으는 개인 아카이브입니다.
+					</p>
+					<div class="mt-9 flex flex-wrap gap-4 text-sm">
+						<a href="/timeline" class="atlas-link">시간선 열기 →</a>
+						<a href="/projects" class="atlas-link">프로젝트 보기 →</a>
+					</div>
+				</div>
+
+				<aside class="border-l border-[var(--color-border)] pl-6">
+					<div class="mb-5 text-xs font-bold text-[var(--color-muted)]">지금 쌓는 기록</div>
+					<div class="grid gap-4">
+						<a href="/projects" class="group flex items-baseline justify-between gap-4 border-b border-[var(--color-border)] pb-3">
+							<span class="font-bold group-hover:text-[var(--color-accent)]">프로젝트</span>
+							<span class="text-2xl font-extrabold text-[var(--color-accent)]">{allProjects.length}</span>
+						</a>
+						<a href="/journal" class="group flex items-baseline justify-between gap-4 border-b border-[var(--color-border)] pb-3">
+							<span class="font-bold group-hover:text-[var(--color-accent)]">생활 기록</span>
+							<span class="text-2xl font-extrabold text-[var(--color-accent)]">{allJournal.length}</span>
+						</a>
+						<a href="/resources" class="group flex items-baseline justify-between gap-4 border-b border-[var(--color-border)] pb-3">
+							<span class="font-bold group-hover:text-[var(--color-accent)]">도구와 에셋</span>
+							<span class="text-2xl font-extrabold text-[var(--color-accent)]">{allResources.length}</span>
+						</a>
+						<a href="/travel" class="group flex items-baseline justify-between gap-4 border-b border-[var(--color-border)] pb-3">
+							<span class="font-bold group-hover:text-[var(--color-accent)]">여행</span>
+							<span class="text-2xl font-extrabold text-[var(--color-accent)]">{allTravel.length}</span>
+						</a>
+					</div>
+				</aside>
+			</section>
+
+			<section class="grid gap-6 border-t border-[var(--color-border)] py-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(280px,0.9fr)]">
+				{featuredProject && (
+					<a href={`/projects/${featuredProject.id}/`} class="group block overflow-hidden rounded-lg border border-[var(--color-border)] bg-[rgba(255,250,240,0.78)]">
+						<Image
+							width={980}
+							height={552}
+							src={featuredProject.data.coverImage}
+							alt={featuredProject.data.title}
+							class="aspect-[16/9] w-full object-cover"
+						/>
+						<div class="p-6">
+							<div class="mb-3 flex flex-wrap items-center gap-2 text-xs font-bold text-[var(--color-muted)]">
+								<span>대표 프로젝트</span>
+								<span>·</span>
+								<span>{featuredProject.data.engine}</span>
+								<span>·</span>
+								<span>{labelFrom(projectStatusLabel, featuredProject.data.status)}</span>
+							</div>
+							<h2 class="mb-3 group-hover:text-[var(--color-accent)]">{featuredProject.data.title}</h2>
+							<p class="max-w-2xl leading-relaxed text-[var(--color-fg-dim)]">{featuredProject.data.description}</p>
+						</div>
+					</a>
+				)}
+
+				<div class="grid gap-4">
+					{featuredJournal && (
+						<RecordCard
+							href={`/journal/${featuredJournal.id}/`}
+							title={featuredJournal.data.title}
+							description={featuredJournal.data.description}
+							pubDate={featuredJournal.data.pubDate}
+							meta={labelFrom(journalCategoryLabel, featuredJournal.data.category)}
+							tags={featuredJournal.data.tags}
+						/>
+					)}
+					{featuredResource && (
+						<RecordCard
+							href={`/resources/${featuredResource.id}/`}
+							title={featuredResource.data.title}
+							description={featuredResource.data.description}
+							pubDate={featuredResource.data.pubDate}
+							meta={`${labelFrom(resourceTypeLabel, featuredResource.data.resourceType)} · ${labelFrom(resourceStatusLabel, featuredResource.data.status)}`}
+							tags={featuredResource.data.tags}
+							image={featuredResource.data.coverImage}
+							accent={featuredResource.data.status === 'using'}
+						/>
+					)}
+				</div>
+			</section>
+
+			<section class="border-t border-[var(--color-border)] py-14">
+				<SectionHeader
+					kicker="Latest field notes"
+					title="최근 시간선"
+					description="프로젝트 작업, 생활 메모, 도구 정리, 여행 기록을 같은 흐름에서 읽습니다."
+					href="/timeline"
+				/>
+				<TimelineList items={timeline} />
+			</section>
+
+			<section class="grid gap-10 border-t border-[var(--color-border)] py-14 lg:grid-cols-2">
+				<div>
+					<SectionHeader
+						kicker="Project case files"
+						title="프로젝트와 과정"
+						description="결과물만 따로 세우지 않고, 사용한 도구와 작업 기록까지 함께 연결합니다."
+						href="/projects"
+					/>
+					<div class="grid gap-4">
+						{allProjects.slice(0, 3).map((project) => (
+							<RecordCard
+								href={`/projects/${project.id}/`}
+								title={project.data.title}
+								description={project.data.description}
+								pubDate={project.data.pubDate}
+								meta={`${project.data.engine} · ${labelFrom(projectStatusLabel, project.data.status)}`}
+								tags={project.data.tech}
+								image={project.data.coverImage}
+								accent={project.data.featured}
+							/>
+						))}
+					</div>
+				</div>
+
+				<div>
+					<SectionHeader
+						kicker="Journal & places"
+						title="생활과 장소"
+						description="짧은 생활 메모와 장소 기록을 프로젝트 바깥의 시간으로 남깁니다."
+						href="/journal"
+					/>
+					<div class="grid gap-4">
+						{allJournal.slice(0, 2).map((entry) => (
+							<RecordCard
+								href={`/journal/${entry.id}/`}
+								title={entry.data.title}
+								description={entry.data.description}
+								pubDate={entry.data.pubDate}
+								meta={labelFrom(journalCategoryLabel, entry.data.category)}
+								tags={entry.data.tags}
+							/>
+						))}
+						{featuredTravel && (
+							<RecordCard
+								href={`/travel/${featuredTravel.id}/`}
+								title={featuredTravel.data.title}
+								description={featuredTravel.data.description}
+								pubDate={featuredTravel.data.pubDate}
+								meta={featuredTravel.data.location}
+								tags={featuredTravel.data.tags}
+								image={featuredTravel.data.coverImage}
+							/>
+						)}
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<Footer />
+	</body>
+</html>

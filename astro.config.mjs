@@ -1,7 +1,7 @@
 // @ts-check
 
 import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
+import vercel from '@astrojs/vercel';
 import { defineConfig, fontProviders } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
@@ -10,12 +10,15 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://site-seven-delta-10.vercel.app',
+  site: 'https://momemo-dev.vercel.app',
+  output: 'server',
+  adapter: vercel(),
+  // 로컬 loopback 별칭과 배포 프록시 차이는 폼별 CSRF 토큰으로 검증한다.
+  security: {
+    checkOrigin: false,
+  },
   integrations: [
     mdx(),
-    sitemap({
-      filter: (page) => !page.includes('/private'),
-    }),
     react(),
   ],
 

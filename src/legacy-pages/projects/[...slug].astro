@@ -1,0 +1,21 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import Project from '../../layouts/Project.astro';
+import { isRoutable } from '../../lib/contentFilters';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects', ({ data }) => isRoutable(data));
+	return projects.map((project) => ({
+		params: { slug: project.id },
+		props: project,
+	}));
+}
+type Props = CollectionEntry<'projects'>;
+
+const project = Astro.props;
+const { Content } = await render(project);
+---
+
+<Project {...project.data} projectId={project.id}>
+	<Content />
+</Project>

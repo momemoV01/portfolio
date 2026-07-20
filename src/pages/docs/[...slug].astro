@@ -1,0 +1,21 @@
+---
+import { render } from 'astro:content';
+import DeveloperDoc from '../../layouts/DeveloperDoc.astro';
+import { getRPDocs, normalizeRPDocSlug } from '../../lib/rpDocs';
+
+const docs = await getRPDocs();
+const slug = normalizeRPDocSlug(Astro.params.slug);
+const entry = docs.find((candidate) => candidate.id === slug);
+
+if (!entry) return Astro.redirect('/404', 302);
+
+const { Content, headings } = await render(entry);
+const sameSection = docs.filter((candidate) => candidate.data.section === entry.data.section);
+const sectionIndex = sameSection.findIndex((candidate) => candidate.id === entry.id);
+const previous = sectionIndex > 0 ? sameSection[sectionIndex - 1] : undefined;
+const next = sectionIndex >= 0 && sectionIndex < sameSection.length - 1 ? sameSection[sectionIndex + 1] : undefined;
+---
+
+<DeveloperDoc entry={entry} docs={docs} headings={headings} previous={previous} next={next}>
+	<Content />
+</DeveloperDoc>
